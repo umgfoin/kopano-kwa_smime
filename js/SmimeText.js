@@ -53,7 +53,7 @@ Zarafa.plugins.smime.SmimeText = function() {
 					return Zarafa.plugins.smime.SmimeText.createMessage(_('The digital certificate used to sign this message has been revoked (i.e. the sender has marked it as compromised)', 'plugin_smime'));
 				// The verification step with the Certificate Authority failed
 				case 5:
-					return Zarafa.plugins.smime.SmimeText.createMessage(_('The verification service of the certificate authority that signed the sender’s certificate is not available. The validity of the certificate could not be verified.', 'plugin_smime'));
+					return Zarafa.plugins.smime.SmimeText.createMessage(_('The verification service of the certificate authority that signed the sender\'s certificate is not available. The validity of the certificate could not be verified.', 'plugin_smime'));
 				// Certificate does not support OCSP
 				case 9: 
 					return Zarafa.plugins.smime.SmimeText.createMessage(_('The revocation status of the digital certificate used to sign this email is unknown (Server is unavaliable or certificate does not support OCSP). The validity of the certificate could not be verified.', 'plugin_smime'));
