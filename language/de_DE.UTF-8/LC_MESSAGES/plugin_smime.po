@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-13 10:49+0000\n"
-"PO-Revision-Date: 2016-06-13 11:02+0000\n"
+"PO-Revision-Date: 2016-06-15 11:15+0000\n"
 "Last-Translator: Felix <f.bartels@kopano.com>\n"
 "Language-Team: German <http://translate.kopano.io/projects/kopano/smime/de/>"
 "\n"
@@ -16,7 +16,7 @@ msgstr ""
 
 #: js/dialogs/PassphraseWindow.js:31
 msgid "S/MIME Passphrase"
-msgstr ""
+msgstr "S/MIME Schlüsselwort"
 
 #: js/dialogs/PassphraseWindow.js:37 js/settings/UploadCertificateWidget.js:63
 msgid "Certificate passphrase"
