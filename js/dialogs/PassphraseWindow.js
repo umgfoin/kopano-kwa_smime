@@ -35,6 +35,7 @@ Zarafa.plugins.smime.dialogs.PassphraseWindow = Ext.extend(Zarafa.core.ui.Conten
 				xtype: 'textfield',
 				inputType: 'password',
 				fieldLabel: _('Certificate passphrase', 'plugin_smime'),
+				cls: 'certificate_passphrase',
 				ref: 'passphrase',
 				scope: this,
 				listeners: {
@@ -44,6 +45,7 @@ Zarafa.plugins.smime.dialogs.PassphraseWindow = Ext.extend(Zarafa.core.ui.Conten
 			},{
 				xtype: 'button',
 				text:  _('Submit', 'plugin_smime'),
+				cls: 'passphrase_submit',
 				handler: this.checkPassphrase,
 				scope: this,
 				width: 100,
