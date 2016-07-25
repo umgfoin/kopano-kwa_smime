@@ -45,6 +45,7 @@ Zarafa.plugins.smime.dialogs.PassphraseWindow = Ext.extend(Zarafa.core.ui.Conten
 			},{
 				xtype: 'button',
 				text:  _('Submit', 'plugin_smime'),
+				cls: 'passphrase_submit',
 				handler: this.checkPassphrase,
 				scope: this,
 				width: 100,
