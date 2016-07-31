@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-11 22:27+0000\n"
-"PO-Revision-Date: 2016-06-11 22:27+0000\n"
+"PO-Revision-Date: 2016-07-31 11:01+0000\n"
 "Last-Translator: Zoltan <zoltan.kiss@serverside.hu>\n"
 "Language-Team: Hungarian "
 "<http://translate.kopano.io/projects/kopano/smime/hu/>\n"
@@ -134,7 +134,7 @@ msgstr ""
 #: js/settings/UploadCertificateWidget.js:52
 #: js/settings/UploadCertificateWidget.js:53
 msgid "Select"
-msgstr ""
+msgstr "Kijelölés"
 
 #: js/settings/UploadCertificateWidget.js:55
 msgid "Private certificate"
