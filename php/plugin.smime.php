@@ -231,6 +231,9 @@ class Pluginsmime extends Plugin {
 			}
 		}
 
+		// Remove extracted certificate from openssl_pkcs7_verify
+		unlink($outcert);
+
 		// remove the temporary file
 		unlink($tmpfname);
 
