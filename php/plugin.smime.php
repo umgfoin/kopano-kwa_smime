@@ -31,11 +31,6 @@ define('OPENSSL_CA_VERIFY_FAIL', '21075075');
 class Pluginsmime extends Plugin {
 
 	/**
-	 * Constructor
-	 */
-	function Pluginsmime(){}
-
-	/**
 	 * decrypted/verified message
 	 */
 	private $messsage = array();
