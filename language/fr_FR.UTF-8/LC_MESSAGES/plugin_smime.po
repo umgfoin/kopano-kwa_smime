@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-03 10:34+0000\n"
-"PO-Revision-Date: 2016-08-03 20:42+0000\n"
+"PO-Revision-Date: 2016-08-03 20:45+0000\n"
 "Last-Translator: Raphaël <info@mathelpc.ch>\n"
 "Language-Team: French <http://translate.kopano.io/projects/kopano/smime/fr/>"
 "\n"
@@ -16,7 +16,7 @@ msgstr ""
 
 #: js/dialogs/PassphraseWindow.js:31
 msgid "S/MIME Passphrase"
-msgstr "S/MIME Passphrase"
+msgstr "S/MIME Pass phrase"
 
 #: js/dialogs/PassphraseWindow.js:37 js/settings/UploadCertificateWidget.js:63
 msgid "Certificate passphrase"
@@ -94,7 +94,7 @@ msgid ""
 "Below you can view and delete public & private certificate(s) stored on the "
 "server."
 msgstr ""
-"Ci-dessous vous pouvez voir et supprimer le(s) certificat(s) publique(s) & "
+"Ci-dessous vous pouvez voir et supprimer le(s) certificat(s) public(s) & "
 "privé(s) stocké(s) sur le serveur."
 
 #: js/settings/SettingsPublickeyPanel.js:88
@@ -111,7 +111,7 @@ msgstr "Détails"
 
 #: js/settings/SettingsPublickeyWidget.js:19
 msgid "Public & Private certificates"
-msgstr "Certificats publiques & Privés"
+msgstr "Certificats publics & privés"
 
 #: js/settings/SettingsSmimeWidget.js:28
 msgid "Personal certificate"
