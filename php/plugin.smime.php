@@ -126,7 +126,7 @@ class Pluginsmime extends Plugin {
 				}
 				if(!empty($missingCerts)) {
 					$module = $data['moduleObject'];
-					$errorMsg = _('Missing public certificates for the following recipients: ') . implode(', ', $missingCerts) . _('. Please contact your system administrator for details', 'plugin_smime');
+					$errorMsg = dgettext('plugin_smime', 'Missing public certificates for the following recipients: ') . implode(', ', $missingCerts) . dgettext('plugin_smime', '. Please contact your system administrator for details');
 					$module->sendFeedback(false, array("type" => ERROR_GENERAL, "info" => array('display_message' => $errorMsg )));
 					$data['success'] = false;
 				}
@@ -380,29 +380,29 @@ class Pluginsmime extends Plugin {
 
 					// Check priv key for signing capabilities
 					if(!openssl_x509_checkpurpose($privatekey, X509_PURPOSE_SMIME_SIGN)) {
-						$message = _('Private key can\'t be used to sign email', 'plugin_smime');
+						$message = dgettext('plugin_smime', 'Private key can\'t be used to sign email');
 					}
 					// Check if the certificate owner matches the WebApp users email address
 					else if($certEmailAddress !== $emailAddress) {
-						$message = _('Certificate email address doesn\'t match WebApp account ', 'plugin_smime') . $certEmailAddress;
+						$message = dgettext('plugin_smime', 'Certificate email address doesn\'t match WebApp account ') . $certEmailAddress;
 					}
 					// Check if certificate is not expired, still import the certificate since a user wants to decrypt his old email
 					else if($validTo < time()) {
-						$message = _('Certificate was expired on ') . date('Y-m-d', $validTo) .  '. ' . _('Certificate has not been imported', 'plugin_smime');
+						$message = dgettext('plugin_smime', 'Certificate was expired on ') . date('Y-m-d', $validTo) .  '. ' . dgettext('plugin_smime', 'Certificate has not been imported');
 					}
 					// Check if the certificate is validFrom date is not in the future
 					else if($validFrom > time()) {
-						$message = _('Certificate is not yet valid ') . date('Y-m-d', $validFrom) . '. ' . _('Certificate has not been imported', 'plugin_smime');
+						$message = dgettext('plugin_smime', 'Certificate is not yet valid ') . date('Y-m-d', $validFrom) . '. ' . dgettext('plugin_smime', 'Certificate has not been imported');
 					}
 					// We allow users to import private certificate which have no OCSP support
 					else if(!$this->verifyOCSP($certs['cert']) && $this->message['info'] !== SMIME_OCSP_NOSUPPORT) {
-						$message = _('Certificate is revoked', 'plugin_smime');
+						$message = dgettext('plugin_smime', 'Certificate is revoked');
 					}
 				} else { // Can't parse public certificate pkcs#12 file might be corrupt
-					$message = _('Unable to read public certificate', 'plugin_smime');
+					$message = dgettext('plugin_smime', 'Unable to read public certificate');
 				}
 			} else { // Not able to decrypt email
-				$message = _('Unable to decrypt certificate', 'plugin_smime');
+				$message = dgettext('plugin_smime', 'Unable to decrypt certificate');
 			}
 
 			// All checks completed succesfull
@@ -411,7 +411,7 @@ class Pluginsmime extends Plugin {
 				$certMessage = getMAPICert($this->store);
 				// TODO: update to serialNumber check
 				if($certMessage && $certMessage[PR_MESSAGE_DELIVERY_TIME] == $validTo) {
-					$message = _('Certificate is already stored on the server', 'plugin_smime');
+					$message = dgettext('plugin_smime', 'Certificate is already stored on the server');
 				} else {
 					$saveCert = true;
 					$root = mapi_msgstore_openentry($this->store, null);
@@ -425,9 +425,9 @@ class Pluginsmime extends Plugin {
 						if($pubCert) {
 							mapi_folder_deletemessages($root, array($pubCert[PR_ENTRYID]));
 						}
-						$message = _('New certificate uploaded', 'plugin_smime');
+						$message = dgettext('plugin_smime', 'New certificate uploaded');
 					} else {
-						$message = _('Certificate uploaded', 'plugin_smime');
+						$message = dgettext('plugin_smime', 'Certificate uploaded');
 					}
 
 					$this->importCertificate($certificate, $publickeyData, 'private');
