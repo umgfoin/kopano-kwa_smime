@@ -258,9 +258,9 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 
 					button.setIconClass('icon_smime_encrypt');
 					// Reset smime property
-					record.set('smime','')
+					record.set('smime','');
 					// Reset send action, otherwise the saveRecord will trigger a send when the user deselects encryption
-					record.actions = {}
+					record.actions = {};
 
 					// Remove event
 					owner.dialog.un('beforesendrecord', this.onBeforeSendRecord ,this);
@@ -298,7 +298,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 						successCallback : plugin.onCertificateCallback.createDelegate(button)
 					})
 				);
-			}
+			};
 			switch(record.get('message_class')) {
 				// We want to sign
 				case 'IPM.Note':
