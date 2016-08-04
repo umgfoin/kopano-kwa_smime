@@ -105,7 +105,7 @@ Zarafa.plugins.smime.dialogs.PassphraseWindow = Ext.extend(Zarafa.core.ui.Conten
 				var record = owner.record;
 				record.set('message_class', this.btn.message_class);
 				record.save();
-				this.btn.setIconClass('icon_smime_sign_selected')
+				this.btn.setIconClass('icon_smime_sign_selected');
 			}
 			this.close();
 		} else {

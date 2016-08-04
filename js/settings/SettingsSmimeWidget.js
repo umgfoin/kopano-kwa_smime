@@ -59,7 +59,7 @@ Zarafa.plugins.smime.settings.SettingsSmimeWidget = Ext.extend(Zarafa.settings.u
 	 */
 	onStoreReady : function()
 	{
-		var index = this.store.findExact('type', 'private')
+		var index = this.store.findExact('type', 'private');
 		if(index === -1) {
 			this.certificateField.setRawValue(this.certificateField.defaultValue);
 		} else {
