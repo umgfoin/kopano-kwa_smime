@@ -134,7 +134,7 @@ msgstr ""
 #: js/settings/UploadCertificateWidget.js:52
 #: js/settings/UploadCertificateWidget.js:53
 msgid "Select"
-msgstr "Kijelölés"
+msgstr "Választ"
 
 #: js/settings/UploadCertificateWidget.js:55
 msgid "Private certificate"
