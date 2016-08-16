@@ -29,6 +29,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 		this.registerInsertionPoint('context.mail.griddefaultcolumn', this.showDefaultColumn, this);
 			
 		Zarafa.core.data.SharedComponentType.addProperty('plugin.smime.dialog.passphrasewindow');
+		Zarafa.core.data.SharedComponentType.addProperty('plugin.smime.dialog.changepassphrasecontentpanel');
 	},
 
 	/**
@@ -354,6 +355,9 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 			case Zarafa.core.data.SharedComponentType['plugin.smime.dialog.passphrasewindow']:
 				bid = 1;
 				break;
+			case Zarafa.core.data.SharedComponentType['plugin.smime.dialog.changepassphrasecontentpanel']:
+				bid = 1;
+				break;
 		}
 		return bid;
 	},
@@ -371,6 +375,9 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 		switch(type) {
 			case Zarafa.core.data.SharedComponentType['plugin.smime.dialog.passphrasewindow']:
 				component = Zarafa.plugins.smime.dialogs.PassphraseWindow;
+				break;
+			case Zarafa.core.data.SharedComponentType['plugin.smime.dialog.changepassphrasecontentpanel']:
+				component = Zarafa.plugins.smime.dialogs.ChangePassphraseContentPanel;
 				break;
 		}
 
@@ -433,6 +440,10 @@ Zarafa.onReady(function() {
 	Zarafa.plugins.smime.SMIME_STATUS_GOOD = 0;
 	Zarafa.plugins.smime.SMIME_STATUS_PARTIAL = 2;
 	Zarafa.plugins.smime.SMIME_STATUS_FATAL = 2;
+
+	Zarafa.plugins.smime.CHANGE_CERTIFICATE_SUCCESS = 1;
+	Zarafa.plugins.smime.CHANGE_CERTIFICATE_ERROR = 2;
+	Zarafa.plugins.smime.CHANGE_CERTIFICATE_WRONG = 3;
 
 	container.registerPlugin(new Zarafa.core.PluginMetaData({
 		name : 'smime',
