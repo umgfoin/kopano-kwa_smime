@@ -1,3 +1,19 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-04 11:13+0200\n"
+"PO-Revision-Date: 2016-06-11 22:27+0000\n"
+"Last-Translator: Zoltan <zoltan.kiss@serverside.hu>\n"
+"Language-Team: Hungarian <http://translate.kopano.io/projects/kopano/smime/"
+"hu/>\n"
+"Language: hu_HU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.4\n"
+
 #: js/dialogs/PassphraseWindow.js:31
 msgid "S/MIME Passphrase"
 msgstr ""
@@ -6,20 +22,20 @@ msgstr ""
 msgid "Certificate passphrase"
 msgstr ""
 
-#: js/dialogs/PassphraseWindow.js:46
+#: js/dialogs/PassphraseWindow.js:47
 msgid "Submit"
 msgstr ""
 
-#: js/dialogs/PassphraseWindow.js:111
+#: js/dialogs/PassphraseWindow.js:113
 #: js/settings/UploadCertificateWidget.js:140
 #: js/settings/UploadCertificateWidget.js:145 js/SmimePlugin.js:338
 #: js/SmimePlugin.js:404
 msgid "S/MIME Message"
 msgstr ""
 
-#: js/dialogs/PassphraseWindow.js:111
+#: js/dialogs/PassphraseWindow.js:113
 msgid "Password incorrect"
-msgstr ""
+msgstr "Hibás jelszó"
 
 #: js/settings/SettingsPublickeyGrid.js:29
 msgid "No certificates exists"

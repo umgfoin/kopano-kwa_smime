@@ -90,17 +90,17 @@ class PluginSmimeModule extends Module
 
 		// No certificates
 		if(!$privateCert) {
-			$message = _('No certificate avaliable', 'plugin_smime');
+			$message = dgettext('plugin_smime', 'No certificate avaliable');
 		} else {
 			// Check if certificate is still valid
 			// TODO: create a more generic function which verifyies if the certificate is valid
 			// And remove possible duplication from plugin.smime.php->onUploadCertificate
 			if($privateCert[PR_MESSAGE_DELIVERY_TIME] < time()) { // validTo
-				$message = _('Private certificate is not valid yet, unable to sign email', 'plugin_smime');
+				$message = dgettext('plugin_smime', 'Private certificate is not valid yet, unable to sign email');
 			} else if($privateCert[PR_CLIENT_SUBMIT_TIME] >= time()) { // validFrom
-				$message = _('Private certificate has been expired, unable to sign email', 'plugin_smime');
+				$message = dgettext('plugin_smime', 'Private certificate has been expired, unable to sign email');
 			} else if($privateCert[PR_SUBJECT] != $GLOBALS['mapisession']->getSMTPAddress()) {
-				$message = _('Private certificate does not match email address', 'plugin_smime');
+				$message = dgettext('plugin_smime', 'Private certificate does not match email address');
 			} else {
 				$status = True;
 			}

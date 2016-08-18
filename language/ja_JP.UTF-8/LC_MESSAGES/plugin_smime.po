@@ -6,18 +6,18 @@ msgstr ""
 msgid "Certificate passphrase"
 msgstr ""
 
-#: js/dialogs/PassphraseWindow.js:46
+#: js/dialogs/PassphraseWindow.js:47
 msgid "Submit"
 msgstr ""
 
-#: js/dialogs/PassphraseWindow.js:111
+#: js/dialogs/PassphraseWindow.js:113
 #: js/settings/UploadCertificateWidget.js:140
 #: js/settings/UploadCertificateWidget.js:145 js/SmimePlugin.js:338
 #: js/SmimePlugin.js:404
 msgid "S/MIME Message"
 msgstr ""
 
-#: js/dialogs/PassphraseWindow.js:111
+#: js/dialogs/PassphraseWindow.js:113
 msgid "Password incorrect"
 msgstr ""
 
