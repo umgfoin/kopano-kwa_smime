@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-04 11:13+0200\n"
+"POT-Creation-Date: 2016-08-29 15:55+0200\n"
 "PO-Revision-Date: 2016-07-11 12:26+0000\n"
 "Last-Translator: Andreas <a.roesler@kopano.com>\n"
 "Language-Team: German <http://translate.kopano.io/projects/kopano/smime/de/"
@@ -14,17 +14,51 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.4\n"
 
-#: js/dialogs/PassphraseWindow.js:31
-msgid "S/MIME Passphrase"
+#: js/data/ChangePassphraseWindow.js:23 js/dialogs/ChangePassphraseWindow.js:23
+#, fuzzy
+msgid "S/MIME Change passphrase"
 msgstr "S/MIME Passwort"
 
-#: js/dialogs/PassphraseWindow.js:37 js/settings/UploadCertificateWidget.js:63
+#: js/data/ChangePassphraseWindow.js:29 js/dialogs/PassphraseWindow.js:37
+#: js/settings/UploadCertificateWidget.js:63
 msgid "Certificate passphrase"
 msgstr "Passwort des Zertifikates"
 
-#: js/dialogs/PassphraseWindow.js:47
+#: js/data/ChangePassphraseWindow.js:35 js/dialogs/PassphraseWindow.js:47
 msgid "Submit"
 msgstr "Okay"
+
+#: js/dialogs/ChangePassphraseWindow.js:28
+#, fuzzy
+msgid "Old passphrase"
+msgstr "S/MIME Passwort"
+
+#: js/dialogs/ChangePassphraseWindow.js:39
+#, fuzzy
+msgid "New passphrase"
+msgstr "Passwort des Zertifikates"
+
+#: js/dialogs/ChangePassphraseWindow.js:50
+#, fuzzy
+msgid "Confirm new passphrase"
+msgstr "Passwort des Zertifikates"
+
+#: js/dialogs/ChangePassphraseWindow.js:66
+#, fuzzy
+msgid "Change passphrase"
+msgstr "Passwort des Zertifikates"
+
+#: js/dialogs/ChangePassphraseWindow.js:70
+msgid "Cancel"
+msgstr ""
+
+#: js/dialogs/ChangePassphraseWindow.js:102
+msgid "New passphrase and confirmation passphrase do not match"
+msgstr ""
+
+#: js/dialogs/PassphraseWindow.js:31
+msgid "S/MIME Passphrase"
+msgstr "S/MIME Passwort"
 
 #: js/dialogs/PassphraseWindow.js:113
 #: js/settings/UploadCertificateWidget.js:140
@@ -215,12 +249,21 @@ msgstr ""
 "verändert wurde und wirklich vom angegebenen Absender kommt."
 
 #: js/SmimeText.js:19
+#, fuzzy
 msgid ""
 "You are seeing this message because the verification of the digital signature"
-"\") + \"<b> \" + _(\" has failed\") + \"</b>\" + _(\" for this message."
 msgstr ""
 "Sie sehen diese Nachricht, weil die Verifikation der digitalen Signatur für "
 "diese Nachricht\") + \"<b> \" + _(\" fehlgeschlagen\") + \"</b>\" + _(\" ist."
+
+#: js/SmimeText.js:19
+msgid " has failed"
+msgstr ""
+
+#: js/SmimeText.js:19
+#, fuzzy
+msgid " for this message."
+msgstr "Nachricht verschlüsseln"
 
 #: js/SmimeText.js:20
 msgid "What caused this issue?"
@@ -400,57 +443,57 @@ msgstr ""
 msgid "Private certificate does not match email address"
 msgstr "Das private Zertifikat passt nicht zur E-Mail-Adresse"
 
-#: php/plugin.smime.php:129
+#: php/plugin.smime.php:124
 msgid "Missing public certificates for the following recipients: "
 msgstr "Die öffentlichen Zertifikate folgender Empfänger fehlen: "
 
-#: php/plugin.smime.php:129
+#: php/plugin.smime.php:124
 msgid ". Please contact your system administrator for details"
 msgstr ""
 ". Bitte kontaktieren Sie Ihren Systemadministrator, um weiter Details zu "
 "erfahren"
 
-#: php/plugin.smime.php:383
+#: php/plugin.smime.php:381
 msgid "Private key can't be used to sign email"
 msgstr ""
 "Der private Schlüssel kann nicht genutzt werden, um diese E-Mail zu signieren"
 
-#: php/plugin.smime.php:387
+#: php/plugin.smime.php:385
 msgid "Certificate email address doesn't match WebApp account "
 msgstr "Die E-Mail-Adresse des Zertifikates passt nicht zum WebApp-Benutzer "
 
-#: php/plugin.smime.php:391
+#: php/plugin.smime.php:389
 msgid "Certificate was expired on "
 msgstr "Das Zertifikat ist ausgelaufen am "
 
-#: php/plugin.smime.php:391 php/plugin.smime.php:395
+#: php/plugin.smime.php:389 php/plugin.smime.php:393
 msgid "Certificate has not been imported"
 msgstr "Zertifikat wurde nicht importiert"
 
-#: php/plugin.smime.php:395
+#: php/plugin.smime.php:393
 msgid "Certificate is not yet valid "
 msgstr "Zertifikat ist noch nicht valide "
 
-#: php/plugin.smime.php:399
+#: php/plugin.smime.php:397
 msgid "Certificate is revoked"
 msgstr "Zertifikat wurde zurückgezogen"
 
-#: php/plugin.smime.php:402
+#: php/plugin.smime.php:400
 msgid "Unable to read public certificate"
 msgstr "Kann das öffentliche Zertifikat nicht lesen"
 
-#: php/plugin.smime.php:405
+#: php/plugin.smime.php:403
 msgid "Unable to decrypt certificate"
 msgstr "Kann das Zertifikat nicht entschlüsseln"
 
-#: php/plugin.smime.php:414
+#: php/plugin.smime.php:412
 msgid "Certificate is already stored on the server"
 msgstr "Das Zertifikat ist bereits auf dem Server gespeichert"
 
-#: php/plugin.smime.php:428
+#: php/plugin.smime.php:426
 msgid "New certificate uploaded"
 msgstr "Neues Zertifikat hochgeladen"
 
-#: php/plugin.smime.php:430
+#: php/plugin.smime.php:428
 msgid "Certificate uploaded"
 msgstr "Zertifikat hochgeladen"
