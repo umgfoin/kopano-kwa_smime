@@ -16,7 +16,7 @@ Zarafa.plugins.smime.SmimeText = function() {
 		 */
 		createMessage : function(text) {
 			 return _('WebApp can verify digital signatures of emails. A successful verification reassures you that the message has not been tampered with and validates the identity of the sender.', 'plugin_smime')
-				+ "<br><br>" + _('You are seeing this message because the verification of the digital signature") + "<b> " + _(" has failed") + "</b>" + _(" for this message.', 'plugin_smime') + "<br>"
+				+ "<br><br>" + _('You are seeing this message because the verification of the digital signature', 'plugin_smime') + "<b>" + _(' has failed', 'plugin_smime') + "</b>" + _(' for this message.', 'plugin_smime') + "<br>"
 				+ "<br><b>" + _('What caused this issue?', 'plugin_smime') + "</b><br><br>"
 				+ text
 				+ "<br><br><b>" + _('What should I do?', 'plugin_smime') + "</b><br><br>"
