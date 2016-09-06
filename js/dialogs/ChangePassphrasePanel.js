@@ -83,6 +83,8 @@ Zarafa.plugins.smime.dialogs.ChangePassphrasePanel = Ext.extend(Ext.Panel, {
 
 	/**
 	 * Verifies the new passphrase and hides or shows the error message.
+	 * @return {Boolean} returns false when new passphrase and confirmation passphrase
+	 * don't match otherwise it returns true.
 	 */
 	validatePassphrase: function()
 	{
@@ -128,7 +130,7 @@ Zarafa.plugins.smime.dialogs.ChangePassphrasePanel = Ext.extend(Ext.Panel, {
 	 */
 	onChangePassphraseRequest: function(response) {
 		if (response.code === Zarafa.plugins.smime.CHANGE_CERTIFICATE_SUCCESS) {
-			container.getNotifier().notify('info.saved', _('S/MIME Message'), _('Passphrase changed succesfully', 'plugin_smime'));
+			container.getNotifier().notify('info.saved', _('S/MIME Message', 'plugin_smime'), _('Passphrase changed succesfully', 'plugin_smime'));
 			this.dialog.close();
 		} else {
 			this.wrong_passphrase.show();

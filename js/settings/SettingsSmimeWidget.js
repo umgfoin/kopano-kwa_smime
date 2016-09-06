@@ -37,7 +37,7 @@ Zarafa.plugins.smime.settings.SettingsSmimeWidget = Ext.extend(Zarafa.settings.u
 			xtype : 'smime.settingssmimewidget',
 			items :[{
 				xtype: 'button',
-				text: 'Change passphrase',
+				text: _('Change passphrase', 'plugin_smime'),
 				labelStyle: 'width:450px',
 				ref: 'certificateField',
 				fieldLabel : this.defaultButtonLabel,
@@ -57,7 +57,6 @@ Zarafa.plugins.smime.settings.SettingsSmimeWidget = Ext.extend(Zarafa.settings.u
 	initEvents : function()
 	{
 		Zarafa.plugins.smime.settings.SettingsSmimeWidget.superclass.initEvents.call(this);
-		// TODO: shouldn't this be update?
 		this.mon(this.store, 'load', this.onStoreReady, this);
 		this.mon(this.store, 'remove', this.onStoreReady, this);
 		this.onStoreReady();
@@ -83,7 +82,7 @@ Zarafa.plugins.smime.settings.SettingsSmimeWidget = Ext.extend(Zarafa.settings.u
 
 	/**
 	 * Helper function to set the fieldLabel of the certificate field button.
-	 * @param {String} text fieldLabel text
+	 * @param {String} text fieldLabel text to be set.
 	 */
 	setCertificateButtonLabel : function(text)
 	{
