@@ -26,7 +26,14 @@ Zarafa.plugins.smime.data.SmimeResponseHandler = Ext.extend(Zarafa.core.data.Abs
 	 */
 	doPassphrase : function(response) {
 		this.successCallback(response);
-	}
+	},
+
+	/**
+	 * @param {Object} response Object contained the response data.
+	 */
+	doChangepassphrase : function(response) {
+		this.successCallback(response);
+	},
 });
 
 Ext.reg('smime.responsehandler', Zarafa.plugins.smime.data.SmimeResponseHandler);

@@ -88,3 +88,7 @@
 .zarafa-smime-passphrasewindow input[type="password"] {
     width: 200px !important;
 }
+
+.zarafa-smime-invalid-text {
+    color: #e30022;
+}
