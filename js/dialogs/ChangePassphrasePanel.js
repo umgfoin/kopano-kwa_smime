@@ -24,7 +24,7 @@ Zarafa.plugins.smime.dialogs.ChangePassphrasePanel = Ext.extend(Ext.Panel, {
 			items: [{
 				hideLabel: true,
 				xtype: 'displayfield',
-				value: _('Old passphrase', 'plugin_smime'),
+				value: _('Old passphrase', 'plugin_smime')
 			},{
 				hideLabel: true,
 				xtype : 'textfield',
@@ -33,7 +33,7 @@ Zarafa.plugins.smime.dialogs.ChangePassphrasePanel = Ext.extend(Ext.Panel, {
 				listeners : {
 					'change': this.resetVerification,
 					scope: this
-				},
+				}
 			},{
 				hideLabel: true,
 				hidden: true,
@@ -41,11 +41,11 @@ Zarafa.plugins.smime.dialogs.ChangePassphrasePanel = Ext.extend(Ext.Panel, {
 				xtype: 'displayfield',
 				ref: 'wrong_passphrase',
 				cls: 'zarafa-smime-invalid-text',
-				value: _('Wrong passphrase. Please try again', 'plugin_smime'),
+				value: _('Wrong passphrase. Please try again', 'plugin_smime')
 			},{
 				hideLabel: true,
 				xtype: 'displayfield',
-				value: _('New passphrase', 'plugin_smime'),
+				value: _('New passphrase', 'plugin_smime')
 			},{
 				hideLabel: true,
 				xtype : 'textfield',
@@ -54,11 +54,11 @@ Zarafa.plugins.smime.dialogs.ChangePassphrasePanel = Ext.extend(Ext.Panel, {
 					'change': this.resetVerification,
 					scope: this
 				},
-				ref : 'new_passphrase',
+				ref : 'new_passphrase'
 			},{
 				hideLabel: true,
 				xtype: 'displayfield',
-				value: _('Confirm new passphrase', 'plugin_smime'),
+				value: _('Confirm new passphrase', 'plugin_smime')
 			},{
 				hideLabel: true,
 				xtype : 'textfield',
@@ -67,14 +67,14 @@ Zarafa.plugins.smime.dialogs.ChangePassphrasePanel = Ext.extend(Ext.Panel, {
 					'change': this.resetVerification,
 					scope: this
 				},
-				ref : 'confirm_new_passphrase',
+				ref : 'confirm_new_passphrase'
 			},{
 				hideLabel: true,
 				hidden: true,
 				xtype: 'displayfield',
 				ref: 'wrong_verification',
 				cls: 'zarafa-smime-invalid-text',
-				value: _("The passphrases don't match. Please try again", 'plugin_smime'),
+				value: _("The passphrases don't match. Please try again", 'plugin_smime')
 			}]
 		});
 

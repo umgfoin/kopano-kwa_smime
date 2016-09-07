@@ -33,7 +33,7 @@ Zarafa.plugins.smime.data.SmimeResponseHandler = Ext.extend(Zarafa.core.data.Abs
 	 */
 	doChangepassphrase : function(response) {
 		this.successCallback(response);
-	},
+	}
 });
 
 Ext.reg('smime.responsehandler', Zarafa.plugins.smime.data.SmimeResponseHandler);
