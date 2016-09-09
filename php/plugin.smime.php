@@ -46,6 +46,7 @@ class Pluginsmime extends Plugin {
 		$this->registerHook('server.core.operations.submitmessage');
 		$this->registerHook('server.upload_attachment.upload');
 		$this->registerHook('server.module.createmailitemmodule.beforesend');
+		$this->registerHook('server.index.load.custom');
 		$this->store = $GLOBALS['mapisession']->getDefaultMessageStore();
 
 		if(version_compare(phpversion(), '5.4', '<')) {
@@ -91,7 +92,34 @@ class Pluginsmime extends Plugin {
 			case 'server.module.createmailitemmodule.beforesend':
 				$this->onCertificateCheck($data);
 				break;
+			case 'server.index.load.custom':
+				$this->onPasswordCheck($data);
+				break;
 		}
+	}
+
+	/**
+	 * Function check if the supplied passphrase unlocks the private certificate stored in the mapi 
+	 * userstore.
+	 *
+	 * @param array $data which contains the data send from JavaScript
+	 * @return array $data which contains a key 'status' 
+	 */
+	function onPasswordCheck($data) {
+		$result = readPrivateCert($this->store, $_POST['spassword']);
+		if(!empty($result)) {
+			// FIXME: encrypt the passphrase in a secure way
+			$_SESSION['smime'] = $_POST['spassword'];
+			$result = true;
+		} else {
+			$result = false;
+		}
+
+		echo json_encode(
+			array(
+				'status' => $result
+			)
+		);
 	}
 
 	/**
@@ -1045,6 +1073,7 @@ class Pluginsmime extends Plugin {
 					'plugins' => Array(
 						'smime' => Array(
 							'enable' => PLUGIN_SMIME_USER_DEFAULT_ENABLE_SMIME,
+							'passphrase_cache' => PLUGIN_SMIME_PASSPHRASE_REMEMBER_BROWSER,
 						)
 					)
 				)
