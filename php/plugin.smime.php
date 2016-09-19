@@ -96,7 +96,6 @@ class Pluginsmime extends Plugin {
 
 	/**
 	 * Function checks if public certificate exists for all recipients.
-	 * TODO: we do not check the GAB for X509 certs.
 	 * 
 	 * @param Array $data Reference to the data of the triggered hook
 	 */
@@ -114,11 +113,14 @@ class Pluginsmime extends Plugin {
 				$recipients = $data['action']['props']['smime'];
 
 				$missingCerts = Array();
-				foreach($recipients as $emailAddr) {
-					if(!$this->pubcertExists(($emailAddr))) {
-						array_push($missingCerts, $emailAddr);
+				foreach($recipients as $recipient) {
+					$email = $recipient['email'];
+
+					if (!$this->pubcertExists($email, $recipient['internal'])) {
+						array_push($missingCerts, $email);
 					}
 				}
+
 				if(!empty($missingCerts)) {
 					$module = $data['moduleObject'];
 					$errorMsg = dgettext('plugin_smime', 'Missing public certificates for the following recipients: ') . implode(', ', $missingCerts) . dgettext('plugin_smime', '. Please contact your system administrator for details');
@@ -137,16 +139,27 @@ class Pluginsmime extends Plugin {
 		$userCert = '';
 		$tmpUserCert = tempnam(sys_get_temp_dir(), true);
 		$importMessageCert = false;
+		$fromGAB = false;
 
 		// TODO: worth to split fetching public certificate in a seperate function?
 
+		// If user entry exists in GAB, try to retrieve public cert
 		// Public certificate from GAB in combination with LDAP saved in PR_EMS_AB_TAGGED_X509_CERT
-		// If GAB's PR_ENTRYID matches the PR_SENT_REPRESENTING_ENTRYID of a message, the users exists in GAB
-		$ab = $GLOBALS['mapisession']->getAddressbook();
 		$userEntryID = mapi_getprops($message, array(PR_SENT_REPRESENTING_ENTRYID));
 
+		if (isset($userEntryID[PR_SENT_REPRESENTING_ENTRYID])) {
+			$user = mapi_ab_openentry($GLOBALS['mapisession']->getAddressbook(), $userEntryID[PR_SENT_REPRESENTING_ENTRYID]);
+
+			$gabCert = $this->getGABCert($user);
+			if (!empty($gabCert)) {
+				$fromGAB = true;
+				file_put_contents($tmpUserCert, $userCert);
+			}
+		} 
+
 		// When downloading an email as eml, $GLOBALS['operations'] isn't set, so add a check so that downloading works
-		if(isset($GLOBALS['operations'])) {
+		// If the certificate is already fetch from the GAB, skip checking the userStore.
+		if (!$fromGAB && isset($GLOBALS['operations'])) {
 			$senderAddressArray = $GLOBALS["operations"]->getSenderAddress($message);
 			$senderAddressArray = $senderAddressArray['props'];
 			if($senderAddressArray['address_type'] === 'SMTP') {
@@ -162,17 +175,6 @@ class Pluginsmime extends Plugin {
 				}
 			}
 		}
-
-		// If user entry exists in GAB, try to retrieve public cert from the MAPI property (LDAP)
-		if (isset($userEntryID[PR_SENT_REPRESENTING_ENTRYID])) {
-			$user = mapi_ab_openentry($ab, $userEntryID[PR_SENT_REPRESENTING_ENTRYID]);
-			$userCertArray = mapi_getprops($user, array(PR_EMAIL_ADDRESS, PR_EMS_AB_TAGGED_X509_CERT));
-			if(isset($userCertArray[PR_EMS_AB_TAGGED_X509_CERT])) {
-				$userCert = $userCertArray[PR_EMS_AB_TAGGED_X509_CERT][0];
-				$userCert = der2pem($userCert);
-				file_put_contents($tmpUserCert, $userCert);
-			}
-		} 
 
 		// Save signed message in a random file
 		$tmpfname = tempnam(sys_get_temp_dir(), true);	
@@ -223,7 +225,8 @@ class Pluginsmime extends Plugin {
 		}
 
 		// Certificate is newer or not yet imported to the user store and not revoked
-		if($importMessageCert) {
+		// If certificate is from the GAB, then don't import it.
+		if ($importMessageCert && !$fromGAB) {
 			// FIXME: doing this in importPublicKey too...
 			$certEmail = getCertEmail($parsedImportCert);
 			if(!empty($certEmail)) {
@@ -429,7 +432,14 @@ class Pluginsmime extends Plugin {
 					}
 
 					$this->importCertificate($certificate, $publickeyData, 'private');
-					$this->importCertificate($publickey, $publickeyData);
+
+					// Check if the user has an public key in the GAB.
+					$store_props = mapi_getprops($this->store, array(PR_USER_ENTRYID));
+					$user = mapi_ab_openentry($GLOBALS['mapisession']->getAddressbook(), $store_props[PR_USER_ENTRYID]);
+
+					if (empty($this->getGABCert($user))) {
+						$this->importCertificate($publickey, $publickeyData);
+					}
 				}
 			}
 
@@ -613,7 +623,7 @@ class Pluginsmime extends Plugin {
 	 */
 	function getPublicKeyForMessage($message) {
 		$recipientTable = mapi_message_getrecipienttable($message);
-		$recips = mapi_table_queryallrows($recipientTable, Array(PR_SMTP_ADDRESS, PR_RECIPIENT_TYPE), Array(RES_OR, Array(
+		$recips = mapi_table_queryallrows($recipientTable, Array(PR_SMTP_ADDRESS, PR_RECIPIENT_TYPE, PR_ADDRTYPE), Array(RES_OR, Array(
 			Array(RES_PROPERTY, 
 				Array(
 					RELOP => RELOP_EQ,
@@ -638,10 +648,25 @@ class Pluginsmime extends Plugin {
 		)));
 
 		$publicCerts = Array();
+		$storeCert = '';
+		$gabCert = '';
+
 		foreach($recips as $recip) {
-			// TOOD: error handling?
 			$emailAddr = $recip[PR_SMTP_ADDRESS];
-			array_push($publicCerts, base64_decode($this->getPublicKey($emailAddr)));
+
+			if ($recip[PR_ADDRTYPE] === "ZARAFA") {
+				$user = $this->getGABUser($emailAddr);
+				$gabCert = $this->getGABCert($user);
+			}
+
+			$storeCert = $this->getPublicKey($emailAddr);
+
+			if (!empty($gabCert)) {
+				array_push($publicCerts, $gabCert);
+			} else if (!empty($storeCert)) {
+				array_push($publicCerts, base64_decode($gabCert));
+			}
+
 		}
 
 		return $publicCerts;
@@ -681,10 +706,18 @@ class Pluginsmime extends Plugin {
 	 * Function which is used to check if there is a public certificate for the provided emailAddress
 	 * 
 	 * @param {String} emailAddress emailAddres of recipient
+	 * @param {Boolean} gabUser is the user of PR_ADDRTYPE == ZARAFA.
 	 * @return {Boolean} true if public certificate exists
 	 */
-	function pubcertExists($emailAddress) 
+	function pubcertExists($emailAddress, $gabUser = false)
 	{
+		if ($gabUser) {
+			$user = $this->getGABUser($emailAddress);
+			if ($user && !empty($this->getGABCert($user))) {
+				return True;
+			}
+		}
+
 		$root = mapi_msgstore_openentry($this->store, null);
 		$table = mapi_folder_getcontentstable($root, MAPI_ASSOCIATED);
 
@@ -897,7 +930,7 @@ class Pluginsmime extends Plugin {
 	function importCertificate($cert, $certData, $type = 'public', $force = False)
 	{
 		$certEmail = getCertEmail($certData);
-		if(!$this->pubCertExists($certEmail) || $force || $type === 'private'){
+		if(!$this->pubcertExists($certEmail) || $force || $type === 'private'){
 
 			$issued_by = "";
 			foreach(array_keys($certData['issuer']) as $key) {
@@ -956,6 +989,47 @@ class Pluginsmime extends Plugin {
 
 		// Format 1000AB as 10:00:AB
 		return strtoupper(implode(':', str_split($fingerprint, 2)));
+	}
+
+	/**
+	 * Retrieve the GAB User.
+	 *
+	 * FIXME: ideally this would be a public function in WebApp.
+	 *
+	 * @param String $email the email address of the user
+	 * @return Mixed $user Boolean if false else MAPIObject.
+	 */
+	function getGABUser($email)
+	{
+		$addrbook = $GLOBALS["mapisession"]->getAddressbook();
+		$userArr = array( array( PR_DISPLAY_NAME => $email) );
+		$user = False;
+
+		try {
+			$user = mapi_ab_resolvename($addrbook, $userArr, EMS_AB_ADDRESS_LOOKUP);
+			$user = mapi_ab_openentry($addrbook, $user[0][PR_ENTRYID]);
+		} catch (MAPIException $e) {
+			$e->setHandled();
+		}
+
+		return $user;
+	}
+
+	/**
+	 * Retrieve the PR_EMS_AB_TAGGED_X509_CERT
+	 *
+	 * @param MAPIObject $user the GAB user
+	 * @return String $cert the certificate, empty if not found
+	 */
+	function getGABCert($user)
+	{
+		$cert = '';
+		$userCertArray = mapi_getprops($user, array(PR_EMS_AB_TAGGED_X509_CERT));
+		if (isset($userCertArray[PR_EMS_AB_TAGGED_X509_CERT])) {
+			$cert = der2pem($userCertArray[PR_EMS_AB_TAGGED_X509_CERT][0]);
+		}
+
+		return $cert;
 	}
 
 	/**

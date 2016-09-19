@@ -211,7 +211,12 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 		var recipientStore = record.getRecipientStore();
 		var recipients = [];
 		recipientStore.each(function(recip) {
-			recipients.push(recip.get('smtp_address'));
+			recipients.push(
+				{ email: recip.get('smtp_address'),
+				  internal: recip.get('address_type') === "ZARAFA",
+				  username: recip.get('email_address')
+				}
+			);
 		}, this);
 		dialog.record.set('smime', recipients);
 
