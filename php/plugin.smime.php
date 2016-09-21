@@ -437,7 +437,8 @@ class Pluginsmime extends Plugin {
 					$store_props = mapi_getprops($this->store, array(PR_USER_ENTRYID));
 					$user = mapi_ab_openentry($GLOBALS['mapisession']->getAddressbook(), $store_props[PR_USER_ENTRYID]);
 
-					if (empty($this->getGABCert($user))) {
+					$gabCert = $this->getGABCert($user);
+					if (empty($gabCert)) {
 						$this->importCertificate($publickey, $publickeyData);
 					}
 				}
@@ -713,7 +714,8 @@ class Pluginsmime extends Plugin {
 	{
 		if ($gabUser) {
 			$user = $this->getGABUser($emailAddress);
-			if ($user && !empty($this->getGABCert($user))) {
+			$gabCert = $this->getGABCert($user);
+			if ($user && !empty($getGABCert)) {
 				return True;
 			}
 		}
