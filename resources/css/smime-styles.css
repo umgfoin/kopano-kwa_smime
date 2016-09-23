@@ -76,7 +76,7 @@
     margin: 10px 10px 10px;
 }
 
-.zarafa-smime-passphrasewindow > .x-btn {
+.passphrase-submit {
     margin: 0 auto !important;
     padding-top: 30px !important;
 }
