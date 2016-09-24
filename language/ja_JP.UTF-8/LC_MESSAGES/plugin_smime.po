@@ -1,3 +1,19 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-24 22:44+0000\n"
+"PO-Revision-Date: 2016-09-24 22:44+0000\n"
+"Last-Translator: Nobuyoshi <nobuyoshi.kumada@actplex.com>\n"
+"Language-Team: Japanese "
+"<http://translate.kopano.io/projects/kopano/smime/ja/>\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2.4\n"
+
 #: js/dialogs/PassphraseWindow.js:31
 msgid "S/MIME Passphrase"
 msgstr ""
@@ -39,7 +55,7 @@ msgstr ""
 
 #: js/settings/SettingsPublickeyGrid.js:80
 msgid "Type"
-msgstr ""
+msgstr "タイプ"
 
 #: js/settings/SettingsPublickeyGrid.js:106
 msgid "Loading certificates"
@@ -126,7 +142,7 @@ msgstr ""
 
 #: js/settings/UploadCertificateWidget.js:69
 msgid "Upload"
-msgstr ""
+msgstr "アップロード"
 
 #: js/settings/UploadCertificateWidget.js:102
 msgid "Passphrase is empty"
