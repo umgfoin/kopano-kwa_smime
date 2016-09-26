@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-24 22:44+0000\n"
-"PO-Revision-Date: 2016-09-24 22:44+0000\n"
+"PO-Revision-Date: 2016-09-27 01:54+0000\n"
 "Last-Translator: Nobuyoshi <nobuyoshi.kumada@actplex.com>\n"
 "Language-Team: Japanese "
 "<http://translate.kopano.io/projects/kopano/smime/ja/>\n"
@@ -16,42 +16,42 @@ msgstr ""
 
 #: js/dialogs/PassphraseWindow.js:31
 msgid "S/MIME Passphrase"
-msgstr ""
+msgstr "S/MIME パスフレーズ"
 
 #: js/dialogs/PassphraseWindow.js:37 js/settings/UploadCertificateWidget.js:63
 msgid "Certificate passphrase"
-msgstr ""
+msgstr "Certificate パスフレーズ"
 
 #: js/dialogs/PassphraseWindow.js:46
 msgid "Submit"
-msgstr ""
+msgstr "登録"
 
 #: js/dialogs/PassphraseWindow.js:111
 #: js/settings/UploadCertificateWidget.js:140
 #: js/settings/UploadCertificateWidget.js:145 js/SmimePlugin.js:338
 #: js/SmimePlugin.js:404
 msgid "S/MIME Message"
-msgstr ""
+msgstr "S/MIME メッセージ"
 
 #: js/dialogs/PassphraseWindow.js:111
 msgid "Password incorrect"
-msgstr ""
+msgstr "パスワードが違います"
 
 #: js/settings/SettingsPublickeyGrid.js:29
 msgid "No certificates exists"
-msgstr ""
+msgstr "証明書が存在しません"
 
 #: js/settings/SettingsPublickeyGrid.js:64
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: js/settings/SettingsPublickeyGrid.js:70
 msgid "Valid from"
-msgstr ""
+msgstr "から有効"
 
 #: js/settings/SettingsPublickeyGrid.js:75
 msgid "Expires"
-msgstr ""
+msgstr "有効期限"
 
 #: js/settings/SettingsPublickeyGrid.js:80
 msgid "Type"
@@ -59,70 +59,71 @@ msgstr "タイプ"
 
 #: js/settings/SettingsPublickeyGrid.js:106
 msgid "Loading certificates"
-msgstr ""
+msgstr "証明書を読み込み中です"
 
 #: js/settings/SettingsPublickeyGrid.js:131
 #: js/settings/UploadCertificateWidget.js:102
 #: js/settings/UploadCertificateWidget.js:104
 msgid "Alert"
-msgstr ""
+msgstr "アラート"
 
 #: js/settings/SettingsPublickeyGrid.js:131
 msgid "Please select a certificate."
-msgstr ""
+msgstr "証明書を選択してください。"
 
 #: js/settings/SettingsPublickeyGrid.js:135
 #: js/settings/SettingsSmimeCategory.js:29
 msgid "S/MIME"
-msgstr ""
+msgstr "S/MIME"
 
 #: js/settings/SettingsPublickeyGrid.js:136
 msgid ""
 "Do you really want to remove your private certificate? If you remove your "
 "certificate you will not be able to sign or decrypt S/MIME emails."
 msgstr ""
+"プライベート証明書を削除してもよろしいですか? もしこの証明書を削除した場合、電子メールに対するS/MIME署名や暗号化が利用できなくなります。"
 
 #: js/settings/SettingsPublickeyGrid.js:192
 msgid "Certificate details"
-msgstr ""
+msgstr "証明書詳細"
 
 #: js/settings/SettingsPublickeyPanel.js:60
 msgid ""
 "Below you can view and delete public & private certificate(s) stored on the "
 "server."
-msgstr ""
+msgstr "以下があなたが閲覧できる、または削除ができるサーバへ保存されている公開及びプライベート証明書です。"
 
 #: js/settings/SettingsPublickeyPanel.js:88
 msgid "Filter on Email"
-msgstr ""
+msgstr "Emailでフィルタ"
 
 #: js/settings/SettingsPublickeyPanel.js:103
 msgid "Remove"
-msgstr ""
+msgstr "削除"
 
 #: js/settings/SettingsPublickeyPanel.js:113
 msgid "Details"
-msgstr ""
+msgstr "詳細"
 
 #: js/settings/SettingsPublickeyWidget.js:19
 msgid "Public & Private certificates"
-msgstr ""
+msgstr "公開及びプライベート証明書"
 
 #: js/settings/SettingsSmimeWidget.js:28
 msgid "Personal certificate"
-msgstr ""
+msgstr "パーソナル証明書"
 
 #: js/settings/SettingsSmimeWidget.js:35
 msgid "You don't have a valid certificate corresponding to your account"
-msgstr ""
+msgstr "あなたのアカウントに一致する有効な証明書がありません"
 
 #: js/settings/SettingsSmimeWidget.js:68
 msgid "You have a valid certificate corresponding to your account"
-msgstr ""
+msgstr "あなたのアカウントに一致する有効な証明書があります"
 
 #: js/settings/UploadCertificateWidget.js:43
 msgid "Upload your certificate"
-msgstr ""
+msgstr "証明書をアップロード"
 
 #: js/settings/UploadCertificateWidget.js:49
 msgid ""
@@ -130,15 +131,17 @@ msgid ""
 "only accepts certificates which are valid and only stores one private "
 "certificate on the server."
 msgstr ""
+"PKCS#12フォーマットの証明書をアップロードすることができます。WebAppでは個人証明書であり有効であるものに限り、サーバにて受け付けることができま"
+"す。"
 
 #: js/settings/UploadCertificateWidget.js:52
 #: js/settings/UploadCertificateWidget.js:53
 msgid "Select"
-msgstr ""
+msgstr "選択"
 
 #: js/settings/UploadCertificateWidget.js:55
 msgid "Private certificate"
-msgstr ""
+msgstr "プライベート証明書"
 
 #: js/settings/UploadCertificateWidget.js:69
 msgid "Upload"
@@ -146,51 +149,51 @@ msgstr "アップロード"
 
 #: js/settings/UploadCertificateWidget.js:102
 msgid "Passphrase is empty"
-msgstr ""
+msgstr "パスフレーズを入力してください"
 
 #: js/settings/UploadCertificateWidget.js:104
 msgid "No certificate selected"
-msgstr ""
+msgstr "証明書が選択されていません"
 
 #: js/SmimePlugin.js:78
 msgid "Sign"
-msgstr ""
+msgstr "署名"
 
 #: js/SmimePlugin.js:80
 msgid "Sign message"
-msgstr ""
+msgstr "署名メッセージ"
 
 #: js/SmimePlugin.js:81
 msgid ""
 "Ensure the authenticity of the message by adding a digital signature to this "
 "message. Any changes to the message will invalidate the signature."
-msgstr ""
+msgstr "メッセージへデジタル署名を追加することにより、メッセージの送信元を証明します。変更が加わると署名は無効なものとなります。"
 
 #: js/SmimePlugin.js:99
 msgid "Encrypt"
-msgstr ""
+msgstr "暗号化"
 
 #: js/SmimePlugin.js:101
 msgid "Encrypt message"
-msgstr ""
+msgstr "暗号化メッセージ"
 
 #: js/SmimePlugin.js:102
 msgid ""
 "Ensure the privacy of the message by encrypting its contents. Only the "
 "recipient of the message will be able to open it."
-msgstr ""
+msgstr "その内容を暗号化することでプライバシーを確保します。そのメッセージは受信者に限り閲覧することができます。"
 
 #: js/SmimePlugin.js:139
 msgid "What's going on with my email?"
-msgstr ""
+msgstr "私のメールに何が発生していますか?"
 
 #: js/SmimePlugin.js:390
 msgid "SMIME Message"
-msgstr ""
+msgstr "SMIMEメッセージ"
 
 #: js/SmimePlugin.js:439
 msgid "S/MIME Plugin"
-msgstr ""
+msgstr "S/MIMEプラグイン"
 
 #: js/SmimeText.js:18
 msgid ""
@@ -198,77 +201,80 @@ msgid ""
 "reassures you that the message has not been tampered with and validates the "
 "identity of the sender."
 msgstr ""
+"WebAppは電子メールのデジタル証明書を確認することができます。認証が正しく成功することは、送信者が証明されると共に改ざんされていないことを証明します。"
 
 #: js/SmimeText.js:19
 msgid ""
 "You are seeing this message because the verification of the digital signature"
 "\") + \"<b> \" + _(\" has failed\") + \"</b>\" + _(\" for this message."
 msgstr ""
+"このメッセージは次の理由により表示されています：このメッセージのためのデジタル証明書の認証 \") + \"<b> \" + _(\" has "
+"failed\") + \"</b>\" + _(\" 。"
 
 #: js/SmimeText.js:20
 msgid "What caused this issue?"
-msgstr ""
+msgstr "この問題が発生している理由は何ですか?"
 
 #: js/SmimeText.js:22
 msgid "What should I do?"
-msgstr ""
+msgstr "対応方法はありますか?"
 
 #: js/SmimeText.js:23
 msgid ""
 "You can continue to work. However, you should keep in mind that the identity "
 "and the authenticity of the message content could not be verified."
-msgstr ""
+msgstr "あなたは継続してメール作成を行えます。しかし、メッセージ内容は正しく認証されていないことにご注意ください。"
 
 #: js/SmimeText.js:24
 msgid ""
 "You can contact your helpdesk or system administrator if you are not sure "
 "what to do next."
-msgstr ""
+msgstr "対応方法が不明な場合、ヘルプデスク、もしくはシステム管理者へお問い合わせください。"
 
 #: js/SmimeText.js:39
 msgid ""
 "WebApp can verify digital signatures of emails. A successful verification "
 "reassures you "
-msgstr ""
+msgstr "WebAppは電子メールのデジタル証明書を認証することができました。認証は成功していますので、ご安心ください。 "
 
 #: js/SmimeText.js:40
 msgid ""
 "that the message has not been tampered with and validates the identity of "
 "the sender."
-msgstr ""
+msgstr "送信者認証が完了と共に内容が改ざんされていないことを確認いたしました。"
 
 #: js/SmimeText.js:41
 msgid ""
 "The verification of the digital signature was successful for this email "
 "message."
-msgstr ""
+msgstr "デジタル証明書の認証は正しく成功しました。"
 
 #: js/SmimeText.js:44
 msgid "WebApp could not find a public certificate for the recipient."
-msgstr ""
+msgstr "WebAppは受信者の公開鍵を見つけることができませんでした。"
 
 #: js/SmimeText.js:47
 msgid ""
 "The identity of the sender and authenticity of the message content have been "
 "verified, but the certificate used to sign the message expired on [d-m-Y]."
-msgstr ""
+msgstr "メッセージ内容及び送信者の特定が確認されました。しかし、証明書の有効期限は [d-m-Y] となっています。"
 
 #: js/SmimeText.js:50
 msgid "The digital signature could not be verified for unknown reasons."
-msgstr ""
+msgstr "原因不明によりデジタル証明書を確認することができませんでした。"
 
 #: js/SmimeText.js:53
 msgid ""
 "The digital certificate used to sign this message has been revoked (i.e. the "
 "sender has marked it as compromised)"
-msgstr ""
+msgstr "このメッセージに証明されていたデジタル証明書は無効化されています。(例：送信者により廃棄されている場合など)"
 
 #: js/SmimeText.js:56
 msgid ""
 "The verification service of the certificate authority that signed the "
 "sender's certificate is not available. The validity of the certificate could "
 "not be verified."
-msgstr ""
+msgstr "送信者の証明書を署名するために必要とする認証局証明書を確認することができませんでした。この証明書の有効性を確認することができませんでした。"
 
 #: js/SmimeText.js:59
 msgid ""
@@ -276,125 +282,128 @@ msgid ""
 "unknown (Server is unavaliable or certificate does not support OCSP). The "
 "validity of the certificate could not be verified."
 msgstr ""
+"このメールを署名するために利用されたデジタル証明書の無効化ステータスが不明です（サーバへ接続できないか、OCSPがサポートされていません）。証明書の有効性"
+"が確認されませんでした。"
 
 #: js/SmimeText.js:62
 msgid ""
 "The revocation status of the digital certificate used to sign this email is "
 "disabled (OCSP). The validity of the certificate could not be verified."
 msgstr ""
+"このメールを署名するために利用されたデジタル証明書の無効化ステータスが無効です(OCSP)。この証明書の有効性を確認することができませんでした。"
 
 #: js/SmimeText.js:65
 msgid "The certificate verification server (OCSP) is temporarly offline."
-msgstr ""
+msgstr "この証明書を確認するためのサーバ (OCSP) は一時的にオフラインです。"
 
 #: js/SmimeText.js:81
 msgid "Signature verified succesfully"
-msgstr ""
+msgstr "署名を正しく確認されました"
 
 #: js/SmimeText.js:83
 msgid "Could not verify signature, missing public certificate"
-msgstr ""
+msgstr "公開証明書に問題があるため、署名を確認することができませんでした"
 
 #: js/SmimeText.js:85
 msgid "Signature verification succesfull, but certificate is expired"
-msgstr ""
+msgstr "署名の確認に成功しました、しかし証明書が有効期限切れしています"
 
 #: js/SmimeText.js:87
 msgid "Signature could not be verified"
-msgstr ""
+msgstr "署名を確認することができませんでした"
 
 #: js/SmimeText.js:89
 msgid "Certificate has been revoked"
-msgstr ""
+msgstr "証明書は無効化されています"
 
 #: js/SmimeText.js:91
 msgid "Verification with Certificate Authority failed"
-msgstr ""
+msgstr "証明書発行元の確認に失敗しました"
 
 #: js/SmimeText.js:93
 msgid "Message decrypted succesfully"
-msgstr ""
+msgstr "メッセージの復号化に成功しました"
 
 #: js/SmimeText.js:95
 msgid "Message decryption failed"
-msgstr ""
+msgstr "メッセージの復号化に失敗しました"
 
 #: js/SmimeText.js:97
 msgid "Please unlock your certificate"
-msgstr ""
+msgstr "証明書をアンロックしてください"
 
 #: js/SmimeText.js:99 js/SmimeText.js:103
 msgid "Cannot determine revocation status of certificate"
-msgstr ""
+msgstr "証明書の取り消しステータスを確認することができません"
 
 #: js/SmimeText.js:101
 msgid "Signature verified (OCSP disabled)"
-msgstr ""
+msgstr "署名が確認されました (OCSP 無効)"
 
 #: php/class.pluginsmimemodule.php:93
 msgid "No certificate avaliable"
-msgstr ""
+msgstr "証明書が存在しません"
 
 #: php/class.pluginsmimemodule.php:99
 msgid "Private certificate is not valid yet, unable to sign email"
-msgstr ""
+msgstr "プライベート証明書がまだ有効ではありません、電子メールへ署名することができません"
 
 #: php/class.pluginsmimemodule.php:101
 msgid "Private certificate has been expired, unable to sign email"
-msgstr ""
+msgstr "個人証明書が有効期限切れしています、電子メールへ署名することができません"
 
 #: php/class.pluginsmimemodule.php:103
 msgid "Private certificate does not match email address"
-msgstr ""
+msgstr "電子メールのアドレスと個人証明書が一致していません"
 
 #: php/plugin.smime.php:129
 msgid "Missing public certificates for the following recipients: "
-msgstr ""
+msgstr "次の受信者への公開証明書がありません： "
 
 #: php/plugin.smime.php:129
 msgid ". Please contact your system administrator for details"
-msgstr ""
+msgstr "詳細についてはシステム管理者へお問い合わせください"
 
 #: php/plugin.smime.php:383
 msgid "Private key can't be used to sign email"
-msgstr ""
+msgstr "メールを署名するために公開鍵は利用されていません"
 
 #: php/plugin.smime.php:387
 msgid "Certificate email address doesn't match WebApp account "
-msgstr ""
+msgstr "WebAppアカウントと証明書の電子メールアドレスが一致しません "
 
 #: php/plugin.smime.php:391
 msgid "Certificate was expired on "
-msgstr ""
+msgstr "証明書の有効期限は次の通りです "
 
 #: php/plugin.smime.php:391 php/plugin.smime.php:395
 msgid "Certificate has not been imported"
-msgstr ""
+msgstr "証明書はインポートされていません"
 
 #: php/plugin.smime.php:395
 msgid "Certificate is not yet valid "
-msgstr ""
+msgstr "証明書はまだ有効ではありません "
 
 #: php/plugin.smime.php:399
 msgid "Certificate is revoked"
-msgstr ""
+msgstr "証明書は廃棄されました"
 
 #: php/plugin.smime.php:402
 msgid "Unable to read public certificate"
-msgstr ""
+msgstr "公開鍵証明書を読み込むことができませんでした"
 
 #: php/plugin.smime.php:405
 msgid "Unable to decrypt certificate"
-msgstr ""
+msgstr "証明書を復号することができませんでした"
 
 #: php/plugin.smime.php:414
 msgid "Certificate is already stored on the server"
-msgstr ""
+msgstr "証明書は既にサーバへ保存されています"
 
 #: php/plugin.smime.php:428
 msgid "New certificate uploaded"
-msgstr ""
+msgstr "新しい証明書がアップロードされました"
 
 #: php/plugin.smime.php:430
 msgid "Certificate uploaded"
-msgstr ""
+msgstr "証明書がアップロードされました"
