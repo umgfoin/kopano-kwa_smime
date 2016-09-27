@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-24 22:44+0000\n"
-"PO-Revision-Date: 2016-09-27 01:54+0000\n"
+"PO-Revision-Date: 2016-09-28 01:04+0000\n"
 "Last-Translator: Nobuyoshi <nobuyoshi.kumada@actplex.com>\n"
 "Language-Team: Japanese "
 "<http://translate.kopano.io/projects/kopano/smime/ja/>\n"
@@ -358,7 +358,7 @@ msgstr "電子メールのアドレスと個人証明書が一致していませ
 
 #: php/plugin.smime.php:129
 msgid "Missing public certificates for the following recipients: "
-msgstr "次の受信者への公開証明書がありません： "
+msgstr "次の受信者への公開証明書がありません : "
 
 #: php/plugin.smime.php:129
 msgid ". Please contact your system administrator for details"
