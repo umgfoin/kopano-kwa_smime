@@ -743,7 +743,7 @@ class Pluginsmime extends Plugin {
 		if ($gabUser) {
 			$user = $this->getGABUser($emailAddress);
 			$gabCert = $this->getGABCert($user);
-			if ($user && !empty($getGABCert)) {
+			if ($user && !empty($gabCert)) {
 				return True;
 			}
 		}
