@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-11 22:27+0000\n"
-"PO-Revision-Date: 2016-08-15 19:07+0000\n"
+"PO-Revision-Date: 2016-10-05 10:29+0000\n"
 "Last-Translator: Zoltan <zoltan.kiss@serverside.hu>\n"
 "Language-Team: Hungarian "
 "<http://translate.kopano.io/projects/kopano/smime/hu/>\n"
@@ -16,22 +16,22 @@ msgstr ""
 
 #: js/dialogs/PassphraseWindow.js:31
 msgid "S/MIME Passphrase"
-msgstr ""
+msgstr "S/MIME jelszó"
 
 #: js/dialogs/PassphraseWindow.js:37 js/settings/UploadCertificateWidget.js:63
 msgid "Certificate passphrase"
-msgstr ""
+msgstr "Tanúsítvány jelszó"
 
 #: js/dialogs/PassphraseWindow.js:46
 msgid "Submit"
-msgstr ""
+msgstr "Elküld"
 
 #: js/dialogs/PassphraseWindow.js:111
 #: js/settings/UploadCertificateWidget.js:140
 #: js/settings/UploadCertificateWidget.js:145 js/SmimePlugin.js:338
 #: js/SmimePlugin.js:404
 msgid "S/MIME Message"
-msgstr ""
+msgstr "S/MIME üzenet"
 
 #: js/dialogs/PassphraseWindow.js:111
 msgid "Password incorrect"
@@ -39,7 +39,7 @@ msgstr "Hibás jelszó"
 
 #: js/settings/SettingsPublickeyGrid.js:29
 msgid "No certificates exists"
-msgstr ""
+msgstr "Nincsenek tanúsítványok"
 
 #: js/settings/SettingsPublickeyGrid.js:64
 msgid "Email"
@@ -47,11 +47,11 @@ msgstr "E-mail"
 
 #: js/settings/SettingsPublickeyGrid.js:70
 msgid "Valid from"
-msgstr ""
+msgstr "Érvényesség kezdete"
 
 #: js/settings/SettingsPublickeyGrid.js:75
 msgid "Expires"
-msgstr ""
+msgstr "Lejárat"
 
 #: js/settings/SettingsPublickeyGrid.js:80
 msgid "Type"
@@ -59,7 +59,7 @@ msgstr "Típus"
 
 #: js/settings/SettingsPublickeyGrid.js:106
 msgid "Loading certificates"
-msgstr ""
+msgstr "Tanúsítványok betöltése"
 
 #: js/settings/SettingsPublickeyGrid.js:131
 #: js/settings/UploadCertificateWidget.js:102
@@ -69,28 +69,32 @@ msgstr "Riasztás"
 
 #: js/settings/SettingsPublickeyGrid.js:131
 msgid "Please select a certificate."
-msgstr ""
+msgstr "Válasszon egy tanúsítványt."
 
 #: js/settings/SettingsPublickeyGrid.js:135
 #: js/settings/SettingsSmimeCategory.js:29
 msgid "S/MIME"
-msgstr ""
+msgstr "S/MIME"
 
 #: js/settings/SettingsPublickeyGrid.js:136
 msgid ""
 "Do you really want to remove your private certificate? If you remove your "
 "certificate you will not be able to sign or decrypt S/MIME emails."
 msgstr ""
+"Biztosan törölni szeretné a privát tanúsítványát? Amennyiben törli a privát "
+"tanúsítványt, a jövőben nem fog tudni aláírni és megnyitni S/MIME üzeneteket."
 
 #: js/settings/SettingsPublickeyGrid.js:192
 msgid "Certificate details"
-msgstr ""
+msgstr "Tanúsítvány részletek"
 
 #: js/settings/SettingsPublickeyPanel.js:60
 msgid ""
 "Below you can view and delete public & private certificate(s) stored on the "
 "server."
 msgstr ""
+"Alább láthatja és törölhet a publikus és privát tanúsítványokat, amelyek a "
+"szerveren vannak tárolva."
 
 #: js/settings/SettingsPublickeyPanel.js:88
 msgid "Filter on Email"
