@@ -106,6 +106,11 @@ class Pluginsmime extends Plugin {
 	 * @return array $data which contains a key 'status' 
 	 */
 	function onPasswordCheck($data) {
+		// Skip requests without spassword
+		if (!isset($_POST['spassword'])) {
+			return;
+		}
+
 		$result = readPrivateCert($this->store, $_POST['spassword']);
 		if(!empty($result)) {
 			// FIXME: encrypt the passphrase in a secure way
