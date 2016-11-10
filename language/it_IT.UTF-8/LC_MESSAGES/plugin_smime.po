@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-14 07:32+0000\n"
-"PO-Revision-Date: 2016-10-14 07:32+0000\n"
-"Last-Translator: Björn <b.neumann@kopano.com>\n"
+"PO-Revision-Date: 2016-11-10 13:57+0000\n"
+"Last-Translator: Michele <m.brodoloni@casalicomputers.com>\n"
 "Language-Team: Italian <http://translate.kopano.io/projects/kopano/smime/it/>"
 "\n"
 "Language: it_IT\n"
@@ -35,7 +35,7 @@ msgstr ""
 
 #: js/dialogs/PassphraseWindow.js:111
 msgid "Password incorrect"
-msgstr ""
+msgstr "Password non valida"
 
 #: js/settings/SettingsPublickeyGrid.js:29
 msgid "No certificates exists"
