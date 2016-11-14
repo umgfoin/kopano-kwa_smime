@@ -611,7 +611,14 @@ class Pluginsmime extends Plugin {
 		// Obtain private certificate
 		$certs = readPrivateCert($this->store, $_SESSION['smime']);
 
-		openssl_pkcs7_sign($infile, $outfile, $certs['cert'], array($certs['pkey'], ''), array());
+		// Retrieve intermediate CA's for verification.
+		$extracerts = isset($certs['extracerts']) ? implode('', $certs['extracerts']) : '';
+
+		$tmpFile = tempnam(sys_get_temp_dir(), true);
+		file_put_contents($tmpFile, $extracerts);
+
+		$ok = openssl_pkcs7_sign($infile, $outfile, $certs['cert'], array($certs['pkey'], ''), array(), PKCS7_DETACHED, $tmpFile);
+		unlink($tmpFile);
 	}
 
 	/**
