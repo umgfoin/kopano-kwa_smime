@@ -693,7 +693,7 @@ class Pluginsmime extends Plugin {
 			if (!empty($gabCert)) {
 				array_push($publicCerts, $gabCert);
 			} else if (!empty($storeCert)) {
-				array_push($publicCerts, base64_decode($gabCert));
+				array_push($publicCerts, base64_decode($storeCert));
 			}
 
 		}
