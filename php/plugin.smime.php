@@ -22,11 +22,13 @@ define('SMIME_UNLOCK_CERT', 8);
 define('SMIME_OCSP_NOSUPPORT', 9);
 define('SMIME_OCSP_DISABLED', 10);
 define('SMIME_OCSP_FAILED', 11);
+define('SMIME_DECRYPT_CERT_MISMATCH', 12);
 
 // OpenSSL Error Constants
 // openssl_error_string() returns error codes when an operation fails, since we return custom error strings 
 // in our plugin we keep a list of openssl error codes in these defines
 define('OPENSSL_CA_VERIFY_FAIL', '21075075');
+define('OPENSSL_RECIPIENT_CERTIFICATE_MISMATCH', '21070073');
 
 class Pluginsmime extends Plugin {
 
@@ -305,8 +307,7 @@ class Pluginsmime extends Plugin {
 			fwrite($fp,chunk_split(base64_encode($data['data']), 72) . "\n");
 			fclose($fp);
 
-			// TODO: handle decryption failure
-			openssl_pkcs7_decrypt($tmpFile, $tmpDecrypted, $certs['cert'], array($certs['pkey'], ''));
+			$decryptStatus = openssl_pkcs7_decrypt($tmpFile, $tmpDecrypted, $certs['cert'], array($certs['pkey'], ''));
 
 			$content = file_get_contents($tmpDecrypted);
 
@@ -324,9 +325,11 @@ class Pluginsmime extends Plugin {
 			if(strpos($content, 'multipart/signed') !== false) {
 				$this->message['type'] = 'encryptsigned';
 				$this->verifyMessage($data['message'], $content);
-			} else {
+			} else if ($decryptStatus) {
 				$this->message['info'] = SMIME_DECRYPT_SUCCESS;
 				$this->message['success'] = SMIME_STATUS_SUCCESS;
+			} else if ($this->extract_openssl_error() === OPENSSL_RECIPIENT_CERTIFICATE_MISMATCH) {
+				$this->message['info'] = SMIME_DECRYPT_CERT_MISMATCH;
 			}
 
 		} else {
