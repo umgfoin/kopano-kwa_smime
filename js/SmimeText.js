@@ -101,6 +101,8 @@ Zarafa.plugins.smime.SmimeText = function() {
 					return _('Signature verified (OCSP disabled)', 'plugin_smime');
 				case 11:
 					return _('Cannot determine revocation status of certificate', 'plugin_smime');
+				case 12:
+					return _('Unable to decrypt this message. Certificate does not match');
 			}
 		},
 		

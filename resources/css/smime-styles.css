@@ -1,16 +1,25 @@
 .smime-info-good {
 	background-color: #4a9725;
 	color: white;
+	max-width: 100%;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 .smime-info-fatal {
 	background-color: #cb3000;
 	color: white;
+	max-width: 100%;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 .smime-info-partial {
 	background-color: #ff9429;
 	color: white;
+	max-width: 100%;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 .icon_smime_encrypt {
