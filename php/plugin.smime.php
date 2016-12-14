@@ -1005,7 +1005,7 @@ class Pluginsmime extends Plugin {
 			));
 			// Save attachment
 			$msgBody = base64_encode($cert);
-			$stream = mapi_openpropertytostream($assocMessage, PR_BODY, MAPI_CREATE | MAPI_MODIFY);
+			$stream = mapi_openproperty($assocMessage, PR_BODY, IID_IStream, 0, MAPI_CREATE | MAPI_MODIFY);
 			mapi_stream_setsize($stream, strlen($msgBody));
 			mapi_stream_write($stream, $msgBody);
 			mapi_stream_commit($stream);
