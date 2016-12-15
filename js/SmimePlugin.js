@@ -82,6 +82,10 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 				text: _('Ensure the authenticity of the message by adding a digital signature to this message. Any changes to the message will invalidate the signature.', 'plugin_smime')
 			},
 			iconCls : 'icon_smime_sign',
+			listeners : {
+				afterrender : this.onAfterRenderSmimeButton,
+				scope : this
+			},
 			handler : this.onSignButton,
 			scope : this
 		};
@@ -103,9 +107,45 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 				text: _('Ensure the privacy of the message by encrypting its contents. Only the recipient of the message will be able to open it.', 'plugin_smime')
 			},
 			iconCls : 'icon_smime_encrypt',
+			listeners : {
+				afterrender : this.onAfterRenderSmimeButton,
+				scope : this
+			},
 			handler : this.onEncryptButton,
 			scope : this
 		};
+	},
+
+	/**
+	 * Handler which is responsible to retain the icon class of sign and encrypt buttons,
+	 * while opening a Draft.
+	 * It just retrieve message_class from respective record and set the icon-class accordingly.
+	 *
+	 * @param {Ext.button} button Which just gets rendered
+	 */
+	onAfterRenderSmimeButton : function(button)
+	{
+		var mailDialog = button.ownerCt.dialog;
+		var record = mailDialog.record;
+		switch(record.get('message_class')) {
+			case 'IPM.Note.SMIME':
+				if (button.iconCls === 'icon_smime_encrypt') {
+					button.setIconClass('icon_smime_encrypt_selected');
+				}
+				break;
+			case 'IPM.Note.SMIME.MultipartSigned':
+				if (button.iconCls === 'icon_smime_sign') {
+					button.setIconClass('icon_smime_sign_selected');
+				}
+				break;
+			case 'IPM.Note.SMIME.SignedEncrypt':
+				if (button.iconCls === 'icon_smime_sign') {
+					button.setIconClass('icon_smime_sign_selected');
+				} else {
+					button.setIconClass('icon_smime_encrypt_selected');
+				}
+				break;
+		}
 	},
 
 	/**
@@ -405,7 +445,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 			sortable : false,
 			renderer :  function(value, p, record) { 
 				var messageClass = record.get('message_class'); 
-				if(messageClass == 'IPM.Note.SMIME') {
+				if(messageClass == 'IPM.Note.SMIME' || messageClass == 'IPM.Note.SMIME.SignedEncrypt') {
 					p.css = 'icon_smime_encrypt'; 
 				} else if(messageClass == 'IPM.Note.SMIME.MultipartSigned') {
 					p.css = 'icon_smime_sign'; 
@@ -418,7 +458,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	},
 
 	/**
-	 * Shows the message class icon of signed or encrypted email in the non defaultcolumn
+	 * Shows the message class icon of signed or encrypted or signed + encrypted email in the non defaultcolumn
 	 *
 	 * @param {string} insertionPoint name of insertion point
 	 * @param {Zarafa.core.data.IPMRecord} record The record of a row
@@ -428,12 +468,12 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	showMessageClass : function(insertionPoint, record) { 
 		var messageClass = record.get('message_class');
 		var icon = "";
-		if(messageClass == 'IPM.Note.SMIME') {
+		if (messageClass == 'IPM.Note.SMIME' || messageClass == 'IPM.Note.SMIME.SignedEncrypt') {
 			icon = 'icon_smime_encrypt';
-		} 
-		else if(messageClass == 'IPM.Note.SMIME.MultipartSigned') {
+		} else if (messageClass == 'IPM.Note.SMIME.MultipartSigned') {
 			icon = 'icon_smime_sign';
 		}
+
 		return String.format('<td style="width: 24px"><div class="grid_compact {0}" style="height: 24px; width: 24px;">{1}</div></td>', icon, "");
 	}
 });
