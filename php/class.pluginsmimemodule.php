@@ -229,7 +229,7 @@ class PluginSmimeModule extends Module
 		$privateCert = mapi_msgstore_openentry($this->store, $mapiCert[PR_ENTRYID]);
 
 		$msgBody = base64_encode($cert);
-		$stream = mapi_openpropertytostream($privateCert, PR_BODY, MAPI_CREATE | MAPI_MODIFY);
+		$stream = mapi_openproperty($privateCert, PR_BODY, IID_IStream, 0, MAPI_CREATE | MAPI_MODIFY);
 		mapi_stream_setsize($stream, strlen($msgBody));
 		mapi_stream_write($stream, $msgBody);
 		mapi_stream_commit($stream);
