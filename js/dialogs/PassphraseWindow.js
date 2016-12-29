@@ -242,6 +242,13 @@ Zarafa.plugins.smime.dialogs.PassphraseWindow = Ext.extend(Zarafa.core.ui.Conten
 			} else {
 				var owner = this.btn.ownerCt;
 				var record = owner.record;
+				if (!record) {
+					// This is the case where button belongs to the "more" menu.
+					// Get the dialog from menu.
+					var moreMenu = this.btn.parentMenu;
+					var parentToolbar = moreMenu.ownerCt.ownerCt;
+					record = parentToolbar.dialog.record;
+				}
 				record.set('message_class', this.btn.message_class);
 				record.save();
 				this.btn.setIconClass('icon_smime_sign_selected');

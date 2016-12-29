@@ -84,6 +84,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 			iconCls : 'icon_smime_sign',
 			listeners : {
 				afterrender : this.onAfterRenderSmimeButton,
+				beforeshow : this.onAfterRenderSmimeButton,
 				scope : this
 			},
 			handler : this.onSignButton,
@@ -109,6 +110,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 			iconCls : 'icon_smime_encrypt',
 			listeners : {
 				afterrender : this.onAfterRenderSmimeButton,
+				beforeshow : this.onAfterRenderSmimeButton,
 				scope : this
 			},
 			handler : this.onEncryptButton,
@@ -125,8 +127,8 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	 */
 	onAfterRenderSmimeButton : function(button)
 	{
-		var mailDialog = button.ownerCt.dialog;
-		var record = mailDialog.record;
+		var dialog = this.getRespectiveDialog(button);
+		var record = dialog.record;
 		switch(record.get('message_class')) {
 			case 'IPM.Note.SMIME':
 				if (button.iconCls === 'icon_smime_encrypt') {
@@ -276,8 +278,8 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	 */
 	onEncryptButton : function(button, config) 
 	{
-		var owner = button.ownerCt;
-		var record = owner.record;
+		var dialog = this.getRespectiveDialog(button);
+		var record = dialog.record;
 		if(record) {
 			switch(record.get('message_class')) {
 				// Sign and Encrypt
@@ -286,7 +288,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 					button.setIconClass('icon_smime_encrypt_selected');
 
 					// Add event to check if all recipients have a public key
-					owner.dialog.on('beforesendrecord', this.onBeforeSendRecord ,this);
+					dialog.on('beforesendrecord', this.onBeforeSendRecord ,this);
 					break;
 				// We want to encrypt
 				case 'IPM.Note': 
@@ -294,7 +296,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 					record.set('message_class', 'IPM.Note.SMIME');
 
 					// Add event to check if all recipients have a public key
-					owner.dialog.on('beforesendrecord', this.onBeforeSendRecord ,this);
+					dialog.on('beforesendrecord', this.onBeforeSendRecord ,this);
 					break;
 				// Unselecting encrypt functionality
 				case 'IPM.Note.SMIME': 
@@ -312,10 +314,10 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 					record.actions = {};
 
 					// Remove event
-					owner.dialog.un('beforesendrecord', this.onBeforeSendRecord ,this);
+					dialog.un('beforesendrecord', this.onBeforeSendRecord ,this);
 					break;
 			}
-			owner.dialog.saveRecord();
+			dialog.saveRecord();
 		}
 	},
 
@@ -328,10 +330,10 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	 * @param {Ext.button} button
 	 * @param {Object} config
 	 */
-	onSignButton : function(button, config) 
+	onSignButton : function(button, config)
 	{
-		var owner = button.ownerCt;
-		var record = owner.record;
+		var dialog = this.getRespectiveDialog(button);
+		var record = dialog.record;
 		if(record) {
 			var plugin = this;
 			var user = container.getUser();
@@ -369,7 +371,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 					break;
 			}
 		}
-		owner.dialog.saveRecord();
+		dialog.saveRecord();
 	},
 
 	/**
@@ -479,6 +481,26 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 		}
 
 		return String.format('<td style="width: 24px"><div class="grid_compact {0}" style="height: 24px; width: 24px;">{1}</div></td>', icon, "");
+	},
+
+	/**
+	 * Helper function to retrieve dialog.
+	 *
+	 * @param {Ext.button} button Which just gets rendered
+	 * @return {Zarafa.mailcreatecontentpanel} dialog which contains the button passed as parameter
+	 */
+	getRespectiveDialog : function(button) {
+		var parentToolbar = false;
+
+		if (button.ownerCt instanceof Zarafa.core.ui.Toolbar) {
+			parentToolbar = button.ownerCt;
+		} else {
+			// This is the case where button belongs to the "more" menu.
+			// Get the dialog from menu.
+			var moreMenu = button.parentMenu;
+			parentToolbar = moreMenu.ownerCt.ownerCt;
+		}
+		return parentToolbar.dialog;
 	}
 });
 
