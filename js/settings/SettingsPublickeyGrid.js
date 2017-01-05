@@ -26,7 +26,8 @@ Zarafa.plugins.smime.settings.PublickeyGrid = Ext.extend(Ext.grid.GridPanel, {
 			store : config.store,
 			viewConfig : {
 				forceFit : true,
-				emptyText : '<div class=\'emptytext\'>' + _('No certificates exists', 'plugin_smime') + '</div>'
+                deferEmptyText : false,
+				emptyText : '<div class=\'emptytext\'>' + _('No certificates imported, please upload your private certificate', 'plugin_smime') + '</div>'
 			},
 			loadMask : this.initLoadMask(),
 			columns : this.initColumnModel(),
