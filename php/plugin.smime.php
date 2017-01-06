@@ -316,6 +316,9 @@ class Pluginsmime extends Plugin {
 			// Manually set time back to the received time, since mapi_inetmapi_imtomapi overwrites this
 			mapi_setprops($data['message'], $receivedTime);
 
+			// remove duplicate recipients
+			$this->removeDuplicateRecipients($data['message']);
+
 			// remove temporary files
 			unlink($tmpFile);
 			unlink($tmpDecrypted);
@@ -1131,6 +1134,38 @@ class Pluginsmime extends Plugin {
 		} else {
 			return $GLOBALS["operations"]->getSenderAddress($message);
 		}
+	}
+
+    /**
+	 * Function which is used to remove duplicate recipients.
+	 * While we decrypt an encrypted message some how mapi will append the recipients instead of replace.
+	 * So to handle this situation by removing duplicate recipients from message.
+     * @param object $message  MAPI Message object from which we need to get the recipients.
+	 * FIXME: remove while mapi_inetmapi_imtomapi function will replace the recipients instead of append.
+     */
+	function removeDuplicateRecipients($message)
+	{
+        $recipientTable = mapi_message_getrecipienttable($message);
+        if ($recipientTable) {
+            $recipients = mapi_table_queryallrows($recipientTable, $GLOBALS['properties']->getRecipientProperties());
+            $removeRecipients = array();
+            foreach ($recipients as $recipient) {
+                $entryId = $recipient[PR_ENTRYID];
+                $isExist = false;
+                foreach ($removeRecipients as $removeRecipient) {
+                    if ($entryId === $removeRecipient[PR_ENTRYID]) {
+                        $isExist = true;
+                        break;
+                    }
+                }
+
+                if (!$isExist) {
+                    array_push($removeRecipients, $recipient);
+                }
+            }
+
+            mapi_message_modifyrecipients($message, MODRECIP_REMOVE, $removeRecipients);
+        }
 	}
 }
 ?>
