@@ -9,6 +9,8 @@ define('SMIME_STATUS_SUCCESS', 0);
 define('SMIME_STATUS_PARTIAL', 1);
 // Red, something really went wrong
 define('SMIME_STATUS_FAIL', 2);
+// Blue, info message
+define('SMIME_STATUS_INFO', 3);
 
 define('SMIME_SUCCESS', 0);
 define('SMIME_NOPUB', 1);
@@ -288,7 +290,7 @@ class Pluginsmime extends Plugin {
 	 */
 	function onEncrypted($data) {
 		// Cert unlocked, decode message
-		$this->message['success'] = SMIME_STATUS_FAIL;
+		$this->message['success'] = SMIME_STATUS_INFO;
 		$this->message['info'] = SMIME_DECRYPT_FAILURE;
 
 		$this->message['type'] = 'encrypted';
@@ -333,6 +335,7 @@ class Pluginsmime extends Plugin {
 				$this->message['success'] = SMIME_STATUS_SUCCESS;
 			} else if ($this->extract_openssl_error() === OPENSSL_RECIPIENT_CERTIFICATE_MISMATCH) {
 				$this->message['info'] = SMIME_DECRYPT_CERT_MISMATCH;
+				$this->message['success'] = SMIME_STATUS_FAIL;
 			}
 
 		} else {

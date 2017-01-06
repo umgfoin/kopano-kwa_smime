@@ -203,6 +203,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 		smimeInfoBox.removeClass('smime-info-good');
 		smimeInfoBox.removeClass('smime-info-fatal');
 		smimeInfoBox.removeClass('smime-info-partial');
+		smimeInfoBox.removeClass('smime-info-info');
 
 		// retrieve smime json object
 		var smimeInfo = record.get('smime');
@@ -488,9 +489,8 @@ Zarafa.onReady(function() {
 	Zarafa.plugins.smime.SMIME_STATUS_GOOD = 0;
 	Zarafa.plugins.smime.SMIME_STATUS_PARTIAL = 2;
 	Zarafa.plugins.smime.SMIME_STATUS_FATAL = 2;
-
 	Zarafa.plugins.smime.SMIME_DECRYPT_SUCCESS = 6;
-
+	Zarafa.plugins.smime.SMIME_STATUS_INFO = 3;
 	Zarafa.plugins.smime.CHANGE_CERTIFICATE_SUCCESS = 1;
 	Zarafa.plugins.smime.CHANGE_CERTIFICATE_ERROR = 2;
 	Zarafa.plugins.smime.CHANGE_CERTIFICATE_WRONG = 3;
