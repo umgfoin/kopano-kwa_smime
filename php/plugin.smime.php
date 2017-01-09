@@ -1132,7 +1132,7 @@ class Pluginsmime extends Plugin {
 			}
 			return $senderStructure;
 		} else {
-			return $GLOBALS["operations"]->getSenderAddress($message);
+			return $GLOBALS["operations"]->getSenderAddress($mapiMessage);
 		}
 	}
 
