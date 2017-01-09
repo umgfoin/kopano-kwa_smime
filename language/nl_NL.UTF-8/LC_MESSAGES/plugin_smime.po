@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-17 16:05+0000\n"
-"PO-Revision-Date: 2016-07-19 06:56+0000\n"
-"Last-Translator: Bob <b.huisman@zarafa.com>\n"
+"PO-Revision-Date: 2017-01-09 10:21+0000\n"
+"Last-Translator: Jelle <j.vanderwaa@zarafa.com>\n"
 "Language-Team: Dutch <http://translate.kopano.io/projects/kopano/smime/nl/>\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,7 @@ msgstr "Er zijn geen certificaten"
 
 #: js/settings/SettingsPublickeyGrid.js:64
 msgid "Email"
-msgstr "Email"
+msgstr "E-mail"
 
 #: js/settings/SettingsPublickeyGrid.js:70
 msgid "Valid from"
