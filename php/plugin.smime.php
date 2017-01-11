@@ -776,7 +776,7 @@ class Pluginsmime extends Plugin {
 				array(
 					RELOP => RELOP_EQ, 
 					ULPROPTAG => PR_MESSAGE_CLASS,
-					VALUE => array(PR_MESSAGE_CLASS => "Webapp.Security.Public")
+					VALUE => array(PR_MESSAGE_CLASS => "WebApp.Security.Public")
 				),
 			),
 			array(RES_PROPERTY,
@@ -998,7 +998,7 @@ class Pluginsmime extends Plugin {
 			// TODO: write these properties down.
 			mapi_setprops($assocMessage, array(
 				PR_SUBJECT => getCertEmail($certData),
-				PR_MESSAGE_CLASS => $type == 'public' ? 'Webapp.Security.Public' : 'WebApp.Security.Private',
+				PR_MESSAGE_CLASS => $type == 'public' ? 'WebApp.Security.Public' : 'WebApp.Security.Private',
 				PR_MESSAGE_DELIVERY_TIME => $certData['validTo_time_t'],
 				PR_CLIENT_SUBMIT_TIME => $certData['validFrom_time_t'],
 				PR_SENDER_NAME => $certData['serialNumber'], // serial
