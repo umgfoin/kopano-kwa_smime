@@ -229,7 +229,7 @@ Zarafa.plugins.smime.dialogs.PassphraseWindow = Ext.extend(Zarafa.core.ui.Conten
 			if(this.passphrase) {
 				this.passphrase.reset();
 			}
-			container.getNotifier().notify('error.connection', _('S/MIME Message', 'plugin_smime'), _('Password incorrect', 'plugin_smime'));
+			container.getNotifier().notify('error.connection', _('S/MIME Message', 'plugin_smime'), _('The passphrase you typed is incorrect. Please try again.', 'plugin_smime'));
 		}
 	}
 });
