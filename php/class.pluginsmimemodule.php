@@ -169,14 +169,14 @@ class PluginSmimeModule extends Module
 				array(
 					RELOP => RELOP_EQ, 
 					ULPROPTAG => PR_MESSAGE_CLASS,
-					VALUE => array(PR_MESSAGE_CLASS => "webapp.security.public")
+					VALUE => array(PR_MESSAGE_CLASS => "WebApp.Security.Public")
 				)
 			),
 			array(RES_PROPERTY,
 				array(
 					RELOP => RELOP_EQ, 
 					ULPROPTAG => PR_MESSAGE_CLASS,
-					VALUE => array(PR_MESSAGE_CLASS => "webapp.security.private")
+					VALUE => array(PR_MESSAGE_CLASS => "WebApp.Security.Private")
 				)
 			))
 		);
