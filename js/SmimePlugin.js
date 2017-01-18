@@ -439,9 +439,10 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	showDefaultColumn : function(insertionPoint, record) 
 	{
 		return  {
-			header : _('SMIME Message', 'plugin_smime'),
+			header : '<p class="icon_smime_settings">&nbsp;<span class="title">' + '&nbsp' + _('S/MIME Message', 'plugin_smime') + '</span></p>',
+			headerCls: 'zarafa-icon-column',
 			dataIndex : 'message_class',
-			width : 12,
+			width : 24,
 			sortable : false,
 			renderer :  function(value, p, record) { 
 				var messageClass = record.get('message_class'); 
