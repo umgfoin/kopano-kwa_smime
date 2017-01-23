@@ -212,13 +212,15 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 			// FIXME: refactor success, to status since that's probably a better description of the variable
 			smimeInfoBox.addClass(Zarafa.plugins.smime.SmimeText.getStatusMessageClass(smimeInfo.success));
 			var message = Zarafa.plugins.smime.SmimeText.getMessageInfo(smimeInfo.info);
+			var isDecryptedSuccessfully = (smimeInfo.info === Zarafa.plugins.smime.SMIME_DECRYPT_SUCCESS);
 			switch(smimeInfo.type) {
 				case 'encrypted':
 					// Empty smimeInfoBox
 					if( smimeInfo.success === Zarafa.plugins.smime.SMIME_STATUS_BAD) {
 						smimeInfoBox.update('<div class="icon_smime_encr_content"></div> ' + message);
 					} else {
-						smimeInfoBox.update(String.format(' {0} &lt{1}&gt <div class="icon_smime_decr_content"></div> {2}', sender.get('display_name'), sender.get('smtp_address'), message));
+						var smimeInfoIcon = isDecryptedSuccessfully ? 'icon_smime_decr_content' : 'icon_smime_encr_content';
+						smimeInfoBox.update(String.format(' {0} &lt{1}&gt <div class="{2}"></div> {3}', sender.get('display_name'), sender.get('smtp_address'), smimeInfoIcon, message));
 						// Force the Attachmentlinks component to update, to view the attachments
 						this.ownerCt.findByType('zarafa.attachmentlinks')[0].update(record, true);
 					}
@@ -485,6 +487,8 @@ Zarafa.onReady(function() {
 	Zarafa.plugins.smime.SMIME_STATUS_GOOD = 0;
 	Zarafa.plugins.smime.SMIME_STATUS_PARTIAL = 2;
 	Zarafa.plugins.smime.SMIME_STATUS_FATAL = 2;
+
+	Zarafa.plugins.smime.SMIME_DECRYPT_SUCCESS = 6;
 
 	Zarafa.plugins.smime.CHANGE_CERTIFICATE_SUCCESS = 1;
 	Zarafa.plugins.smime.CHANGE_CERTIFICATE_ERROR = 2;
