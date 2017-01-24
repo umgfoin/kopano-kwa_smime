@@ -129,11 +129,16 @@ Zarafa.plugins.smime.settings.PublickeyGrid = Ext.extend(Ext.grid.GridPanel, {
 		var certificate = selectionModel.getSelected();
 
 		if(!certificate) {
-			Ext.Msg.alert(_('Alert'), _('Please select a certificate.', 'plugin_smime'));
+			Ext.MessageBox.show({
+				title: _('S/MIME Plugin', 'plugin_smime'),
+				msg: _('Please select a certificate.', 'plugin_smime'),
+				buttons: Ext.MessageBox.OK,
+				icon: Ext.MessageBox.INFO
+			});
 			return;
 		} else if(certificate.get('type') === 'private') {
 			Ext.MessageBox.show({
-				title: _('S/MIME', 'plugin_smime'),
+				title: _('S/MIME Plugin', 'plugin_smime'),
 				msg :_('Do you really want to remove your private certificate? If you remove your certificate you will not be able to sign or decrypt S/MIME emails.', 'plugin_smime'),
 				icon: Ext.MessageBox.WARNING,
 				fn: this.onRemoveCertificate,
