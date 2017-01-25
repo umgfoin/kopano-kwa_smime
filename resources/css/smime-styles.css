@@ -52,8 +52,14 @@
   background-position: center;
 }
 
+.x-grid3-hd-row td.zarafa-icon-column .x-grid3-hd-inner p.icon_smime_settings {
+  background-position: center;
+  width: 16px; 
+}
+
 .icon_smime_settings {
   background-image: url(../icons/ico_shield.png);
+  background-repeat: no-repeat;
 }
 
 .icon_smime_sign_content {
