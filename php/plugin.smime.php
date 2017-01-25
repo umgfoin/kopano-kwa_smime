@@ -1136,13 +1136,13 @@ class Pluginsmime extends Plugin {
 		}
 	}
 
-    /**
+	/**
 	 * Function which is used to remove duplicate recipients.
 	 * While we decrypt an encrypted message some how mapi will append the recipients instead of replace.
 	 * So to handle this situation by removing duplicate recipients from message.
-     * @param object $message  MAPI Message object from which we need to get the recipients.
+	 * @param object $message  MAPI Message object from which we need to get the recipients.
 	 * FIXME: remove while mapi_inetmapi_imtomapi function will replace the recipients instead of append.
-     */
+	 */
 	function removeDuplicateRecipients($message)
 	{
         $recipientTable = mapi_message_getrecipienttable($message);
