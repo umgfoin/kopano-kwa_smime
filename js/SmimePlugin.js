@@ -11,7 +11,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	 * @protected
 	 */
 	initPlugin : function()
-	{	
+	{
 		Zarafa.plugins.smime.SmimePlugin.superclass.initPlugin.apply(this, arguments);
 
 		// S/MIME button in mailcreatecontentpanel
@@ -27,7 +27,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 		// S/MIME Icons
 		this.registerInsertionPoint('context.mail.gridrow', this.showMessageClass , this);
 		this.registerInsertionPoint('context.mail.griddefaultcolumn', this.showDefaultColumn, this);
-			
+
 		Zarafa.core.data.SharedComponentType.addProperty('plugin.smime.dialog.passphrasewindow');
 		Zarafa.core.data.SharedComponentType.addProperty('plugin.smime.dialog.changepassphrasecontentpanel');
 	},
@@ -35,9 +35,9 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	/**
 	 * Create a category in settings for S/MIME
 	 *
-	 * @return {smimesettingscategory} 
+	 * @return {smimesettingscategory}
 	 */
-	createSettingsCategories : function(insertionName, settingsMainPanel, settingsContext) 
+	createSettingsCategories : function(insertionName, settingsMainPanel, settingsContext)
 	{
 		return [{
 			xtype : 'smime.settingssmimecategory',
@@ -46,11 +46,11 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	},
 
 	/**
-	 * Displays S/MIME information in the previewpanel  
+	 * Displays S/MIME information in the previewpanel
 	 *
 	 * @return {Object} a box which on record update displays S/MIME information
 	 */
-	showSmimeInfo : function() 
+	showSmimeInfo : function()
 	{
 		return {
 			xtype: 'button',
@@ -72,7 +72,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	 *
 	 * @return {Config} creates a button for signing email
 	 */
-	showSignButton : function() 
+	showSignButton : function()
 	{
 		return {
 			xtype : 'button',
@@ -98,7 +98,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	 *
 	 * @return {Object} creates a button for encrypting an email
 	 */
-	showEncryptButton : function() 
+	showEncryptButton : function()
 	{
 		return {
 			xtype : 'button',
@@ -166,7 +166,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 						container.getRequest().singleRequest(
 							'pluginsmimemodule',
 							'certificate',
-							{ 
+							{
 							  'user' : user.getSMTPAddress(),
 							  'sessionid' : user.getSessionId()
 							},
@@ -178,7 +178,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 					break;
 				case 'signed':
 				case 'encryptsigned':
-					container.getNotifier().notify(Zarafa.plugins.smime.SmimeText.getPopupStatus(smimeInfo.success), 
+					container.getNotifier().notify(Zarafa.plugins.smime.SmimeText.getPopupStatus(smimeInfo.success),
 							_('What\'s going on with my email?', 'plugin_smime'), Zarafa.plugins.smime.SmimeText.getPopupText(smimeInfo.info));
 					break;
 			}
@@ -190,16 +190,16 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	 * In the case of a encrypted message, we either show a button to unlock the certificate
 	 * or shows the message that the message has been decrypted.
 	 * If the message is signed we display information depending on the state of the verification.
-	 * 
+	 *
 	 * @param {Zarafa.core.data.IPMRecord} record record which is displayed
 	 * @param {Boolean} contentReset force the component to perform a full update of the data.
 	 */
-	onSmimeInfo : function(record, resetContent) 
+	onSmimeInfo : function(record, resetContent)
 	{
 		// Set button.record for use in onSmimeButton
 		this.record = record;
 		var smimeInfoBox = this.getEl();
-		
+
 		// Set smimeBox to empty value by default, to override previous S/MIME message text
 		smimeInfoBox.update("");
 		smimeInfoBox.removeClass('smime-info-good');
@@ -246,7 +246,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	 * Function which collects all the recipients smtp_addresses in a list and sets them as 'smime'
 	 * property in the mailrecord. Because the hook in PHP doesn't have updated recipienttable yet.
 	 *
-	 * @param {Zarafa.mailcreatecontentpanel} dialog 
+	 * @param {Zarafa.mailcreatecontentpanel} dialog
 	 * @param {Zarfa.core.data.IPMRecord} record The record which is going to be send
 	 * @return {Boolean} returns false if public key isn't find and stops the record from being send
 	 *
@@ -276,7 +276,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	 * @param {Ext.button} button
 	 * @param {Object} config
 	 */
-	onEncryptButton : function(button, config) 
+	onEncryptButton : function(button, config)
 	{
 		var dialog = this.getRespectiveDialog(button);
 		var record = dialog.record;
@@ -291,7 +291,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 					dialog.on('beforesendrecord', this.onBeforeSendRecord ,this);
 					break;
 				// We want to encrypt
-				case 'IPM.Note': 
+				case 'IPM.Note':
 					button.setIconClass('icon_smime_encrypt_selected');
 					record.set('message_class', 'IPM.Note.SMIME');
 
@@ -299,7 +299,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 					dialog.on('beforesendrecord', this.onBeforeSendRecord ,this);
 					break;
 				// Unselecting encrypt functionality
-				case 'IPM.Note.SMIME': 
+				case 'IPM.Note.SMIME':
 				case 'IPM.Note.SMIME.SignedEncrypt':
 					if (record.get('message_class') === 'IPM.Note.SMIME.SignedEncrypt') {
 						record.set('message_class', 'IPM.Note.SMIME.MultipartSigned');
@@ -341,7 +341,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 				container.getRequest().singleRequest(
 					'pluginsmimemodule',
 					'certificate',
-					{ 
+					{
 					  'user' : user.getSMTPAddress(),
 					  'sessionid' : user.getSessionId()
 					},
@@ -383,7 +383,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	onCertificateCallback : function(response) {
 		// TODO: improve functionality with less callbacks
 		var btn = this;
-		if(response.status) { 
+		if(response.status) {
 		    	Zarafa.core.data.UIFactory.openLayerComponent(Zarafa.core.data.SharedComponentType['plugin.smime.dialog.passphrasewindow'], btn, {manager: Ext.WindowMgr});
 		} else {
 			container.getNotifier().notify('info.saved', _('S/MIME Message', 'plugin_smime'), response.message);
@@ -424,7 +424,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 
 		switch(type) {
 			case Zarafa.core.data.SharedComponentType['plugin.smime.dialog.passphrasewindow']:
-				component = Zarafa.plugins.smime.dialogs.PassphraseWindow;
+				component = Zarafa.plugins.smime.dialogs.PassphraseContentPanel;
 				break;
 			case Zarafa.core.data.SharedComponentType['plugin.smime.dialog.changepassphrasecontentpanel']:
 				component = Zarafa.plugins.smime.dialogs.ChangePassphraseContentPanel;
@@ -441,7 +441,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	 * @param {Zarafa.core.data.IPMRecord} record The record of a row
 	 *
 	 */
-	showDefaultColumn : function(insertionPoint, record) 
+	showDefaultColumn : function(insertionPoint, record)
 	{
 		return  {
 			header : '<p class="icon_smime_settings">&nbsp;<span class="title">' + '&nbsp' + _('S/MIME Message', 'plugin_smime') + '</span></p>',
@@ -449,14 +449,14 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 			dataIndex : 'message_class',
 			width : 24,
 			sortable : false,
-			renderer :  function(value, p, record) { 
-				var messageClass = record.get('message_class'); 
+			renderer :  function(value, p, record) {
+				var messageClass = record.get('message_class');
 				if(messageClass == 'IPM.Note.SMIME' || messageClass == 'IPM.Note.SMIME.SignedEncrypt') {
-					p.css = 'icon_smime_encrypt'; 
+					p.css = 'icon_smime_encrypt';
 				} else if(messageClass == 'IPM.Note.SMIME.MultipartSigned') {
-					p.css = 'icon_smime_sign'; 
+					p.css = 'icon_smime_sign';
 				}
-				return ''; 
+				return '';
 			},
 			fixed : true,
 			tooltip : _('S/MIME Message', 'plugin_smime')
@@ -471,7 +471,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	 * @return {string} column entry
 	 *
 	 */
-	showMessageClass : function(insertionPoint, record) { 
+	showMessageClass : function(insertionPoint, record) {
 		var messageClass = record.get('message_class');
 		var icon = "";
 		if (messageClass == 'IPM.Note.SMIME' || messageClass == 'IPM.Note.SMIME.SignedEncrypt') {
