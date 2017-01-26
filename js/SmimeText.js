@@ -15,13 +15,13 @@ Zarafa.plugins.smime.SmimeText = function() {
 		 * @return {String} popup text
 		 */
 		createMessage : function(text) {
-			 return _('WebApp can verify digital signatures of emails. A successful verification reassures you that the message has not been tampered with and validates the identity of the sender.', 'plugin_smime')
-				+ "<br><br>" + _('You are seeing this message because the verification of the digital signature', 'plugin_smime') + "<b>" + _(' has failed', 'plugin_smime') + "</b>" + _(' for this message.', 'plugin_smime') + "<br>"
-				+ "<br><b>" + _('What caused this issue?', 'plugin_smime') + "</b><br><br>"
-				+ text
-				+ "<br><br><b>" + _('What should I do?', 'plugin_smime') + "</b><br><br>"
-				+ _('You can continue to work. However, you should keep in mind that the identity and the authenticity of the message content could not be verified.', 'plugin_smime')
-				+ "<br><br>" + _('You can contact your helpdesk or system administrator if you are not sure what to do next.', 'plugin_smime');
+			 return _('WebApp can verify digital signatures of emails. A successful verification reassures you that the message has not been tampered with and validates the identity of the sender.', 'plugin_smime') +
+				"<br><br>" + _('You are seeing this message because the verification of the digital signature', 'plugin_smime') + "<b>" + _(' has failed', 'plugin_smime') + "</b>" + _(' for this message.', 'plugin_smime') + "<br>" +
+				"<br><b>" + _('What caused this issue?', 'plugin_smime') + "</b><br><br>" +
+				text +
+				"<br><br><b>" + _('What should I do?', 'plugin_smime') + "</b><br><br>" +
+				_('You can continue to work. However, you should keep in mind that the identity and the authenticity of the message content could not be verified.', 'plugin_smime') +
+				"<br><br>" + _('You can contact your helpdesk or system administrator if you are not sure what to do next.', 'plugin_smime');
 		},
 
 		/**
@@ -36,9 +36,9 @@ Zarafa.plugins.smime.SmimeText = function() {
 			switch(index) {
 				// Verified succesfully
 				case 0:
-					return _('WebApp can verify digital signatures of emails. A successful verification reassures you ', 'plugin_smime')
-					  + _('that the message has not been tampered with and validates the identity of the sender.', 'plugin_smime') + "<br><br>"
-					  + _('The verification of the digital signature was successful for this email message.', 'plugin_smime');
+					return _('WebApp can verify digital signatures of emails. A successful verification reassures you ', 'plugin_smime') +
+					  _('that the message has not been tampered with and validates the identity of the sender.', 'plugin_smime') + "<br><br>" +
+					  _('The verification of the digital signature was successful for this email message.', 'plugin_smime');
 				// Could not verify, missing public certificate
 				case 1:
 					return Zarafa.plugins.smime.SmimeText.createMessage(_('WebApp could not find a public certificate for the recipient.', 'plugin_smime'));
