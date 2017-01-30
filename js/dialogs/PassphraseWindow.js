@@ -90,8 +90,14 @@ Zarafa.plugins.smime.dialogs.PassphraseWindow = Ext.extend(Zarafa.core.ui.Conten
 					cls: 'passphrase-submit  zarafa-action',
 					handler: this.checkPassphrase,
 					scope: this,
-					width: 100,
-					minWidth: 100
+					width: 100
+				},{
+					xtype: 'button',
+					text:  _('Cancel', 'plugin_smime'),
+					cls: 'passphrase-cancel',
+					handler: this.onCancel,
+					scope: this,
+					width: 100
 				}]
 			});
 		} else {
@@ -115,13 +121,29 @@ Zarafa.plugins.smime.dialogs.PassphraseWindow = Ext.extend(Zarafa.core.ui.Conten
 					cls: 'passphrase-submit zarafa-action',
 					handler: this.checkPassphrase,
 					scope: this,
-					width: 100,
-					minWidth: 100
+					width: 100
+				},{	
+					xtype: 'button',
+					text:  _('Cancel', 'plugin_smime'),
+					cls: 'passphrase-cancel',
+					handler: this.onCancel,
+					scope: this,
+					width: 100
 				}]
 			});
 		}
 
 		return innerItems;
+	},
+
+	/**
+	 * Event handler which is triggered when the user presses the Cancel button
+	 * {@link Ext.Button}. This will close the {@link Zarafa.plugins.smime.dialogs.PassphraseWindow dialog}
+	 * @private
+	 */
+	onCancel : function()
+	{
+		this.dialog.close();
 	},
 
 	/**
