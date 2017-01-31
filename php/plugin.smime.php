@@ -1144,31 +1144,34 @@ class Pluginsmime extends Plugin {
 	 * While we decrypt an encrypted message some how mapi will append the recipients instead of replace.
 	 * So to handle this situation by removing duplicate recipients from message.
 	 * @param object $message  MAPI Message object from which we need to get the recipients.
-	 * FIXME: remove while mapi_inetmapi_imtomapi function will replace the recipients instead of append.
+         *
+         * FIXME: Remove when KC-419 is resolved.
 	 */
 	function removeDuplicateRecipients($message)
 	{
-        $recipientTable = mapi_message_getrecipienttable($message);
-        if ($recipientTable) {
+            $recipientTable = mapi_message_getrecipienttable($message);
+            if (!$recipientTable) {
+                return;
+            }
+
             $recipients = mapi_table_queryallrows($recipientTable, $GLOBALS['properties']->getRecipientProperties());
             $removeRecipients = array();
-            foreach ($recipients as $recipient) {
-                $entryId = $recipient[PR_ENTRYID];
-                $isExist = false;
-                foreach ($removeRecipients as $removeRecipient) {
-                    if ($entryId === $removeRecipient[PR_ENTRYID]) {
-                        $isExist = true;
-                        break;
-                    }
-                }
+            $tmp = array();
 
-                if (!$isExist) {
+            foreach ($recipients as $recipient) {
+                $entryid = $recipient[PR_ENTRYID];
+
+                if (array_key_exists($entryid, $tmp)) {
+                    // Duplicate, remove it.
                     array_push($removeRecipients, $recipient);
+                } else {
+                    $tmp[$entryid] = True;
                 }
             }
 
-            mapi_message_modifyrecipients($message, MODRECIP_REMOVE, $removeRecipients);
-        }
+            if (!empty($removeRecipients)) {
+                mapi_message_modifyrecipients($message, MODRECIP_REMOVE, $removeRecipients);
+            }
 	}
 }
 ?>
