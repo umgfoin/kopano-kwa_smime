@@ -81,7 +81,7 @@
 
 .x-grid3-hd-row td.zarafa-icon-column .x-grid3-hd-inner p.icon_smime_settings {
   background-position: center;
-  width: 16px; 
+  width: 16px;
 }
 
 .icon_smime_settings {
@@ -127,23 +127,8 @@
 }
 
 /* styling for the passphrase dialog */
-.zarafa-smime-passphrasewindow {
-    margin: 10px 10px 10px;
-}
-
-.passphrase-submit {
-    margin: 0 auto !important;
-    padding-top: 30px !important;
-}
-
-.zarafa-smime-passphrasewindow div > .x-form-item-label {
-    width: 130px !important;
-}
-
-.zarafa-smime-passphrasewindow input[type="password"] {
-    width: 200px !important;
-}
-
-.zarafa-smime-invalid-text {
-    color: #e30022;
+.x-viewport .k-smime-viewport .x-panel-footer.x-panel-btns {
+	padding-top: 0;
+	padding-left: 0;
+	padding-right: 0;
 }
