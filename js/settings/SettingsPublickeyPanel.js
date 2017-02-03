@@ -100,6 +100,7 @@ Zarafa.plugins.smime.settings.SettingsPublickeyPanel = Ext.extend(Ext.Panel, {
 					height : 20
 				}, {
 					xtype : 'button',
+					width : 84,
 					text : _('Remove', 'plugin_smime'),
 					disabled : true,
 					ref : '../../removeButton',
@@ -110,6 +111,7 @@ Zarafa.plugins.smime.settings.SettingsPublickeyPanel = Ext.extend(Ext.Panel, {
 					height : 20
 				}, {
 					xtype : 'button',
+					width : 84,
 					text : _('Details', 'plugin_smime'),
 					disabled : true,
 					ref : '../../detailButton',

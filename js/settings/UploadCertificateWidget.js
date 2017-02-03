@@ -54,7 +54,7 @@ Zarafa.plugins.smime.settings.UploadCertificateWidget = Ext.extend(Zarafa.settin
 				iconCls : 'icon_smime_settings',
 				fieldLabel : _('Private certificate', 'plugin_smime'),
 				ref : 'certificate',
-				width: 200,
+				width: 84,
 				handler : this.selectCertificate,
 				scope : this
 			},{
@@ -67,7 +67,7 @@ Zarafa.plugins.smime.settings.UploadCertificateWidget = Ext.extend(Zarafa.settin
 			},{
 				xtype : 'button',
 				text : _('Upload', 'plugin_smime'),
-				width : 100,
+				width : 84,
 				handler : this.uploadCertificate,
 				scope : this
 			}]
