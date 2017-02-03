@@ -45,7 +45,7 @@ Ext.apply(Ext.EventManager, function(){
 				resizeTask.delay(100);
 			}
 		}
-	}
+	};
 }());
 
 /**

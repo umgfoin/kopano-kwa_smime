@@ -28,7 +28,7 @@ Zarafa.plugins.smime.dialogs.PassphraseContentPanel = Ext.extend(Zarafa.core.ui.
 				xtype: 'smime.passphrasewindow',
 				ref: 'passphrasePanel',
 				record: config.record
-			}],
+			}]
 		});
 
 		Zarafa.plugins.smime.dialogs.PassphraseContentPanel.superclass.constructor.call(this, config);
