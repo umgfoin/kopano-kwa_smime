@@ -950,8 +950,17 @@ class Pluginsmime extends Plugin {
 				}
 
 				// check if OCSP revocation update is recent
-				$now = gmdate('YmdHis\Z');
-				if($resp['thisUpdate'] >= $now && $now >= $resp['nextupdate']) {
+				// Store current time for thisUpdate and nextUpdate check.
+				$now = new DateTime(gmdate('YmdHis\Z'));
+				$thisUpdate = new DateTime($resp['thisUpdate']);
+				$nextUpdate = new DateTime($resp['nextUpdate']);
+
+				// Check if update time is earlier then our own time
+				if (!isset($resp['nextupdate']) && $thisUpdate > $now) {
+					$this->message['info'] = SMIME_REVOKED;
+					return false;
+				// current time should be between thisUpdate and nextUpdate.
+				} else if ($thisUpdate > $now && $now > $nextUpdate) {
 					// OCSP Revocation status not current
 					$this->message['info'] = SMIME_REVOKED;
 					return false;
