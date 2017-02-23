@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-11 22:27+0000\n"
-"PO-Revision-Date: 2016-10-05 10:29+0000\n"
-"Last-Translator: Zoltan <zoltan.kiss@serverside.hu>\n"
+"PO-Revision-Date: 2017-02-23 13:45+0000\n"
+"Last-Translator: Gabor MARTON <marton@mik.uni-pannon.hu>\n"
 "Language-Team: Hungarian "
 "<http://translate.kopano.io/projects/kopano/smime/hu/>\n"
 "Language: hu_HU\n"
@@ -98,7 +98,7 @@ msgstr ""
 
 #: js/settings/SettingsPublickeyPanel.js:88
 msgid "Filter on Email"
-msgstr ""
+msgstr "Szűrő levélen"
 
 #: js/settings/SettingsPublickeyPanel.js:103
 msgid "Remove"
@@ -110,23 +110,23 @@ msgstr "Részletek"
 
 #: js/settings/SettingsPublickeyWidget.js:19
 msgid "Public & Private certificates"
-msgstr ""
+msgstr "Publikus & Privát tanúsítványok"
 
 #: js/settings/SettingsSmimeWidget.js:28
 msgid "Personal certificate"
-msgstr ""
+msgstr "Személyes tanúsítvány"
 
 #: js/settings/SettingsSmimeWidget.js:35
 msgid "You don't have a valid certificate corresponding to your account"
-msgstr ""
+msgstr "Nincs érvényes tanúsítványa ehhez a fiókhoz"
 
 #: js/settings/SettingsSmimeWidget.js:68
 msgid "You have a valid certificate corresponding to your account"
-msgstr ""
+msgstr "Rendelkezik érvényes tanúsítvánnyal ehhez a fiókhoz"
 
 #: js/settings/UploadCertificateWidget.js:43
 msgid "Upload your certificate"
-msgstr ""
+msgstr "Tanúsítvány feltöltése"
 
 #: js/settings/UploadCertificateWidget.js:49
 msgid ""
@@ -134,6 +134,9 @@ msgid ""
 "only accepts certificates which are valid and only stores one private "
 "certificate on the server."
 msgstr ""
+"Feltöltheti tanúsítványét PKCS#12 formátumban. A WebApp csak olyan "
+"tanúsítványokat fogad el, amik érvényesek, és csak egy privát tanúsítványt "
+"tárol a kiszolgálón."
 
 #: js/settings/UploadCertificateWidget.js:52
 #: js/settings/UploadCertificateWidget.js:53
@@ -142,7 +145,7 @@ msgstr "Választ"
 
 #: js/settings/UploadCertificateWidget.js:55
 msgid "Private certificate"
-msgstr ""
+msgstr "Privát tanúsítvány"
 
 #: js/settings/UploadCertificateWidget.js:69
 msgid "Upload"
@@ -150,51 +153,55 @@ msgstr "Feltöltés"
 
 #: js/settings/UploadCertificateWidget.js:102
 msgid "Passphrase is empty"
-msgstr ""
+msgstr "A jelszó üres"
 
 #: js/settings/UploadCertificateWidget.js:104
 msgid "No certificate selected"
-msgstr ""
+msgstr "Nem választott ki tanúsítványt"
 
 #: js/SmimePlugin.js:78
 msgid "Sign"
-msgstr ""
+msgstr "Aláír"
 
 #: js/SmimePlugin.js:80
 msgid "Sign message"
-msgstr ""
+msgstr "Üzenet aláírása"
 
 #: js/SmimePlugin.js:81
 msgid ""
 "Ensure the authenticity of the message by adding a digital signature to this "
 "message. Any changes to the message will invalidate the signature."
 msgstr ""
+"Biztosítsa az üzenet hitelességét azzal, hogy digitálisan aláírja. Az üzenet "
+"bármely változtatása az aláírást érvényteleníti."
 
 #: js/SmimePlugin.js:99
 msgid "Encrypt"
-msgstr ""
+msgstr "Titkosít"
 
 #: js/SmimePlugin.js:101
 msgid "Encrypt message"
-msgstr ""
+msgstr "Üzenet titkosítása"
 
 #: js/SmimePlugin.js:102
 msgid ""
 "Ensure the privacy of the message by encrypting its contents. Only the "
 "recipient of the message will be able to open it."
 msgstr ""
+"Biztosítsa az üzenet titkosságát azzal, hogy titkosítja. Csak az üzenet "
+"címzettje fogja tudni megnyitni."
 
 #: js/SmimePlugin.js:139
 msgid "What's going on with my email?"
-msgstr ""
+msgstr "Mi történik a levelemmel?"
 
 #: js/SmimePlugin.js:390
 msgid "SMIME Message"
-msgstr ""
+msgstr "SMIME Üzenet"
 
 #: js/SmimePlugin.js:439
 msgid "S/MIME Plugin"
-msgstr ""
+msgstr "S/MIME Beépülő"
 
 #: js/SmimeText.js:18
 msgid ""
@@ -211,11 +218,11 @@ msgstr ""
 
 #: js/SmimeText.js:20
 msgid "What caused this issue?"
-msgstr ""
+msgstr "Mi okozta ezt a problémát?"
 
 #: js/SmimeText.js:22
 msgid "What should I do?"
-msgstr ""
+msgstr "Mit tegyek?"
 
 #: js/SmimeText.js:23
 msgid ""
@@ -249,7 +256,7 @@ msgstr ""
 
 #: js/SmimeText.js:44
 msgid "WebApp could not find a public certificate for the recipient."
-msgstr ""
+msgstr "A WebApp nem talált publikus tanúsítványt a címzetthez."
 
 #: js/SmimeText.js:47
 msgid ""
@@ -293,23 +300,25 @@ msgstr ""
 
 #: js/SmimeText.js:81
 msgid "Signature verified succesfully"
-msgstr ""
+msgstr "A tanúsítvány ellenőrzése sikeres"
 
 #: js/SmimeText.js:83
 msgid "Could not verify signature, missing public certificate"
 msgstr ""
+"Az aláírás érvényessége nem ellenőrizhető, mert nem található hozzá publikus "
+"tanúsítvány"
 
 #: js/SmimeText.js:85
 msgid "Signature verification succesfull, but certificate is expired"
-msgstr ""
+msgstr "Aláírás ellenőrzése sikeres, de a tanúsítvány érvényességi ideje lejárt"
 
 #: js/SmimeText.js:87
 msgid "Signature could not be verified"
-msgstr ""
+msgstr "Aláírás érvényessége nem ellenőrizhető"
 
 #: js/SmimeText.js:89
 msgid "Certificate has been revoked"
-msgstr ""
+msgstr "A tanúsítványt visszavonták"
 
 #: js/SmimeText.js:91
 msgid "Verification with Certificate Authority failed"
@@ -317,15 +326,15 @@ msgstr ""
 
 #: js/SmimeText.js:93
 msgid "Message decrypted succesfully"
-msgstr ""
+msgstr "Az üzenetet sikerült visszafejteni"
 
 #: js/SmimeText.js:95
 msgid "Message decryption failed"
-msgstr ""
+msgstr "Az üzenet visszafejtése nem sikerült"
 
 #: js/SmimeText.js:97
 msgid "Please unlock your certificate"
-msgstr ""
+msgstr "Kérem, oldja fel a tanúsítványát"
 
 #: js/SmimeText.js:99 js/SmimeText.js:103
 msgid "Cannot determine revocation status of certificate"
@@ -337,19 +346,19 @@ msgstr ""
 
 #: php/class.pluginsmimemodule.php:93
 msgid "No certificate avaliable"
-msgstr ""
+msgstr "Nem áll rendelkezésre tanúsítvány"
 
 #: php/class.pluginsmimemodule.php:99
 msgid "Private certificate is not valid yet, unable to sign email"
-msgstr ""
+msgstr "Személyes tanúsítvány még nem érvényes, nem lehetséges a levél aláírása"
 
 #: php/class.pluginsmimemodule.php:101
 msgid "Private certificate has been expired, unable to sign email"
-msgstr ""
+msgstr "A személyes tanúsítvány lejárt, nem lehetséges a levél aláírása"
 
 #: php/class.pluginsmimemodule.php:103
 msgid "Private certificate does not match email address"
-msgstr ""
+msgstr "A személyes tanúsítvány nem egyezik meg az email címmel"
 
 #: php/plugin.smime.php:129
 msgid "Missing public certificates for the following recipients: "
@@ -357,11 +366,11 @@ msgstr ""
 
 #: php/plugin.smime.php:129
 msgid ". Please contact your system administrator for details"
-msgstr ""
+msgstr "Kérem, vegye fel a kapcsolatot a rendszergazdával a részletekért"
 
 #: php/plugin.smime.php:383
 msgid "Private key can't be used to sign email"
-msgstr ""
+msgstr "Privát kulccsal nem lehet üzenetet aláírni"
 
 #: php/plugin.smime.php:387
 msgid "Certificate email address doesn't match WebApp account "
@@ -369,7 +378,7 @@ msgstr ""
 
 #: php/plugin.smime.php:391
 msgid "Certificate was expired on "
-msgstr ""
+msgstr "A tanúsítvány lejárt ekkor: "
 
 #: php/plugin.smime.php:391 php/plugin.smime.php:395
 msgid "Certificate has not been imported"
@@ -377,11 +386,11 @@ msgstr ""
 
 #: php/plugin.smime.php:395
 msgid "Certificate is not yet valid "
-msgstr ""
+msgstr "A tanúsítvány még nem érvényes "
 
 #: php/plugin.smime.php:399
 msgid "Certificate is revoked"
-msgstr ""
+msgstr "A tanúsítványt visszavonták"
 
 #: php/plugin.smime.php:402
 msgid "Unable to read public certificate"
@@ -397,8 +406,8 @@ msgstr ""
 
 #: php/plugin.smime.php:428
 msgid "New certificate uploaded"
-msgstr ""
+msgstr "Új tanúsítvány feltöltődött"
 
 #: php/plugin.smime.php:430
 msgid "Certificate uploaded"
-msgstr ""
+msgstr "Tanúsítvány feltöltődött"
