@@ -292,6 +292,18 @@ class Pluginsmime extends Plugin {
 			$decryptStatus = openssl_pkcs7_decrypt($tmpFile, $tmpDecrypted, $certs['cert'], array($certs['pkey'], ''));
 
 			$content = file_get_contents($tmpDecrypted);
+			// Handle OL empty body Outlook Signed & Encrypted mails.
+			// The S/MIME plugin has to extract the body from the signed message.
+			if (strpos($content, 'signed-data') !== false) {
+				$this->message['type'] = 'encryptsigned';
+				$olcert = tempnam(sys_get_temp_dir(), true);
+				$olmsg = tempnam(sys_get_temp_dir(), true);
+				openssl_pkcs7_verify($tmpDecrypted, PKCS7_NOVERIFY, $olcert);
+				openssl_pkcs7_verify($tmpDecrypted, PKCS7_NOVERIFY, $olcert, array(), $olcert, $olmsg);
+				$content = file_get_contents($olmsg);
+				unlink($olmsg);
+				unlink($olcert);
+			}
 
 			$receivedTime = mapi_getprops($data['message'], Array(PR_MESSAGE_DELIVERY_TIME));
 			mapi_inetmapi_imtomapi($GLOBALS['mapisession']->getSession(), $this->store, $GLOBALS['mapisession']->getAddressbook(), $data['message'], $content, Array('parse_smime_signed' => True));
@@ -307,7 +319,7 @@ class Pluginsmime extends Plugin {
 
 			// mapi_inetmapi_imtomapi removes the PR_MESSAGE_CLASS = 'IPM.Note.SMIME.MultipartSigned'
 			// So we need to check if the message was also signed by looking at the MIME_TAG in the eml
-			if(strpos($content, 'multipart/signed') !== false) {
+			if(strpos($content, 'multipart/signed') !== false || strpos($content, 'signed-data') !== false) {
 				$this->message['type'] = 'encryptsigned';
 				$this->verifyMessage($data['message'], $content);
 			} else if ($decryptStatus) {
