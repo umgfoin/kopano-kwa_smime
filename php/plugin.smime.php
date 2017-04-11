@@ -418,7 +418,7 @@ class Pluginsmime extends Plugin {
 						$message = dgettext('plugin_smime', 'Private key can\'t be used to sign email');
 					}
 					// Check if the certificate owner matches the WebApp users email address
-					else if($certEmailAddress !== $emailAddress) {
+					else if (strcasecmp($certEmailAddress, $emailAddress) !== 0) {
 						$message = dgettext('plugin_smime', 'Certificate email address doesn\'t match WebApp account ') . $certEmailAddress;
 					}
 					// Check if certificate is not expired, still import the certificate since a user wants to decrypt his old email
