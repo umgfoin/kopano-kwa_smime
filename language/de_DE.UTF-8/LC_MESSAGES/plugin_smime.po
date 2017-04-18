@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-29 15:55+0200\n"
-"PO-Revision-Date: 2017-04-18 14:04+0000\n"
-"Last-Translator: Felix <f.bartels@kopano.com>\n"
+"PO-Revision-Date: 2017-04-18 14:25+0000\n"
+"Last-Translator: Andreas <a.roesler@kopano.com>\n"
 "Language-Team: German <http://translate.kopano.io/projects/kopano/smime/de/>"
 "\n"
 "Language: de_DE\n"
@@ -15,9 +15,8 @@ msgstr ""
 "X-Generator: Weblate 2.4\n"
 
 #: js/data/ChangePassphraseWindow.js:23 js/dialogs/ChangePassphraseWindow.js:23
-#, fuzzy
 msgid "S/MIME Change passphrase"
-msgstr "S/MIME Passwort"
+msgstr "S/MIME Passwort ändern"
 
 #: js/data/ChangePassphraseWindow.js:29 js/dialogs/PassphraseWindow.js:37
 #: js/settings/UploadCertificateWidget.js:63
@@ -29,24 +28,20 @@ msgid "Submit"
 msgstr "Okay"
 
 #: js/dialogs/ChangePassphraseWindow.js:28
-#, fuzzy
 msgid "Old passphrase"
-msgstr "S/MIME Passwort"
+msgstr "Bisheriges Passwort"
 
 #: js/dialogs/ChangePassphraseWindow.js:39
-#, fuzzy
 msgid "New passphrase"
-msgstr "Passwort des Zertifikates"
+msgstr "Neues Passwort"
 
 #: js/dialogs/ChangePassphraseWindow.js:50
-#, fuzzy
 msgid "Confirm new passphrase"
-msgstr "Passwort des Zertifikates"
+msgstr "Neues Passwort bestätigen"
 
 #: js/dialogs/ChangePassphraseWindow.js:66
-#, fuzzy
 msgid "Change passphrase"
-msgstr "Passwort des Zertifikates"
+msgstr "Passwort ändern"
 
 #: js/dialogs/ChangePassphraseWindow.js:70
 msgid "Cancel"
@@ -54,7 +49,7 @@ msgstr "Abbrechen"
 
 #: js/dialogs/ChangePassphraseWindow.js:102
 msgid "New passphrase and confirmation passphrase do not match"
-msgstr ""
+msgstr "Das neue Passwort stimmt nicht mit der zweiten Eingabe überein"
 
 #: js/dialogs/PassphraseWindow.js:31
 msgid "S/MIME Passphrase"
@@ -249,23 +244,17 @@ msgstr ""
 "verändert wurde und wirklich vom angegebenen Absender kommt."
 
 #: js/SmimeText.js:19
-#, fuzzy
 msgid ""
 "You are seeing this message because the verification of the digital signature"
-msgstr ""
-"Sie sehen diese Nachricht, weil die Verifikation der digitalen Signatur für "
-"diese Nachricht\") + \"<b> \" + _(\" fehlgeschlagen\") + \"</b>\" + _(\" ist."
+msgstr "Sie sehen diese Nachricht, weil die Verifikation der digitalen Signatur"
 
 #: js/SmimeText.js:19
 msgid " has failed"
-msgstr ""
-"Sie sehen diese Nachricht, weil die Verifikation der digitalen Signatur für "
-"diese Nachricht\") + \"<b> \" + _(\" fehlgeschlagen\") + \"</b>\" + _(\" ist."
+msgstr " hat nicht funktioniert"
 
 #: js/SmimeText.js:19
-#, fuzzy
 msgid " for this message."
-msgstr "Nachricht verschlüsseln"
+msgstr " für diese Nachricht."
 
 #: js/SmimeText.js:20
 msgid "What caused this issue?"
@@ -325,4 +314,5 @@ msgid ""
 "The identity of the sender and authenticity of the message content have been "
 "verified, but the certificate used to sign the message expired on [d-m-Y]."
 msgstr ""
-"Die Identität des Senders und die Echtheit der Nachricht wurden verifiziert. "
+"Die Identität des Senders und die Echtheit der Nachricht wurden verifiziert, "
+"das dafür genutzte Zertifikat ist jedoch am [d.m.Y] ausgelaufen."
