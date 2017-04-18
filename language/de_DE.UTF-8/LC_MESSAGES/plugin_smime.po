@@ -3,10 +3,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-29 15:55+0200\n"
-"PO-Revision-Date: 2016-07-11 12:26+0000\n"
-"Last-Translator: Andreas <a.roesler@kopano.com>\n"
-"Language-Team: German <http://translate.kopano.io/projects/kopano/smime/de/"
-">\n"
+"PO-Revision-Date: 2017-04-18 14:04+0000\n"
+"Last-Translator: Felix <f.bartels@kopano.com>\n"
+"Language-Team: German <http://translate.kopano.io/projects/kopano/smime/de/>"
+"\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,7 +50,7 @@ msgstr "Passwort des Zertifikates"
 
 #: js/dialogs/ChangePassphraseWindow.js:70
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: js/dialogs/ChangePassphraseWindow.js:102
 msgid "New passphrase and confirmation passphrase do not match"
@@ -326,181 +326,3 @@ msgid ""
 "verified, but the certificate used to sign the message expired on [d-m-Y]."
 msgstr ""
 "Die Identität des Senders und die Echtheit der Nachricht wurden verifiziert. "
-<<<<<<< HEAD
-"Allerdings ist das Zertifikat, mit dem die Nachricht signiert wurde, am "
-"[d.m.Y] ausgelaufen."
-=======
-"Allerdings ist das Zertifikat, mit dem die Nachricht signiert wurde, am [d.m."
-"Y] ausgelaufen."
->>>>>>> db657504f3c44566cdd9c4a93432d94a42cb9efb
-
-#: js/SmimeText.js:50
-msgid "The digital signature could not be verified for unknown reasons."
-msgstr ""
-"Die digitale Signatur konnte aus unbekannten Gründen nicht verifiziert "
-"werden."
-
-#: js/SmimeText.js:53
-msgid ""
-"The digital certificate used to sign this message has been revoked (i.e. the "
-"sender has marked it as compromised)"
-msgstr ""
-"Die digitale Signatur, mit der diese Nachricht signiert wurde, wurde "
-"zurückgezogen. Dies kann zum Beispiel bedeuten, dass der Sender als "
-"kompromittiert markiert wurde"
-
-#: js/SmimeText.js:56
-msgid ""
-"The verification service of the certificate authority that signed the "
-"sender's certificate is not available. The validity of the certificate could "
-"not be verified."
-msgstr ""
-"Der Prüfungsdienst der Zertifizierungsstelle, die das Zertifikat des "
-"Absenders signiert hat, ist nicht verfügbar. Deswegen konnte die Echtheit "
-"des Zertifikates nicht sichergestellt werden."
-
-#: js/SmimeText.js:59
-msgid ""
-"The revocation status of the digital certificate used to sign this email is "
-"unknown (Server is unavaliable or certificate does not support OCSP). The "
-"validity of the certificate could not be verified."
-msgstr ""
-"Der Rückrufstatus des digitalen Zertifikates, mit dem diese Nachricht "
-"signiert wurde, ist unbekannt (vielleicht ist der Server nicht verfügbar "
-"oder das Zertifikat unterstützt kein OCSP). Die Echtheit des Zertifikates "
-"konnte nicht sichergestellt werden."
-
-#: js/SmimeText.js:62
-msgid ""
-"The revocation status of the digital certificate used to sign this email is "
-"disabled (OCSP). The validity of the certificate could not be verified."
-msgstr ""
-"Der Rückrufstatus des digitalen Zertifikates, mit dem diese Nachricht "
-"signiert wurde, ist deaktiviert (OCSP). Die Echtheit des Zertifikates konnte "
-"nicht sichergestellt werden."
-
-#: js/SmimeText.js:65
-msgid "The certificate verification server (OCSP) is temporarly offline."
-msgstr "Der Prüfdienst für das Zertifikat (OCSP) ist temporär nicht verfügbar."
-
-#: js/SmimeText.js:81
-msgid "Signature verified succesfully"
-msgstr "Signatur erfolgreich verifiziert"
-
-#: js/SmimeText.js:83
-msgid "Could not verify signature, missing public certificate"
-msgstr ""
-"Die Signatur konnte nicht verifiziert werden, da das öffentliche Zertifikat "
-"fehlt"
-
-#: js/SmimeText.js:85
-msgid "Signature verification succesfull, but certificate is expired"
-msgstr ""
-"Die Signatur konnte erfolgreich verifiziert werden, aber das Zertifikat ist "
-"ausgelaufen"
-
-#: js/SmimeText.js:87
-msgid "Signature could not be verified"
-msgstr "Die Signatur konnte nicht verifiziert werden"
-
-#: js/SmimeText.js:89
-msgid "Certificate has been revoked"
-msgstr "Das Zertifikat wurde zurückgezogen"
-
-#: js/SmimeText.js:91
-msgid "Verification with Certificate Authority failed"
-msgstr "Überprüfung mit der Zertifizierungsstelle ist fehlgeschlagen"
-
-#: js/SmimeText.js:93
-msgid "Message decrypted succesfully"
-msgstr "Nachricht erfolgreich entschlüsselt"
-
-#: js/SmimeText.js:95
-msgid "Message decryption failed"
-msgstr "Entschlüsselung der Nachricht ist fehlgeschlagen"
-
-#: js/SmimeText.js:97
-msgid "Please unlock your certificate"
-msgstr "Bitte schalten Sie Ihr Zertifikat frei"
-
-#: js/SmimeText.js:99 js/SmimeText.js:103
-msgid "Cannot determine revocation status of certificate"
-msgstr "Kann der Rückrufstatus des Zertifikates nicht feststellen"
-
-#: js/SmimeText.js:101
-msgid "Signature verified (OCSP disabled)"
-msgstr "Signatur verifiziert (OCSP abgeschaltet)"
-
-#: php/class.pluginsmimemodule.php:93
-msgid "No certificate avaliable"
-msgstr "Kein Zertifikat verfügbar"
-
-#: php/class.pluginsmimemodule.php:99
-msgid "Private certificate is not valid yet, unable to sign email"
-msgstr ""
-"Das private Zertifikat ist noch nicht valide. Kann die Nachricht nicht "
-"signieren"
-
-#: php/class.pluginsmimemodule.php:101
-msgid "Private certificate has been expired, unable to sign email"
-msgstr ""
-"Das private Zertifikat ist ausgelaufen. Kann die Nachricht nicht signieren"
-
-#: php/class.pluginsmimemodule.php:103
-msgid "Private certificate does not match email address"
-msgstr "Das private Zertifikat passt nicht zur E-Mail-Adresse"
-
-#: php/plugin.smime.php:124
-msgid "Missing public certificates for the following recipients: "
-msgstr "Die öffentlichen Zertifikate folgender Empfänger fehlen: "
-
-#: php/plugin.smime.php:124
-msgid ". Please contact your system administrator for details"
-msgstr ""
-". Bitte kontaktieren Sie Ihren Systemadministrator, um weiter Details zu "
-"erfahren"
-
-#: php/plugin.smime.php:381
-msgid "Private key can't be used to sign email"
-msgstr ""
-"Der private Schlüssel kann nicht genutzt werden, um diese E-Mail zu signieren"
-
-#: php/plugin.smime.php:385
-msgid "Certificate email address doesn't match WebApp account "
-msgstr "Die E-Mail-Adresse des Zertifikates passt nicht zum WebApp-Benutzer "
-
-#: php/plugin.smime.php:389
-msgid "Certificate was expired on "
-msgstr "Das Zertifikat ist ausgelaufen am "
-
-#: php/plugin.smime.php:389 php/plugin.smime.php:393
-msgid "Certificate has not been imported"
-msgstr "Zertifikat wurde nicht importiert"
-
-#: php/plugin.smime.php:393
-msgid "Certificate is not yet valid "
-msgstr "Zertifikat ist noch nicht valide "
-
-#: php/plugin.smime.php:397
-msgid "Certificate is revoked"
-msgstr "Zertifikat wurde zurückgezogen"
-
-#: php/plugin.smime.php:400
-msgid "Unable to read public certificate"
-msgstr "Kann das öffentliche Zertifikat nicht lesen"
-
-#: php/plugin.smime.php:403
-msgid "Unable to decrypt certificate"
-msgstr "Kann das Zertifikat nicht entschlüsseln"
-
-#: php/plugin.smime.php:412
-msgid "Certificate is already stored on the server"
-msgstr "Das Zertifikat ist bereits auf dem Server gespeichert"
-
-#: php/plugin.smime.php:426
-msgid "New certificate uploaded"
-msgstr "Neues Zertifikat hochgeladen"
-
-#: php/plugin.smime.php:428
-msgid "Certificate uploaded"
-msgstr "Zertifikat hochgeladen"
