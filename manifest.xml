@@ -35,7 +35,12 @@
 					<clientfile load="source">js/data/SmimeCertificateStore.js</clientfile>
 
 					<clientfile load="source">js/data/SmimeResponseHandler.js</clientfile>
+					<clientfile load="source">js/ui/Viewport.js</clientfile>
+					<clientfile load="source">js/ui/FormPanel.js</clientfile>
+					<clientfile load="source">js/dialogs/PassphraseContentPanel.js</clientfile>
 					<clientfile load="source">js/dialogs/PassphraseWindow.js</clientfile>
+					<clientfile load="source">js/dialogs/ChangePassphraseContentPanel.js</clientfile>
+					<clientfile load="source">js/dialogs/ChangePassphrasePanel.js</clientfile>
 					<clientfile load="source">js/settings/SettingsSmimeCategory.js</clientfile>
 					<clientfile load="source">js/settings/SettingsSmimeWidget.js</clientfile>
 					<clientfile load="source">js/settings/UploadCertificateWidget.js</clientfile>

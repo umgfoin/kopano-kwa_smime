@@ -15,26 +15,55 @@ msgstr ""
 "4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.4\n"
 
+#: js/data/ChangePassphraseWindow.js:23 js/dialogs/ChangePassphraseWindow.js:23
+msgid "S/MIME Change passphrase"
+msgstr ""
+
+#: js/data/ChangePassphraseWindow.js:29 js/dialogs/PassphraseWindow.js:37
+#: js/settings/UploadCertificateWidget.js:63
+msgid "Certificate passphrase"
+msgstr ""
+
+#: js/data/ChangePassphraseWindow.js:35 js/dialogs/PassphraseWindow.js:47
+msgid "Submit"
+msgstr ""
+
+#: js/dialogs/ChangePassphraseWindow.js:28
+msgid "Old passphrase"
+msgstr ""
+
+#: js/dialogs/ChangePassphraseWindow.js:39
+msgid "New passphrase"
+msgstr ""
+
+#: js/dialogs/ChangePassphraseWindow.js:50
+msgid "Confirm new passphrase"
+msgstr ""
+
+#: js/dialogs/ChangePassphraseWindow.js:66
+msgid "Change passphrase"
+msgstr ""
+
+#: js/dialogs/ChangePassphraseWindow.js:70
+msgid "Cancel"
+msgstr ""
+
+#: js/dialogs/ChangePassphraseWindow.js:102
+msgid "New passphrase and confirmation passphrase do not match"
+msgstr ""
+
 #: js/dialogs/PassphraseWindow.js:31
 msgid "S/MIME Passphrase"
 msgstr ""
 
-#: js/dialogs/PassphraseWindow.js:37 js/settings/UploadCertificateWidget.js:63
-msgid "Certificate passphrase"
-msgstr ""
-
-#: js/dialogs/PassphraseWindow.js:46
-msgid "Submit"
-msgstr ""
-
-#: js/dialogs/PassphraseWindow.js:111
+#: js/dialogs/PassphraseWindow.js:113
 #: js/settings/UploadCertificateWidget.js:140
 #: js/settings/UploadCertificateWidget.js:145 js/SmimePlugin.js:338
 #: js/SmimePlugin.js:404
 msgid "S/MIME Message"
 msgstr ""
 
-#: js/dialogs/PassphraseWindow.js:111
+#: js/dialogs/PassphraseWindow.js:113
 msgid "Password incorrect"
 msgstr ""
 
@@ -203,7 +232,14 @@ msgstr ""
 #: js/SmimeText.js:19
 msgid ""
 "You are seeing this message because the verification of the digital signature"
-"\") + \"<b> \" + _(\" has failed\") + \"</b>\" + _(\" for this message."
+msgstr ""
+
+#: js/SmimeText.js:19
+msgid " has failed"
+msgstr ""
+
+#: js/SmimeText.js:19
+msgid " for this message."
 msgstr ""
 
 #: js/SmimeText.js:20
@@ -348,54 +384,54 @@ msgstr ""
 msgid "Private certificate does not match email address"
 msgstr ""
 
-#: php/plugin.smime.php:129
+#: php/plugin.smime.php:124
 msgid "Missing public certificates for the following recipients: "
 msgstr ""
 
-#: php/plugin.smime.php:129
+#: php/plugin.smime.php:124
 msgid ". Please contact your system administrator for details"
 msgstr ""
 
-#: php/plugin.smime.php:383
+#: php/plugin.smime.php:381
 msgid "Private key can't be used to sign email"
 msgstr ""
 
-#: php/plugin.smime.php:387
+#: php/plugin.smime.php:385
 msgid "Certificate email address doesn't match WebApp account "
 msgstr ""
 
-#: php/plugin.smime.php:391
+#: php/plugin.smime.php:389
 msgid "Certificate was expired on "
 msgstr ""
 
-#: php/plugin.smime.php:391 php/plugin.smime.php:395
+#: php/plugin.smime.php:389 php/plugin.smime.php:393
 msgid "Certificate has not been imported"
 msgstr ""
 
-#: php/plugin.smime.php:395
+#: php/plugin.smime.php:393
 msgid "Certificate is not yet valid "
 msgstr ""
 
-#: php/plugin.smime.php:399
+#: php/plugin.smime.php:397
 msgid "Certificate is revoked"
 msgstr ""
 
-#: php/plugin.smime.php:402
+#: php/plugin.smime.php:400
 msgid "Unable to read public certificate"
 msgstr ""
 
-#: php/plugin.smime.php:405
+#: php/plugin.smime.php:403
 msgid "Unable to decrypt certificate"
 msgstr ""
 
-#: php/plugin.smime.php:414
+#: php/plugin.smime.php:412
 msgid "Certificate is already stored on the server"
 msgstr ""
 
-#: php/plugin.smime.php:428
+#: php/plugin.smime.php:426
 msgid "New certificate uploaded"
 msgstr ""
 
-#: php/plugin.smime.php:430
+#: php/plugin.smime.php:428
 msgid "Certificate uploaded"
 msgstr ""

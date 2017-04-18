@@ -14,6 +14,13 @@ Zarafa.plugins.smime.settings.SettingsSmimeWidget = Ext.extend(Zarafa.settings.u
 	record : undefined,
 
 	/**
+	 * The default button label for the 'Change passphrase' button
+	 * @cfg {String} defaultButtonLabel
+	 */
+	defaultButtonLabel : _('You don\'t have a valid certificate corresponding to your account', 'plugin_smime'),
+
+
+	/**
 	 * @constructor
 	 * @param {Object} config Configuration object
 	 */
@@ -29,10 +36,13 @@ Zarafa.plugins.smime.settings.SettingsSmimeWidget = Ext.extend(Zarafa.settings.u
 			layout : 'form',
 			xtype : 'smime.settingssmimewidget',
 			items :[{
-				xtype: 'displayfield',
+				xtype: 'button',
+				text: _('Change passphrase', 'plugin_smime'),
+				labelStyle: 'width:450px',
 				ref: 'certificateField',
-				hideLabel : true,
-				defaultValue : _('You don\'t have a valid certificate corresponding to your account', 'plugin_smime')
+				fieldLabel : this.defaultButtonLabel,
+				labelSeparator: '',
+				handler : this.changePassphrase
 			}]
 		});
 
@@ -47,7 +57,6 @@ Zarafa.plugins.smime.settings.SettingsSmimeWidget = Ext.extend(Zarafa.settings.u
 	initEvents : function()
 	{
 		Zarafa.plugins.smime.settings.SettingsSmimeWidget.superclass.initEvents.call(this);
-		// TODO: shouldn't this be update?
 		this.mon(this.store, 'load', this.onStoreReady, this);
 		this.mon(this.store, 'remove', this.onStoreReady, this);
 		this.onStoreReady();
@@ -61,12 +70,36 @@ Zarafa.plugins.smime.settings.SettingsSmimeWidget = Ext.extend(Zarafa.settings.u
 	{
 		var index = this.store.findExact('type', 'private');
 		if(index === -1) {
-			this.certificateField.setRawValue(this.certificateField.defaultValue);
+			this.certificateField.disable();
+			this.setCertificateButtonLabel(this.defaultButtonLabel);
 		} else {
+			this.certificateField.enable();
 			this.record = this.store.getAt(index);
 			// TODO: add validity message
-			this.certificateField.setRawValue(_('You have a valid certificate corresponding to your account', 'plugin_smime'));
+			this.setCertificateButtonLabel(_('You have a valid certificate corresponding to your account', 'plugin_smime'));
 		}
+	},
+
+	/**
+	 * Helper function to set the fieldLabel of the certificate field button.
+	 * @param {String} text fieldLabel text to be set.
+	 */
+	setCertificateButtonLabel : function(text)
+	{
+		if (this.certificateField.rendered) {
+			this.certificateField.label.update(text);
+		} else {
+			this.certificateField.fieldLabel = text;
+		}
+	},
+
+	/**
+	 * Handler for 'change passphrase' button, opens a panel which allows a
+	 * user to change his certificate's passphrase.
+	 */
+	changePassphrase : function()
+	{
+		Zarafa.core.data.UIFactory.openLayerComponent(Zarafa.core.data.SharedComponentType['plugin.smime.dialog.changepassphrasecontentpanel'], undefined, {modal: true});
 	}
 });
 

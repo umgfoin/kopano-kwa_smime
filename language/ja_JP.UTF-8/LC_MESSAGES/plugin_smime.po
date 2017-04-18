@@ -18,22 +18,55 @@ msgstr ""
 msgid "S/MIME Passphrase"
 msgstr "S/MIME パスフレーズ"
 
-#: js/dialogs/PassphraseWindow.js:37 js/settings/UploadCertificateWidget.js:63
+#: js/data/ChangePassphraseWindow.js:23 js/dialogs/ChangePassphraseWindow.js:23
+msgid "S/MIME Change passphrase"
+msgstr ""
+
+#: js/data/ChangePassphraseWindow.js:29 js/dialogs/PassphraseWindow.js:37
+#: js/settings/UploadCertificateWidget.js:63
 msgid "Certificate passphrase"
 msgstr "Certificate パスフレーズ"
 
-#: js/dialogs/PassphraseWindow.js:46
+#: js/data/ChangePassphraseWindow.js:35 js/dialogs/PassphraseWindow.js:47
 msgid "Submit"
 msgstr "登録"
 
-#: js/dialogs/PassphraseWindow.js:111
+#: js/dialogs/ChangePassphraseWindow.js:28
+msgid "Old passphrase"
+msgstr ""
+
+#: js/dialogs/ChangePassphraseWindow.js:39
+msgid "New passphrase"
+msgstr ""
+
+#: js/dialogs/ChangePassphraseWindow.js:50
+msgid "Confirm new passphrase"
+msgstr ""
+
+#: js/dialogs/ChangePassphraseWindow.js:66
+msgid "Change passphrase"
+msgstr ""
+
+#: js/dialogs/ChangePassphraseWindow.js:70
+msgid "Cancel"
+msgstr ""
+
+#: js/dialogs/ChangePassphraseWindow.js:102
+msgid "New passphrase and confirmation passphrase do not match"
+msgstr ""
+
+#: js/dialogs/PassphraseWindow.js:31
+msgid "S/MIME Passphrase"
+msgstr ""
+
+#: js/dialogs/PassphraseWindow.js:113
 #: js/settings/UploadCertificateWidget.js:140
 #: js/settings/UploadCertificateWidget.js:145 js/SmimePlugin.js:338
 #: js/SmimePlugin.js:404
 msgid "S/MIME Message"
 msgstr "S/MIME メッセージ"
 
-#: js/dialogs/PassphraseWindow.js:111
+#: js/dialogs/PassphraseWindow.js:113
 msgid "Password incorrect"
 msgstr "パスワードが違います"
 
@@ -206,7 +239,14 @@ msgstr ""
 #: js/SmimeText.js:19
 msgid ""
 "You are seeing this message because the verification of the digital signature"
-"\") + \"<b> \" + _(\" has failed\") + \"</b>\" + _(\" for this message."
+msgstr ""
+
+#: js/SmimeText.js:19
+msgid " has failed"
+msgstr ""
+
+#: js/SmimeText.js:19
+msgid " for this message."
 msgstr ""
 "このメッセージは次の理由により表示されています：このメッセージのためのデジタル証明書の認証 \") + \"<b> \" + _(\" has "
 "failed\") + \"</b>\" + _(\" 。"
@@ -356,54 +396,54 @@ msgstr "個人証明書が有効期限切れしています、電子メールへ
 msgid "Private certificate does not match email address"
 msgstr "電子メールのアドレスと個人証明書が一致していません"
 
-#: php/plugin.smime.php:129
+#: php/plugin.smime.php:124
 msgid "Missing public certificates for the following recipients: "
 msgstr "次の受信者への公開証明書がありません : "
 
-#: php/plugin.smime.php:129
+#: php/plugin.smime.php:124
 msgid ". Please contact your system administrator for details"
 msgstr "詳細についてはシステム管理者へお問い合わせください"
 
-#: php/plugin.smime.php:383
+#: php/plugin.smime.php:381
 msgid "Private key can't be used to sign email"
 msgstr "メールを署名するために公開鍵は利用されていません"
 
-#: php/plugin.smime.php:387
+#: php/plugin.smime.php:385
 msgid "Certificate email address doesn't match WebApp account "
 msgstr "WebAppアカウントと証明書の電子メールアドレスが一致しません "
 
-#: php/plugin.smime.php:391
+#: php/plugin.smime.php:389
 msgid "Certificate was expired on "
 msgstr "証明書の有効期限は次の通りです "
 
-#: php/plugin.smime.php:391 php/plugin.smime.php:395
+#: php/plugin.smime.php:389 php/plugin.smime.php:393
 msgid "Certificate has not been imported"
 msgstr "証明書はインポートされていません"
 
-#: php/plugin.smime.php:395
+#: php/plugin.smime.php:393
 msgid "Certificate is not yet valid "
 msgstr "証明書はまだ有効ではありません "
 
-#: php/plugin.smime.php:399
+#: php/plugin.smime.php:397
 msgid "Certificate is revoked"
 msgstr "証明書は廃棄されました"
 
-#: php/plugin.smime.php:402
+#: php/plugin.smime.php:400
 msgid "Unable to read public certificate"
 msgstr "公開鍵証明書を読み込むことができませんでした"
 
-#: php/plugin.smime.php:405
+#: php/plugin.smime.php:403
 msgid "Unable to decrypt certificate"
 msgstr "証明書を復号することができませんでした"
 
-#: php/plugin.smime.php:414
+#: php/plugin.smime.php:412
 msgid "Certificate is already stored on the server"
 msgstr "証明書は既にサーバへ保存されています"
 
-#: php/plugin.smime.php:428
+#: php/plugin.smime.php:426
 msgid "New certificate uploaded"
 msgstr "新しい証明書がアップロードされました"
 
-#: php/plugin.smime.php:430
+#: php/plugin.smime.php:428
 msgid "Certificate uploaded"
 msgstr "証明書がアップロードされました"

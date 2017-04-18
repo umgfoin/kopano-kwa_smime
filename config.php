@@ -9,6 +9,9 @@ DEFINE('PLUGIN_SMIME_CACERTS', '/etc/ssl/certs');
 // Recommended is OPENSSL_CIPHER_AES_128_CBC or higher
 DEFINE('PLUGIN_SMIME_CIPHER', OPENSSL_CIPHER_3DES); 
 
+// Allow the browser to remember the passphrase
+DEFINE('PLUGIN_SMIME_PASSPHRASE_REMEMBER_BROWSER', false);
+
 // disable OCSP verification
 DEFINE('PLUGIN_SMIME_ENABLE_OCSP', true);
 ?>

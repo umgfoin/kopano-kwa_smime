@@ -1,6 +1,10 @@
 <?php
 include_once('util.php');
 
+define('CHANGE_PASSPHRASE_SUCCESS', 1);
+define('CHANGE_PASSPHRASE_ERROR', 2);
+define('CHANGE_PASSPHRASE_WRONG', 3);
+
 class PluginSmimeModule extends Module
 {
 	/**
@@ -47,6 +51,15 @@ class PluginSmimeModule extends Module
 							$this->addActionData('passphrase', $response);
 							$GLOBALS['bus']->addData($this->getResponseData());
 							break;
+						case 'changepassphrase':
+							$data = $this->changePassphrase($actionData);
+							$response = array(
+								'type' => 3,
+								'code' => $data
+							);
+							$this->addActionData('changepassphrase', $response);
+							$GLOBALS['bus']->addData($this->getResponseData());
+							break;
 						case 'list':
 							$data = $this->getPublicCertificates();
 							$this->addActionData('list', $data);
@@ -90,17 +103,17 @@ class PluginSmimeModule extends Module
 
 		// No certificates
 		if(!$privateCert) {
-			$message = _('No certificate avaliable', 'plugin_smime');
+			$message = dgettext('plugin_smime', 'No certificate avaliable');
 		} else {
 			// Check if certificate is still valid
 			// TODO: create a more generic function which verifyies if the certificate is valid
 			// And remove possible duplication from plugin.smime.php->onUploadCertificate
 			if($privateCert[PR_MESSAGE_DELIVERY_TIME] < time()) { // validTo
-				$message = _('Private certificate is not valid yet, unable to sign email', 'plugin_smime');
+				$message = dgettext('plugin_smime', 'Private certificate is not valid yet, unable to sign email');
 			} else if($privateCert[PR_CLIENT_SUBMIT_TIME] >= time()) { // validFrom
-				$message = _('Private certificate has been expired, unable to sign email', 'plugin_smime');
+				$message = dgettext('plugin_smime', 'Private certificate has been expired, unable to sign email');
 			} else if($privateCert[PR_SUBJECT] != $GLOBALS['mapisession']->getSMTPAddress()) {
-				$message = _('Private certificate does not match email address', 'plugin_smime');
+				$message = dgettext('plugin_smime', 'Private certificate does not match email address');
 			} else {
 				$status = True;
 			}
@@ -156,14 +169,14 @@ class PluginSmimeModule extends Module
 				array(
 					RELOP => RELOP_EQ, 
 					ULPROPTAG => PR_MESSAGE_CLASS,
-					VALUE => array(PR_MESSAGE_CLASS => "webapp.security.public")
+					VALUE => array(PR_MESSAGE_CLASS => "WebApp.Security.Public")
 				)
 			),
 			array(RES_PROPERTY,
 				array(
 					RELOP => RELOP_EQ, 
 					ULPROPTAG => PR_MESSAGE_CLASS,
-					VALUE => array(PR_MESSAGE_CLASS => "webapp.security.private")
+					VALUE => array(PR_MESSAGE_CLASS => "WebApp.Security.Private")
 				)
 			))
 		);
@@ -189,5 +202,56 @@ class PluginSmimeModule extends Module
 		$data['page']['totalrowcount'] = $data['page']['rowcount'];
 		$data = array_merge($data, array('item'=>$items));
 		return $data;
+	}
+
+	/*
+	 * Changes the passphrase of an already stored certificatem by generating
+	 * a new PKCS12 container.
+	 *
+	 * @param Array $actionData contains the passphrase and new passphrase
+	 * return Number error number
+	 */
+	function changePassphrase($actionData)
+	{
+		$certs = readPrivateCert($this->store, $actionData['passphrase']);
+
+		if (empty($certs)) {
+			return CHANGE_PASSPHRASE_WRONG;
+		}
+
+		$cert = $this->pkcs12_change_passphrase($certs, $actionData['new_passphrase']);
+
+		if ($cert === false) {
+			return CHANGE_PASSPHRASE_ERROR;
+		}
+
+		$mapiCert = getMAPICert($this->store);
+		$privateCert = mapi_msgstore_openentry($this->store, $mapiCert[PR_ENTRYID]);
+
+		$msgBody = base64_encode($cert);
+		$stream = mapi_openproperty($privateCert, PR_BODY, IID_IStream, 0, MAPI_CREATE | MAPI_MODIFY);
+		mapi_stream_setsize($stream, strlen($msgBody));
+		mapi_stream_write($stream, $msgBody);
+		mapi_stream_commit($stream);
+		mapi_message_savechanges($privateCert);
+
+		return CHANGE_PASSPHRASE_SUCCESS;
+	}
+
+	/**
+	 * Generate a new  PKCS#12 certificate store file with a new passphrase
+	 *
+	 * @param Array $certs the original certificate
+	 * @param String $passphrase the passphrase
+	 * @return Mixed boolean or string certificate
+	 */
+	function pkcs12_change_passphrase($certs, $new_passphrase)
+	{
+		$cert = "";
+		if (openssl_pkcs12_export($certs['cert'], $cert, $certs['pkey'], $new_passphrase)) {
+			return $cert;
+		} else {
+			return false;
+		}
 	}
 }

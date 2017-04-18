@@ -26,7 +26,8 @@ Zarafa.plugins.smime.settings.PublickeyGrid = Ext.extend(Ext.grid.GridPanel, {
 			store : config.store,
 			viewConfig : {
 				forceFit : true,
-				emptyText : '<div class=\'emptytext\'>' + _('No certificates exists', 'plugin_smime') + '</div>'
+                deferEmptyText : false,
+				emptyText : '<div class=\'emptytext\'>' + _('No certificates imported, please upload your private certificate', 'plugin_smime') + '</div>'
 			},
 			loadMask : this.initLoadMask(),
 			columns : this.initColumnModel(),
@@ -128,11 +129,16 @@ Zarafa.plugins.smime.settings.PublickeyGrid = Ext.extend(Ext.grid.GridPanel, {
 		var certificate = selectionModel.getSelected();
 
 		if(!certificate) {
-			Ext.Msg.alert(_('Alert'), _('Please select a certificate.', 'plugin_smime'));
+			Ext.MessageBox.show({
+				title: _('S/MIME Plugin', 'plugin_smime'),
+				msg: _('Please select a certificate.', 'plugin_smime'),
+				buttons: Ext.MessageBox.OK,
+				icon: Ext.MessageBox.INFO
+			});
 			return;
 		} else if(certificate.get('type') === 'private') {
 			Ext.MessageBox.show({
-				title: _('S/MIME', 'plugin_smime'),
+				title: _('S/MIME Plugin', 'plugin_smime'),
 				msg :_('Do you really want to remove your private certificate? If you remove your certificate you will not be able to sign or decrypt S/MIME emails.', 'plugin_smime'),
 				icon: Ext.MessageBox.WARNING,
 				fn: this.onRemoveCertificate,
@@ -183,12 +189,12 @@ Zarafa.plugins.smime.settings.PublickeyGrid = Ext.extend(Ext.grid.GridPanel, {
 		if(Ext.isDefined(certificate)) {
 			// TODO: use ExtJS form?
 			
-			var text = "Email: " + certificate.get('email') + "</br>" 
-				+ "Serial: " + certificate.get('serial') + "</br>" 
-				+ "Issued by: " + certificate.get('issued_by') + "</br>"
-				+ "Issued to: " + certificate.get('issued_to') + "</br>"
-				+ "SHA1 Fingerprint: " + certificate.get('fingerprint_sha1') + "</br>"
-				+ "MD5 Fingerprint: " + certificate.get('fingerprint_md5') + "</br>";
+			var text = "Email: " + certificate.get('email') + "</br>" +
+				"Serial: " + certificate.get('serial') + "</br>" +
+				"Issued by: " + certificate.get('issued_by') + "</br>" +
+				"Issued to: " + certificate.get('issued_to') + "</br>" +
+				"SHA1 Fingerprint: " + certificate.get('fingerprint_sha1') + "</br>" +
+				"MD5 Fingerprint: " + certificate.get('fingerprint_md5') + "</br>";
 			Ext.Msg.alert(_('Certificate details', 'plugin_smime'), text);
 		}
 	}
