@@ -112,7 +112,7 @@ class PluginSmimeModule extends Module
 				$message = dgettext('plugin_smime', 'Private certificate is not valid yet, unable to sign email');
 			} else if($privateCert[PR_CLIENT_SUBMIT_TIME] >= time()) { // validFrom
 				$message = dgettext('plugin_smime', 'Private certificate has been expired, unable to sign email');
-			} else if($privateCert[PR_SUBJECT] != $GLOBALS['mapisession']->getSMTPAddress()) {
+			} else if (strcasecmp($privateCert[PR_SUBJECT], $GLOBALS['mapisession']->getSMTPAddress()) !== 0) {
 				$message = dgettext('plugin_smime', 'Private certificate does not match email address');
 			} else {
 				$status = True;
