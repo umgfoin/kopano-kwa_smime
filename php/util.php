@@ -51,9 +51,9 @@ function getMAPICert($store, $type = 'WebApp.Security.Private', $emailAddress = 
 	if($type == 'WebApp.Security.Public' && !empty($emailAddress)) {
 		$restrict = array(RES_AND, array(
 			$restrict,
-			array(RES_PROPERTY,
+			array(RES_CONTENT,
 				array(
-					RELOP => RELOP_EQ,
+					FUZZYLEVEL => FL_FULLSTRING | FL_IGNORECASE,
 					ULPROPTAG => PR_SUBJECT,
 					VALUE => array(PR_SUBJECT => $emailAddress)
 				),
