@@ -55,10 +55,6 @@ msgstr ""
 msgid "New passphrase and confirmation passphrase do not match"
 msgstr ""
 
-#: js/dialogs/PassphraseWindow.js:31
-msgid "S/MIME Passphrase"
-msgstr ""
-
 #: js/dialogs/PassphraseWindow.js:113
 #: js/settings/UploadCertificateWidget.js:140
 #: js/settings/UploadCertificateWidget.js:145 js/SmimePlugin.js:338
