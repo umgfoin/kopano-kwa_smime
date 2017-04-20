@@ -1,7 +1,6 @@
 <?php
 include_once('util.php');
-include_once('lib/X509.php');
-include_once('lib/Ocsp.php');
+require_once('class.certificate.php');
 
 // Green, everything was good
 define('SMIME_STATUS_SUCCESS', 0);
@@ -823,148 +822,26 @@ class Pluginsmime extends Plugin {
 	 * @return {Boolean} true is OCSP verification has succeeded or when there is no OCSP support, false if it hasn't
 	 */
 	function verifyOCSP($certificate) {
-		if(!PLUGIN_SMIME_ENABLE_OCSP) {
+
+		if (!PLUGIN_SMIME_ENABLE_OCSP) {
 			$this->message['success'] = SMIME_STATUS_SUCCESS;
 			$this->message['info'] = SMIME_OCSP_DISABLED;
 			return true;
 		}
 
-		$issuerStore = '/var/lib/kopano-webapp/tmp/smime';
-		$this->message['success'] = SMIME_STATUS_FAIL;
-		if (!file_exists($issuerStore)) {
-			mkdir($issuerStore, 0755);
+		$cert = new Certificate($certificate);
+
+		# FIXME: cache issue certificate.
+		if (!$cert->verify() || !$cert->issuer()->verify()) {
+			$this->message['info'] = SMIME_REVOKED;
+			$this->message['success'] = SMIME_STATUS_PARTIAL;
+			return false;
 		}
 
-		$certProps = openssl_x509_parse($certificate);
-		// Check if extensions key exists
-		if(isset($certProps['extensions']) && !empty($certProps['extensions']) && !empty($certProps['extensions']['authorityInfoAccess'])) {
-			if(preg_match("/CA Issuers - URI:(.*)/", $certProps['extensions']['authorityInfoAccess'], $matches)) {
-				$caUrl = array_pop($matches);
-			}
-			if(preg_match("/OCSP - URI:(.*)/", $certProps['extensions']['authorityInfoAccess'], $matches)) {
-				$ocspUrl = array_pop($matches);
-			}
-			if(!empty($ocspUrl)) {
-				$issuerFile = $issuerStore . '/' . end((explode('/', $caUrl)));
-
-				// If file exists and the file is modified 1 week ago, fetch a new certificate
-				if(!file_exists($issuerFile) || (file_exists($issuerFile) && filemtime($issuerFile) < (time() - 604800))) {
-					// FIXME: Handle 404?
-					$ch = curl_init();
-					curl_setopt($ch, CURLOPT_URL, $caUrl);
-					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-					$output = curl_exec($ch);
-					curl_close($ch);
-					// Note certificate is saved in DER format
-					file_put_contents($issuerFile, $output);
-				}
-
-				// Set custom error handler since the nemid ocsp library uses trigger_error() to throw errors when it
-				// can parse certain x509 fields which aare not required for the OCSP Reuqest.
-				// Also when receiving the OCSP request, the OCSP library triggers errors when the request does not adhere
-				// the standard.
-				function tempErrorHandler($errno, $errstr, $errfile, $errline){
-					return true;
-				}
-				set_error_handler("tempErrorHandler");
-
-				// Load certificates
-				$x509 = new \WAYF\X509();
-				$issuer = $x509->certificate(file_get_contents($issuerFile));
-				$certificate = $x509->certificate(pem2der($certificate));
-
-				$ocspclient = new \WAYF\OCSP();
-
-				$certID = $ocspclient->certOcspID(array(
-					    'issuerName' => $issuer['tbsCertificate']['subject_der'],
-					    // remember to skip the first byte it is the number of unused bits and it is alwayf 0 for keys and certificates
-					    'issuerKey' => substr($issuer['tbsCertificate']['subjectPublicKeyInfo']['subjectPublicKey'], 1),
-					    'serialNumber_der' => $certificate['tbsCertificate']['serialNumber_der']),
-					    'sha1'
-				);
-				$ocspreq = $ocspclient->request(array($certID));
-
-				$stream_options = array(
-				    'http' => array(
-					'ignore_errors' => false,
-					'method' => 'POST',
-					'header' => 'Content-type: application/ocsp-request' . "\r\n",
-					'content' => $ocspreq,
-					'timeout' => 1,
-				    ),
-				);
-
-				// Do the OCSP request
-				$context = stream_context_create($stream_options);
-				$derresponse = file_get_contents($ocspUrl, null, $context);
-				// OCSP service not avaliable, import certificate, but show a warning.
-				if($derresponse === false) {
-					$this->message['info'] = SMIME_OCSP_FAILED;
-					$this->message['success'] = SMIME_STATUS_PARTIAL;
-					return true;
-				}
-				$ocspresponse = $ocspclient->response($derresponse);
-
-				// Restore the previous error handler
-				restore_error_handler();
-
-				if(isset($ocspresponse['responseStatus']) &&
-					$ocspresponse['responseStatus'] !== 'successful') {
-					// Certificate status is not good, revoked or unknown
-					$this->message['info'] = SMIME_REVOKED;
-					return false;
-				}
-
-				$resp = $ocspresponse['responseBytes']['BasicOCSPResponse']['tbsResponseData']['responses'][0];
-
-				/* OCSP response status, possible values are: good, revoked, unknown according
-				 * to the RFC https://www.ietf.org/rfc/rfc2560.txt
-				 */
-				if($resp['certStatus'] !== 'good') {
-					// Certificate status is not good, revoked or unknown
-					$this->message['info'] = SMIME_REVOKED;
-					return false;
-				}
-
-				/* Check if:
-				 * - hash algorithm is equal
-				 * - check if issuerNamehash is the same from response
-				 * - check if issuerKeyHash is the same from response
-				 * - check if serialNumber is the same from response
-				 */
-				if($resp['certID']['hashAlgorithm'] !== 'sha1'
-					&& $resp['certID']['issuerNameHash'] !== $certID['issuerNameHash']
-					&& $resp['certID']['issuerKeyHash'] !== $certID['issuerKeyHash']
-					&& $resp['certID']['serialNumber'] !== $certID['serialNumber']) {
-					// OCSP Revocation, mismatch between original and checked certificate
-					$this->message['info'] = SMIME_REVOKED;
-					return false;
-				}
-
-				// check if OCSP revocation update is recent
-				// Store current time for thisUpdate and nextUpdate check.
-				$now = new DateTime(gmdate('YmdHis\Z'));
-				$thisUpdate = new DateTime($resp['thisUpdate']);
-				$nextUpdate = new DateTime($resp['nextUpdate']);
-
-				// Check if update time is earlier then our own time
-				if (!isset($resp['nextupdate']) && $thisUpdate > $now) {
-					$this->message['info'] = SMIME_REVOKED;
-					return false;
-				// current time should be between thisUpdate and nextUpdate.
-				} else if ($thisUpdate > $now && $now > $nextUpdate) {
-					// OCSP Revocation status not current
-					$this->message['info'] = SMIME_REVOKED;
-					return false;
-				}
-
-				$this->message['success'] = SMIME_STATUS_SUCCESS;
-				return true;
-			}
-		}
 		// Certificate does not support OCSP
 		$this->message['info'] = SMIME_SUCCESS;
 		$this->message['success'] = SMIME_STATUS_SUCCESS;
+
 		return true;
 	}
 
