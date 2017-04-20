@@ -16,6 +16,7 @@ msgstr ""
 
 #: js/dialogs/PassphraseWindow.js:31
 msgid "S/MIME Passphrase"
+msgstr ""
 
 #: js/data/ChangePassphraseWindow.js:23 js/dialogs/ChangePassphraseWindow.js:23
 msgid "S/MIME Change passphrase"
