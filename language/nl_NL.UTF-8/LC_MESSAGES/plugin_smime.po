@@ -55,15 +55,10 @@ msgstr "Wachtwoordzin certificaat"
 #: js/dialogs/ChangePassphraseWindow.js:70
 msgid "Cancel"
 msgstr ""
->>>>>>> db657504f3c44566cdd9c4a93432d94a42cb9efb
 
 #: js/dialogs/ChangePassphraseWindow.js:102
 msgid "New passphrase and confirmation passphrase do not match"
 msgstr ""
-
-#: js/dialogs/PassphraseWindow.js:31
-msgid "S/MIME Passphrase"
-msgstr "S/MIME wachtwoordzin"
 
 #: js/dialogs/PassphraseWindow.js:113
 #: js/settings/UploadCertificateWidget.js:140
@@ -82,11 +77,7 @@ msgstr "Er zijn geen certificaten"
 
 #: js/settings/SettingsPublickeyGrid.js:64
 msgid "Email"
-<<<<<<< HEAD
 msgstr "E-mail"
-=======
-msgstr "Email"
->>>>>>> db657504f3c44566cdd9c4a93432d94a42cb9efb
 
 #: js/settings/SettingsPublickeyGrid.js:70
 msgid "Valid from"
@@ -262,10 +253,6 @@ msgstr ""
 msgid ""
 "You are seeing this message because the verification of the digital signature"
 msgstr ""
-<<<<<<< HEAD
-"Deze melding wordt getoond omdat de validatie van de digitale handtekening\")"
-" +\"<b>\" +_(\" is mislukt\") + \"</b>\" +_(\"voor dit bericht."
-=======
 "Deze melding wordt getoond omdat de validatie van de digitale handtekening"
 "\") +\"<b>\" +_(\" is mislukt\") + \"</b>\" +_(\"voor dit bericht."
 
@@ -277,7 +264,6 @@ msgstr ""
 #, fuzzy
 msgid " for this message."
 msgstr "Bericht versleutelen"
->>>>>>> db657504f3c44566cdd9c4a93432d94a42cb9efb
 
 #: js/SmimeText.js:20
 msgid "What caused this issue?"
@@ -395,12 +381,7 @@ msgstr "Handtekening succesvol gevalideerd"
 
 #: js/SmimeText.js:83
 msgid "Could not verify signature, missing public certificate"
-<<<<<<< HEAD
 msgstr "Handtekening kon niet worden gevalideerd, publiek certificaat ontbreekt"
-=======
-msgstr ""
-"Handtekening kon niet worden gevalideerd, publiek certificaat ontbreekt"
->>>>>>> db657504f3c44566cdd9c4a93432d94a42cb9efb
 
 #: js/SmimeText.js:85
 msgid "Signature verification succesfull, but certificate is expired"

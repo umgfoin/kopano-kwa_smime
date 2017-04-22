@@ -16,6 +16,7 @@ msgstr ""
 
 #: js/dialogs/PassphraseWindow.js:31
 msgid "S/MIME Passphrase"
+msgstr ""
 
 #: js/data/ChangePassphraseWindow.js:23 js/dialogs/ChangePassphraseWindow.js:23
 msgid "S/MIME Change passphrase"
@@ -52,10 +53,6 @@ msgstr ""
 
 #: js/dialogs/ChangePassphraseWindow.js:102
 msgid "New passphrase and confirmation passphrase do not match"
-msgstr ""
-
-#: js/dialogs/PassphraseWindow.js:31
-msgid "S/MIME Passphrase"
 msgstr ""
 
 #: js/dialogs/PassphraseWindow.js:113
