@@ -128,7 +128,7 @@ class Pluginsmime extends Plugin {
 
 		$messageClass = mapi_getprops($message, array(PR_MESSAGE_CLASS));
 		$messageClass = $messageClass[PR_MESSAGE_CLASS];
-		if ($messageClass !== 'IPM.Note.SMIME' || $messageClass !== 'IPM.Note.SMIME.SignedEncrypt') {
+		if ($messageClass !== 'IPM.Note.SMIME' && $messageClass !== 'IPM.Note.SMIME.SignedEncrypt') {
 			return;
 		}
 

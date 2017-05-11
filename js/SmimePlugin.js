@@ -254,7 +254,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	 *
 	 */
 	onBeforeSendRecord : function(dialog, record) {
-		// Always append 
+		// Always append the currently logged in user.
 		var user = container.getUser();
 		var myself = {
 			email: user.getSMTPAddress(),
