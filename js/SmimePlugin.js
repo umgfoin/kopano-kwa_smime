@@ -245,6 +245,8 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	/**
 	 * Function which collects all the recipients smtp_addresses in a list and sets them as 'smime'
 	 * property in the mailrecord. Because the hook in PHP doesn't have updated recipienttable yet.
+	 * Always append the logged in user, so the user is able to to view the sent encrypted mail in
+	 * 'Sent Items'.
 	 *
 	 * @param {Zarafa.mailcreatecontentpanel} dialog
 	 * @param {Zarfa.core.data.IPMRecord} record The record which is going to be send
@@ -252,9 +254,16 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	 *
 	 */
 	onBeforeSendRecord : function(dialog, record) {
-		// Get list of recipients and set them in the 'smime' property
+		// Always append 
+		var user = container.getUser();
+		var myself = {
+			email: user.getSMTPAddress(),
+			internal: true,
+			username: container.getUser().getEmailAddress(),
+		};
+		var recipients = [myself];
+
 		var recipientStore = record.getRecipientStore();
-		var recipients = [];
 		recipientStore.each(function(recip) {
 			recipients.push(
 				{ email: recip.get('smtp_address'),

@@ -643,6 +643,8 @@ class Pluginsmime extends Plugin {
 		mapi_setprops($signedAttach, $smimeProps);
 
 		$publicCerts = $this->getPublicKeyForMessage($message);
+		// Always append our own certificate, so that the mail can be decrypted in 'Sent items'
+		array_push($publicCerts, base64_decode($this->getPublicKey($GLOBALS['mapisession']->getSMTPAddress())));
 
 		openssl_pkcs7_encrypt($infile, $outfile, $publicCerts, array(), 0, $this->cipher);
 		$tmpEml = file_get_contents($outfile);
