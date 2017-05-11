@@ -118,32 +118,35 @@ class Pluginsmime extends Plugin {
 	function onCertificateCheck($data) {
 		$entryid = $data['entryid'];
 		// FIXME: unittests, save trigger will pass $entryid is 0 (which will open the root folder and not the message we want)
-		if($entryid !== false) {
-			$message = mapi_msgstore_openentry($this->store, $entryid);
-			$module = $data['moduleObject'];
-			$data['success'] = true;
+		if ($entryid === false) {
+			return;
+		}
 
-			$messageClass = mapi_getprops($message, array(PR_MESSAGE_CLASS));
-			$messageClass = $messageClass[PR_MESSAGE_CLASS];
-			if($messageClass === 'IPM.Note.SMIME' || $messageClass === 'IPM.Note.SMIME.SignedEncrypt') {
-				$recipients = $data['action']['props']['smime'];
+		$message = mapi_msgstore_openentry($this->store, $entryid);
+		$module = $data['moduleObject'];
+		$data['success'] = true;
 
-				$missingCerts = Array();
-				foreach($recipients as $recipient) {
-					$email = $recipient['email'];
+		$messageClass = mapi_getprops($message, array(PR_MESSAGE_CLASS));
+		$messageClass = $messageClass[PR_MESSAGE_CLASS];
+		if ($messageClass !== 'IPM.Note.SMIME' || $messageClass !== 'IPM.Note.SMIME.SignedEncrypt') {
+			return;
+		}
 
-					if (!$this->pubcertExists($email, $recipient['internal'])) {
-						array_push($missingCerts, $email);
-					}
-				}
+		$recipients = $data['action']['props']['smime'];
+		$missingCerts = [];
 
-				if(!empty($missingCerts)) {
-					$module = $data['moduleObject'];
-					$errorMsg = dgettext('plugin_smime', 'Missing public certificates for the following recipients: ') . implode(', ', $missingCerts) . dgettext('plugin_smime', '. Please contact your system administrator for details');
-					$module->sendFeedback(false, array("type" => ERROR_GENERAL, "info" => array('display_message' => $errorMsg )));
-					$data['success'] = false;
-				}
+		foreach($recipients as $recipient) {
+			$email = $recipient['email'];
+
+			if (!$this->pubcertExists($email, $recipient['internal'])) {
+				array_push($missingCerts, $email);
 			}
+		}
+
+		if (!empty($missingCerts)) {
+			$errorMsg = dgettext('plugin_smime', 'Missing public certificates for the following recipients: ') . implode(', ', $missingCerts) . dgettext('plugin_smime', '. Please contact your system administrator for details');
+			$module->sendFeedback(false, array("type" => ERROR_GENERAL, "info" => array('display_message' => $errorMsg )));
+			$data['success'] = false;
 		}
 	}
 
