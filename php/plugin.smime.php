@@ -111,40 +111,60 @@ class Pluginsmime extends Plugin {
 	}
 
 	/**
-	 * Function checks if public certificate exists for all recipients.
+	 * Function checks if public certificate exists for all recipients and creates an error
+	 * message for the frontend which includes the email address of the missing public
+	 * certificates.
+	 *
+	 * If my own certificate is missing, a different error message is shown which informs the
+	 * user that his own public certificate is missing and required for reading encrypted emails
+	 * in the 'Sent items' folder.
 	 *
 	 * @param Array $data Reference to the data of the triggered hook
 	 */
 	function onCertificateCheck($data) {
 		$entryid = $data['entryid'];
 		// FIXME: unittests, save trigger will pass $entryid is 0 (which will open the root folder and not the message we want)
-		if($entryid !== false) {
-			$message = mapi_msgstore_openentry($this->store, $entryid);
-			$module = $data['moduleObject'];
-			$data['success'] = true;
+		if ($entryid === false) {
+			return;
+		}
 
-			$messageClass = mapi_getprops($message, array(PR_MESSAGE_CLASS));
-			$messageClass = $messageClass[PR_MESSAGE_CLASS];
-			if($messageClass === 'IPM.Note.SMIME' || $messageClass === 'IPM.Note.SMIME.SignedEncrypt') {
-				$recipients = $data['action']['props']['smime'];
+		$message = mapi_msgstore_openentry($this->store, $entryid);
+		$module = $data['moduleObject'];
+		$data['success'] = true;
 
-				$missingCerts = Array();
-				foreach($recipients as $recipient) {
-					$email = $recipient['email'];
+		$messageClass = mapi_getprops($message, array(PR_MESSAGE_CLASS));
+		$messageClass = $messageClass[PR_MESSAGE_CLASS];
+		if ($messageClass !== 'IPM.Note.SMIME' && $messageClass !== 'IPM.Note.SMIME.SignedEncrypt') {
+			return;
+		}
 
-					if (!$this->pubcertExists($email, $recipient['internal'])) {
-						array_push($missingCerts, $email);
-					}
-				}
+		$recipients = $data['action']['props']['smime'];
+		$missingCerts = [];
 
-				if(!empty($missingCerts)) {
-					$module = $data['moduleObject'];
-					$errorMsg = dgettext('plugin_smime', 'Missing public certificates for the following recipients: ') . implode(', ', $missingCerts) . dgettext('plugin_smime', '. Please contact your system administrator for details');
-					$module->sendFeedback(false, array("type" => ERROR_GENERAL, "info" => array('display_message' => $errorMsg )));
-					$data['success'] = false;
-				}
+		foreach($recipients as $recipient) {
+			$email = $recipient['email'];
+
+			if (!$this->pubcertExists($email, $recipient['internal'])) {
+				array_push($missingCerts, $email);
 			}
 		}
+
+		if (empty($missingCerts)) {
+			return;
+		}
+
+		function missingMyself($email) {
+			return $GLOBALS['mapisession']->getSMTPAddress() === $email;
+		}
+
+		if (empty(array_filter($missingCerts, "missingMyself"))) {
+			$errorMsg = dgettext('plugin_smime', 'Missing public certificates for the following recipients: ') . implode(', ', $missingCerts) . dgettext('plugin_smime', '. Please contact your system administrator for details');
+		} else {
+			$errorMsg = dgettext("plugin_smime", "Your public certificate is not installed. Without this certificate, you will not be able to read encrypted messages you have sent to others.");
+		}
+		
+		$module->sendFeedback(false, array("type" => ERROR_GENERAL, "info" => array('display_message' => $errorMsg)));
+		$data['success'] = false;
 	}
 
 	/**
@@ -643,6 +663,8 @@ class Pluginsmime extends Plugin {
 		mapi_setprops($signedAttach, $smimeProps);
 
 		$publicCerts = $this->getPublicKeyForMessage($message);
+		// Always append our own certificate, so that the mail can be decrypted in 'Sent items'
+		array_push($publicCerts, base64_decode($this->getPublicKey($GLOBALS['mapisession']->getSMTPAddress())));
 
 		openssl_pkcs7_encrypt($infile, $outfile, $publicCerts, array(), 0, $this->cipher);
 		$tmpEml = file_get_contents($outfile);
