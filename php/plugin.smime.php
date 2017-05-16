@@ -157,7 +157,7 @@ class Pluginsmime extends Plugin {
 			return $GLOBALS['mapisession']->getSMTPAddress() === $email;
 		}
 
-		if (empty(array_filter($missingCerts, "missingMyself"))) {
+		if (array_filter($missingCerts, "missingMyself") === []) {
 			$errorMsg = dgettext('plugin_smime', 'Missing public certificates for the following recipients: ') . implode(', ', $missingCerts) . dgettext('plugin_smime', '. Please contact your system administrator for details');
 		} else {
 			$errorMsg = dgettext("plugin_smime", "Your public certificate is not installed. Without this certificate, you will not be able to read encrypted messages you have sent to others.");
