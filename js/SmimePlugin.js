@@ -259,7 +259,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 		var myself = {
 			email: user.getSMTPAddress(),
 			internal: true,
-			username: container.getUser().getEmailAddress(),
+			username: container.getUser().getEmailAddress()
 		};
 		var recipients = [myself];
 
