@@ -251,7 +251,6 @@ Zarafa.plugins.smime.dialogs.PassphraseWindow = Ext.extend(Ext.Panel, {
 			'passphrase',
 			{
 			  'user' : user.getSMTPAddress(),
-			  'sessionid' : user.getSessionId(),
 			  'passphrase' : this.passphrase.getValue()
 			},
 			new Zarafa.plugins.smime.data.SmimeResponseHandler({
