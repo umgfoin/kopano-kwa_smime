@@ -202,6 +202,15 @@ class Certificate
 	}
 
 	/**
+	 * Set the issuer of a certificate
+	 *
+	 * @param String the issuer certificate
+	 */
+	function setIssuer($issuer) {
+		$this->issuer = $issuer;
+	}
+
+	/**
 	 * Verify the certificate status using OCSP
 	 *
 	 * @return boolean verification succeeded or failed
