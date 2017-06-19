@@ -20,6 +20,20 @@ class Certificate
 	}
 
 	/**
+	 * Issuer of the certificate
+	 *
+	 * @return String The issuer of the certificate in DN notation
+	 */
+	function getIssuerName()
+	{
+		$issuer = '';
+		foreach($this->data['issuer'] as $key => $value) {
+			$issuer .= "/$key=$value";
+		}
+		return $issuer;
+	}
+
+	/**
 	 * Converts X509 DER format string to PEM format
 	 *
 	 * @param {string} X509 Certificate in DER format
