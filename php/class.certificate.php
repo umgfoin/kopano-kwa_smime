@@ -20,6 +20,16 @@ class Certificate
 	}
 
 	/**
+	 * The name of the certificate in DN notation
+	 *
+	 * @return {string} the name of the certificate
+	 */
+	function getName()
+	{
+		return $this->data['name'];
+	}
+
+	/**
 	 * Issuer of the certificate
 	 *
 	 * @return String The issuer of the certificate in DN notation
