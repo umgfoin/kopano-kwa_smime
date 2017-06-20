@@ -197,7 +197,7 @@ class Certificate
 	 */
 	function issuer() {
 		if (!empty($this->issuer)) {
-			return new Certificate($this-issuer);
+			return $this->issuer;
 		} else {
 			$cert = '';
 			$ch = curl_init();
@@ -221,7 +221,9 @@ class Certificate
 	 * @param String the issuer certificate
 	 */
 	function setIssuer($issuer) {
-		$this->issuer = $issuer;
+		if (is_object($issuer)) {
+			$this->issuer = $issuer;
+		}
 	}
 
 	/**
