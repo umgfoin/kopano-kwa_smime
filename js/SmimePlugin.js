@@ -167,7 +167,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 							'pluginsmimemodule',
 							'certificate',
 							{
-							  'user' : user.getSMTPAddress(),
+							  'user' : user.getSMTPAddress()
 							},
 							new Zarafa.plugins.smime.data.SmimeResponseHandler({
 								successCallback : this.onCertificateCallback.createDelegate(button.record)
@@ -350,7 +350,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 					'pluginsmimemodule',
 					'certificate',
 					{
-					  'user' : user.getSMTPAddress(),
+					  'user' : user.getSMTPAddress()
 					},
 					new Zarafa.plugins.smime.data.SmimeResponseHandler({
 						successCallback : plugin.onCertificateCallback.createDelegate(button)
