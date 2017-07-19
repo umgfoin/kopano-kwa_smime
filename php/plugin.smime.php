@@ -231,12 +231,13 @@ class Pluginsmime extends Plugin {
 				$parsedImportCert = openssl_x509_parse($importCert);
 				$parsedUserCert = openssl_x509_parse($userCert);
 
+				$caCerts = $this->extractCAs($tmpfname);
 				// If validTo and validFrom are more in the future, emailAddress matches and OCSP check is valid, import newer certificate
 				if($parsedImportCert['validTo'] > $parsedUserCert['validTo'] && $parsedImportCert['validFrom'] > $parsedUserCert['validFrom']
-					&& getCertEmail($parsedImportCert) === getCertEmail($parsedUserCert) && $this->verifyOCSP($importCert)) {
+					&& getCertEmail($parsedImportCert) === getCertEmail($parsedUserCert) && $this->verifyOCSP($importCert, $caCerts)) {
 					$importMessageCert = true;
 				} else {
-					$this->verifyOCSP($userCert);
+					$this->verifyOCSP($userCert, $caCerts);
 				}
 			}
 		} else {
@@ -249,7 +250,8 @@ class Pluginsmime extends Plugin {
 				$userCert = file_get_contents($outcert);
 				$parsedImportCert = openssl_x509_parse($userCert);
 
-				if(is_array($parsedImportCert) && $this->verifyOCSP($userCert)) {
+				$caCerts = $this->extractCAs($tmpfname);
+				if(is_array($parsedImportCert) && $this->verifyOCSP($userCert, $caCerts)) {
 					$importMessageCert = true;
 				}
 				// We don't have a certificate from the MAPI UserStore or LDAP, so we will set $userCert to $importCert
@@ -449,7 +451,7 @@ class Pluginsmime extends Plugin {
 						$message = dgettext('plugin_smime', 'Certificate is not yet valid ') . date('Y-m-d', $validFrom) . '. ' . dgettext('plugin_smime', 'Certificate has not been imported');
 					}
 					// We allow users to import private certificate which have no OCSP support
-					else if(!$this->verifyOCSP($certs['cert']) && $this->message['info'] !== SMIME_OCSP_NOSUPPORT) {
+					else if(!$this->verifyOCSP($certs['cert'], $certs) && $this->message['info'] !== SMIME_OCSP_NOSUPPORT) {
 						$message = dgettext('plugin_smime', 'Certificate is revoked');
 					}
 				} else { // Can't parse public certificate pkcs#12 file might be corrupt
@@ -841,20 +843,38 @@ class Pluginsmime extends Plugin {
 	 * stored we, use stat() to determine if it is not very old (> 1 Month) and otherwise fetch the certificate and store it.
 	 *
 	 * @param {String} $certificate
+	 * @param {Array} $extracerts an array of intermediate certificates
 	 * @return {Boolean} true is OCSP verification has succeeded or when there is no OCSP support, false if it hasn't
 	 */
-	function verifyOCSP($certificate) {
-
+	function verifyOCSP($certificate, $extracerts = []) {
 		if (!PLUGIN_SMIME_ENABLE_OCSP) {
 			$this->message['success'] = SMIME_STATUS_SUCCESS;
 			$this->message['info'] = SMIME_OCSP_DISABLED;
 			return true;
 		}
 
-		$cert = new Certificate($certificate);
+		$pubcert = new Certificate($certificate);
 
-		# FIXME: cache issue certificate.
-		if (!$cert->verify() || !$cert->issuer()->verify()) {
+		/*
+		 * Walk over the provided extra intermediate certificates and setup the issuer
+		 * chain.
+		 */
+		$parent = $pubcert;
+		while($cert = array_shift($extracerts)) {
+			$cert = new Certificate($cert);
+
+			if ($cert->getName() === $pubcert->getName()) {
+				continue;
+			}
+
+			if ($cert->getName() === $parent->getIssuerName()) {
+				$parent->setIssuer($cert);
+				$parent = $cert;
+			}
+		}
+
+		# FIXME: cache issuer certificate.
+		if (!$pubcert->verify() || !$pubcert->issuer()->verify()) {
 			$this->message['info'] = SMIME_REVOKED;
 			$this->message['success'] = SMIME_STATUS_PARTIAL;
 			return false;
@@ -865,6 +885,34 @@ class Pluginsmime extends Plugin {
 		$this->message['success'] = SMIME_STATUS_SUCCESS;
 
 		return true;
+	}
+
+	/**
+	 * Extract the intermediate certificates from the signed email. Uses kopano_smime's
+	 * two functions, to extract the PKCS#7 blob and then converts the PKCS#7 blob to
+	 * X509 certificates using kopano_pkcs7_read.
+	 *
+	 * @param string $emlfile - the s/mime message
+	 * @return array a list of extracted intermediate certificates
+	 */
+	function extractCAs($emlfile)
+	{
+		if (!function_exists('kopano_pkcs7_verify') || !function_exists('kopano_pkcs7_read')) {
+			return [];
+		}
+
+		$certfile = tempnam(sys_get_temp_dir(), true);
+		$outfile = tempnam(sys_get_temp_dir(), true);
+		$p7bfile = tempnam(sys_get_temp_dir(), true);
+		kopano_pkcs7_verify($emlfile, PKCS7_NOVERIFY, $certfile);
+		kopano_pkcs7_verify($emlfile, PKCS7_NOVERIFY, $certfile, [], $certfile, $outfile, $p7bfile);
+
+		$cas = [];
+		$p7b = file_get_contents($p7bfile);
+		// FIXME: Without the error_log, kopano_pkcs7_verify does not work (wtf).
+		error_log($p7b);
+		kopano_pkcs7_read($p7b, $cas);
+		return $cas;
 	}
 
 	/**

@@ -20,6 +20,30 @@ class Certificate
 	}
 
 	/**
+	 * The name of the certificate in DN notation
+	 *
+	 * @return {string} the name of the certificate
+	 */
+	function getName()
+	{
+		return $this->data['name'];
+	}
+
+	/**
+	 * Issuer of the certificate
+	 *
+	 * @return String The issuer of the certificate in DN notation
+	 */
+	function getIssuerName()
+	{
+		$issuer = '';
+		foreach($this->data['issuer'] as $key => $value) {
+			$issuer .= "/$key=$value";
+		}
+		return $issuer;
+	}
+
+	/**
 	 * Converts X509 DER format string to PEM format
 	 *
 	 * @param {string} X509 Certificate in DER format
@@ -183,7 +207,7 @@ class Certificate
 	 */
 	function issuer() {
 		if (!empty($this->issuer)) {
-			return new Certificate($this-issuer);
+			return $this->issuer;
 		} else {
 			$cert = '';
 			$ch = curl_init();
@@ -198,6 +222,17 @@ class Certificate
 			curl_close($ch);
 
 			return new Certificate($cert);
+		}
+	}
+
+	/**
+	 * Set the issuer of a certificate
+	 *
+	 * @param String the issuer certificate
+	 */
+	function setIssuer($issuer) {
+		if (is_object($issuer)) {
+			$this->issuer = $issuer;
 		}
 	}
 
