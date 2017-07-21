@@ -94,6 +94,10 @@
   background-position: 6px center;
 }
 
+.x-menu-item .icon_smime_settings {
+  background-position: 0px center;
+}
+
 .x-btn-text.icon_smime_settings {
   background-position: 5px center !important;
   padding-left: 25px !important;
