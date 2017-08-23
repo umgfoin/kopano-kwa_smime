@@ -39,6 +39,11 @@ class Pluginsmime extends Plugin {
 	private $messsage = array();
 
 	/**
+	 * Default MAPI Message Store
+	 */
+	private $store;
+
+	/**
 	 * Called to initialize the plugin and register for hooks.
 	 */
 	function init(){
@@ -51,14 +56,25 @@ class Pluginsmime extends Plugin {
 		$this->registerHook('server.module.createmailitemmodule.beforesend');
 		$this->registerHook('server.index.load.custom');
 
-		$this->store = $GLOBALS['mapisession']->getDefaultMessageStore();
-
 		if(version_compare(phpversion(), '5.4', '<')) {
 			$this->cipher = OPENSSL_CIPHER_3DES;
 		} else {
 			$this->cipher = PLUGIN_SMIME_CIPHER;
 		}
 
+	}
+
+	/**
+	 * Default message store
+	 *
+	 * @return Object MAPI Message store
+	 */
+	function getStore() {
+		if (!$this->store) {
+			$this->store = $GLOBALS['mapisession']->getDefaultMessageStore();
+		}
+
+		return $this->store;
 	}
 
 	/**
@@ -296,7 +312,7 @@ class Pluginsmime extends Plugin {
 
 		$this->message['type'] = 'encrypted';
 		if(isset($_SESSION['smime']) && !empty($_SESSION['smime'])) {
-			$certs = readPrivateCert($this->store, $_SESSION['smime']);
+			$certs = readPrivateCert($this->getStore(), $_SESSION['smime']);
 
 			// create random file for saving the encrypted and body message
 			$tmpFile = tempnam(sys_get_temp_dir(), true);
@@ -327,7 +343,7 @@ class Pluginsmime extends Plugin {
 			}
 
 			$receivedTime = mapi_getprops($data['message'], Array(PR_MESSAGE_DELIVERY_TIME));
-			mapi_inetmapi_imtomapi($GLOBALS['mapisession']->getSession(), $this->store, $GLOBALS['mapisession']->getAddressbook(), $data['message'], $content, Array('parse_smime_signed' => True));
+			mapi_inetmapi_imtomapi($GLOBALS['mapisession']->getSession(), $data['store'], $GLOBALS['mapisession']->getAddressbook(), $data['message'], $content, Array('parse_smime_signed' => True));
 			// Manually set time back to the received time, since mapi_inetmapi_imtomapi overwrites this
 			mapi_setprops($data['message'], $receivedTime);
 
@@ -465,20 +481,20 @@ class Pluginsmime extends Plugin {
 			// All checks completed succesfull
 			// Store private cert in users associated store (check for duplicates)
 			if(empty($message)) {
-				$certMessage = getMAPICert($this->store);
+				$certMessage = getMAPICert($this->getStore());
 				// TODO: update to serialNumber check
 				if($certMessage && $certMessage[PR_MESSAGE_DELIVERY_TIME] == $validTo) {
 					$message = dgettext('plugin_smime', 'Certificate is already stored on the server');
 				} else {
 					$saveCert = true;
-					$root = mapi_msgstore_openentry($this->store, null);
+					$root = mapi_msgstore_openentry($this->getStore(), null);
 					// Remove old certificate
 					if($certMessage) {
 						// Delete private key
 						mapi_folder_deletemessages($root, array($certMessage[PR_ENTRYID]));
 
 						// Delete public key
-						$pubCert = getMAPICert($this->store, 'WebApp.Security.Public', getCertEmail($certMessage));
+						$pubCert = getMAPICert($this->getStore, 'WebApp.Security.Public', getCertEmail($certMessage));
 						if($pubCert) {
 							mapi_folder_deletemessages($root, array($pubCert[PR_ENTRYID]));
 						}
@@ -490,7 +506,7 @@ class Pluginsmime extends Plugin {
 					$this->importCertificate($certificate, $publickeyData, 'private');
 
 					// Check if the user has an public key in the GAB.
-					$store_props = mapi_getprops($this->store, array(PR_USER_ENTRYID));
+					$store_props = mapi_getprops($this->getStore(), array(PR_USER_ENTRYID));
 					$user = mapi_ab_openentry($GLOBALS['mapisession']->getAddressbook(), $store_props[PR_USER_ENTRYID]);
 
 					$gabCert = $this->getGABCert($user);
@@ -637,7 +653,7 @@ class Pluginsmime extends Plugin {
 		mapi_setprops($signedAttach, $smimeProps);
 
 		// Obtain private certificate
-		$certs = readPrivateCert($this->store, $_SESSION['smime']);
+		$certs = readPrivateCert($this->getStore(), $_SESSION['smime']);
 
 		// Retrieve intermediate CA's for verification, if avaliable
 		if (isset($certs['extracerts'])) {
@@ -761,10 +777,10 @@ class Pluginsmime extends Plugin {
 	{
 		$certificate = "";
 
-		$cert = getMAPICert($this->store, 'WebApp.Security.Public', $emailAddress);
+		$cert = getMAPICert($this->getStore(), 'WebApp.Security.Public', $emailAddress);
 
 		if($cert) {
-			$pubkey = mapi_msgstore_openentry($this->store, $cert[PR_ENTRYID]);
+			$pubkey = mapi_msgstore_openentry($this->getStore(), $cert[PR_ENTRYID]);
 
 			if($pubkey != false) {
 				// retreive pkcs#11 certificate from body
@@ -796,7 +812,7 @@ class Pluginsmime extends Plugin {
 			}
 		}
 
-		$root = mapi_msgstore_openentry($this->store, null);
+		$root = mapi_msgstore_openentry($this->getStore(), null);
 		$table = mapi_folder_getcontentstable($root, MAPI_ASSOCIATED);
 
 		// Restriction for public certificates which are from the sender of the email, are active and have the correct message_class
@@ -955,7 +971,7 @@ class Pluginsmime extends Plugin {
 				}
 			}
 
-			$root = mapi_msgstore_openentry($this->store, null);
+			$root = mapi_msgstore_openentry($this->getStore(), null);
 			$assocMessage = mapi_folder_createmessage($root, MAPI_ASSOCIATED);
 			// TODO: write these properties down.
 			mapi_setprops($assocMessage, array(
