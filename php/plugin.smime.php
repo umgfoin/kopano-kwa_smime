@@ -128,7 +128,7 @@ class Pluginsmime extends Plugin {
 			return;
 		}
 
-		$message = mapi_msgstore_openentry($this->store, $entryid);
+		$message = mapi_msgstore_openentry($data['store'], $entryid);
 		$module = $data['moduleObject'];
 		$data['success'] = true;
 
