@@ -213,7 +213,9 @@ Zarafa.plugins.smime.dialogs.PassphraseWindow = Ext.extend(Ext.Panel, {
 		this.passphrase = field;
 
 		// Focus the password field, so the user can hit the keys right away
-		field.focus();
+		setTimeout(function() {
+			field.focus();
+		}, 500);
 
 		// Activate the main browser window again, so the user can move the passphrase window
 		var parentWindow = this.getEl().dom.ownerDocument.defaultView;
