@@ -900,11 +900,19 @@ class Pluginsmime extends Plugin {
 			}
 		}
 
-		# FIXME: cache issuer certificate.
-		if (!$pubcert->verify() || !$pubcert->issuer()->verify()) {
-			$this->message['info'] = SMIME_REVOKED;
-			$this->message['success'] = SMIME_STATUS_PARTIAL;
-			return false;
+		try {
+			$pubcert->verify();
+			$issuer = $pubcert->issuer();
+			if ($issuer->issuer()) {
+				$issuer->verify();
+			}
+		} catch (OCSPException $e) {
+			if ($e->getCode() === OCSP_CERT_STATUS && $e->getCertStatus() == OCSP_CERT_STATUS_REVOKED) {
+				$this->message['info'] = SMIME_REVOKED;
+				$this->message['success'] = SMIME_STATUS_PARTIAL;
+				return false;
+			}
+			error_log(sprintf("[SMIME] OCSP verification warning: '%s'", $e->getMessage()));
 		}
 
 		// Certificate does not support OCSP
