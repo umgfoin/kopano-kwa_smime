@@ -666,7 +666,17 @@ class Pluginsmime extends Plugin {
 
 		$publicCerts = $this->getPublicKeyForMessage($message);
 		// Always append our own certificate, so that the mail can be decrypted in 'Sent items'
-		array_push($publicCerts, base64_decode($this->getPublicKey($GLOBALS['mapisession']->getSMTPAddress())));
+		// Prefer GAB public certificate above MAPI Store certificate.
+		$email = $GLOBALS['mapisession']->getSMTPAddress();
+		$user = $this->getGABUser($email);
+		$cert = $this->getGABCert($user);
+		if (empty($cert)) {
+			$cert = base64_decode($this->getPublicKey($email));
+		}
+
+		if (!empty($cert)) {
+			array_push($publicCerts, $cert);
+		}
 
 		openssl_pkcs7_encrypt($infile, $outfile, $publicCerts, array(), 0, $this->cipher);
 		$tmpEml = file_get_contents($outfile);
