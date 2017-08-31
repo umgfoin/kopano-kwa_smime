@@ -425,6 +425,7 @@ class Pluginsmime extends Plugin {
 			if(openssl_pkcs12_read($certificate, $certs, $passphrase)) {
 				$privatekey = $certs['pkey'];
 				$publickey = $certs['cert'];
+				$extracerts = isset($certs['extracerts']) ? $certs['extracerts']: [];
 
 				$publickeyData = openssl_x509_parse($publickey);
 
@@ -451,7 +452,7 @@ class Pluginsmime extends Plugin {
 						$message = dgettext('plugin_smime', 'Certificate is not yet valid ') . date('Y-m-d', $validFrom) . '. ' . dgettext('plugin_smime', 'Certificate has not been imported');
 					}
 					// We allow users to import private certificate which have no OCSP support
-					else if(!$this->verifyOCSP($certs['cert'], $certs) && $this->message['info'] !== SMIME_OCSP_NOSUPPORT) {
+					else if(!$this->verifyOCSP($certs['cert'], $extracerts) && $this->message['info'] !== SMIME_OCSP_NOSUPPORT) {
 						$message = dgettext('plugin_smime', 'Certificate is revoked');
 					}
 				} else { // Can't parse public certificate pkcs#12 file might be corrupt
