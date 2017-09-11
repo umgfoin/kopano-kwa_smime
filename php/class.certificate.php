@@ -3,6 +3,46 @@
 include_once('lib/X509.php');
 include_once('lib/Ocsp.php');
 
+define('OCSP_CERT_EXPIRED', 1);
+define('OCSP_NO_ISSUER', 2);
+define('OCSP_NO_RESPONSE', 3);
+define('OCSP_RESPONSE_STATUS', 4);
+define('OCSP_CERT_STATUS', 5);
+define('OCSP_CERT_MISMATCH', 6);
+define('OCSP_RESPONSE_TIME_EARLY', 7);
+define('OCSP_RESPONSE_TIME_INVALID', 8);
+
+define('OCSP_CERT_STATUS_GOOD', 1);
+define('OCSP_CERT_STATUS_REVOKED', 2);
+define('OCSP_CERT_STATUS_UNKOWN', 3);
+
+class OCSPException extends Exception{
+	private $status;
+
+	public function setCertStatus($status) {
+		$this->status = $status;
+	}
+
+	public function getCertStatus() {
+		if (!$this->status) {
+			return;
+		}
+
+		if ($this->code !== OCSP_CERT_STATUS) {
+			return;
+		}
+
+		switch ($this->status) {
+		case 'good':
+			return OCSP_CERT_STATUS_GOOD;
+		case 'revoked':
+			return OCSP_CERT_STATUS_REVOKED;
+		default:
+			return OCSP_CERT_STATUS_UNKOWN;
+		}
+	}
+}
+
 function tempErrorHandler($errno, $errstr, $errfile, $errline) {
 	return true;
 }
@@ -245,12 +285,12 @@ class Certificate
 		$message = [];
 
 		if (!$this->valid()) {
-			return false;
+			throw new OCSPException('Certificate expired', OCSP_CERT_EXPIRED);
 		}
 
 		$issuer = $this->issuer();
 		if (!is_object($issuer)) {
-			return false;
+			throw new OCSPException('No issuer', OCSP_NO_ISSUER);
 		}
 
 		/* Set custom error handler since the nemid ocsp library uses
@@ -293,17 +333,18 @@ class Certificate
 		$derresponse = file_get_contents($this->ocspURL(), null, $context);
 		// OCSP service not avaliable, import certificate, but show a warning.
 		if ($derresponse === false) {
-			return true;
+			throw new OCSPException('No response', OCSP_NO_RESPONSE);
 		}
 		$ocspresponse = $ocspclient->response($derresponse);
 
 		// Restore the previous error handler
 		restore_error_handler();
 
+		// responseStatuses: successful, malformedRequest,
+		// internalError, tryLater, sigRequired, unauthorized.
 		if (isset($ocspresponse['responseStatus']) &&
 			$ocspresponse['responseStatus'] !== 'successful') {
-			// Certificate status is not good, revoked or unknown
-			return false;
+			throw new OCSPException('Response status' . $ocspresponse['responseStatus'], OCSP_RESPONSE_STATUS);
 		}
 
 		$resp = $ocspresponse['responseBytes']['BasicOCSPResponse']['tbsResponseData']['responses'][0];
@@ -314,7 +355,9 @@ class Certificate
 		 */
 		if($resp['certStatus'] !== 'good') {
 			// Certificate status is not good, revoked or unknown
-			return false;
+			$exception = new OCSPException('Certificate status ' . $resp['certStatus'], OCSP_CERT_STATUS);
+			$exception->setCertStatus($resp['certStatus']);
+			throw $exception;
 		}
 
 		/* Check if:
@@ -328,7 +371,7 @@ class Certificate
 			&& $resp['certID']['issuerKeyHash'] !== $certID['issuerKeyHash']
 			&& $resp['certID']['serialNumber'] !== $certID['serialNumber']) {
 			// OCSP Revocation, mismatch between original and checked certificate
-			return false;
+			throw new OCSPException('Certificate mismatch', OCSP_CERT_MISMATCH);
 		}
 
 		// check if OCSP revocation update is recent
@@ -337,15 +380,13 @@ class Certificate
 
 		// Check if update time is earlier then our own time
 		if (!isset($resp['nextupdate']) && $thisUpdate > $now) {
-			return false;
+			throw new OCSPException('Update time earlier then our own time', OCSP_RESPONSE_TIME_EARLY);
 		}
 
 		// Current time should be between thisUpdate and nextUpdate.
 		if ($thisUpdate > $now && $now > new Datetime($resp['nextUpdate'])) {
 			// OCSP Revocation status not current
-			return false;
+			throw new OCSPException('Current time not between thisUpdate and nextUpdate', OCSP_RESPONSE_TIME_INVALID);
 		}
-
-		return true;
 	}
 }
