@@ -441,52 +441,15 @@ class Pluginsmime extends Plugin {
 			$message = '';
 
 			$certificate = file_get_contents($tmpname);
-			if(openssl_pkcs12_read($certificate, $certs, $passphrase)) {
-				$privatekey = $certs['pkey'];
-				$publickey = $certs['cert'];
-				$extracerts = isset($certs['extracerts']) ? $certs['extracerts']: [];
-
-				$publickeyData = openssl_x509_parse($publickey);
-
-				if($publickeyData) {
-					$certEmailAddress = getCertEmail($publickeyData);
-					$validFrom = $publickeyData['validFrom_time_t'];
-					$validTo = $publickeyData['validTo_time_t'];
-					$emailAddress = $GLOBALS['mapisession']->getSMTPAddress();
-
-					// Check priv key for signing capabilities
-					if(!openssl_x509_checkpurpose($privatekey, X509_PURPOSE_SMIME_SIGN)) {
-						$message = dgettext('plugin_smime', 'Private key can\'t be used to sign email');
-					}
-					// Check if the certificate owner matches the WebApp users email address
-					else if (strcasecmp($certEmailAddress, $emailAddress) !== 0) {
-						$message = dgettext('plugin_smime', 'Certificate email address doesn\'t match WebApp account ') . $certEmailAddress;
-					}
-					// Check if certificate is not expired, still import the certificate since a user wants to decrypt his old email
-					else if($validTo < time()) {
-						$message = dgettext('plugin_smime', 'Certificate was expired on ') . date('Y-m-d', $validTo) .  '. ' . dgettext('plugin_smime', 'Certificate has not been imported');
-					}
-					// Check if the certificate is validFrom date is not in the future
-					else if($validFrom > time()) {
-						$message = dgettext('plugin_smime', 'Certificate is not yet valid ') . date('Y-m-d', $validFrom) . '. ' . dgettext('plugin_smime', 'Certificate has not been imported');
-					}
-					// We allow users to import private certificate which have no OCSP support
-					else if(!$this->verifyOCSP($certs['cert'], $extracerts) && $this->message['info'] !== SMIME_OCSP_NOSUPPORT) {
-						$message = dgettext('plugin_smime', 'Certificate is revoked');
-					}
-				} else { // Can't parse public certificate pkcs#12 file might be corrupt
-					$message = dgettext('plugin_smime', 'Unable to read public certificate');
-				}
-			} else { // Not able to decrypt email
-				$message = dgettext('plugin_smime', 'Unable to decrypt certificate');
-			}
+			$emailAddress = $GLOBALS['mapisession']->getSMTPAddress();
+			list($message, $publickey, $publickeyData) = $this->validateUploadedPKCS($certificate, $passphrase, $emailAddress);
 
 			// All checks completed succesfull
 			// Store private cert in users associated store (check for duplicates)
 			if(empty($message)) {
 				$certMessage = getMAPICert($this->getStore());
 				// TODO: update to serialNumber check
-				if($certMessage && $certMessage[PR_MESSAGE_DELIVERY_TIME] == $validTo) {
+				if($certMessage && $certMessage[PR_MESSAGE_DELIVERY_TIME] == $publickeyData['validTo_time_t']) {
 					$message = dgettext('plugin_smime', 'Certificate is already stored on the server');
 				} else {
 					$saveCert = true;
@@ -531,6 +494,58 @@ class Pluginsmime extends Plugin {
 			);
 			$data['returnfiles'] = $returnfiles;
 		}
+	}
+
+	/**
+	 * Validate the certificate of a user, set an error message.
+	 *
+	 * @param string $certificate the pkcs#12 cert
+	 * @param string $passphrase the pkcs#12 passphrase
+	 * @param string $emailAddres the users email address (must match certificate email)
+	 */
+	function validateUploadedPKCS($certificate, $passphrase, $emailAddress)
+	{
+		if (!openssl_pkcs12_read($certificate, $certs, $passphrase)) {
+			return [dgettext('plugin_smime', 'Unable to decrypt certificate'), '', ''];
+		}
+
+		$message = '';
+		$privatekey = $certs['pkey'];
+		$publickey = $certs['cert'];
+		$extracerts = isset($certs['extracerts']) ? $certs['extracerts']: [];
+		$publickeyData = openssl_x509_parse($publickey);
+
+		if($publickeyData) {
+			$certEmailAddress = getCertEmail($publickeyData);
+			$validFrom = $publickeyData['validFrom_time_t'];
+			$validTo = $publickeyData['validTo_time_t'];
+			$emailAddress = $GLOBALS['mapisession']->getSMTPAddress();
+
+			// Check priv key for signing capabilities
+			if(!openssl_x509_checkpurpose($privatekey, X509_PURPOSE_SMIME_SIGN)) {
+				$message = dgettext('plugin_smime', 'Private key can\'t be used to sign email');
+			}
+			// Check if the certificate owner matches the WebApp users email address
+			else if (strcasecmp($certEmailAddress, $emailAddress) !== 0) {
+				$message = dgettext('plugin_smime', 'Certificate email address doesn\'t match WebApp account ') . $certEmailAddress;
+			}
+			// Check if certificate is not expired, still import the certificate since a user wants to decrypt his old email
+			else if($validTo < time()) {
+				$message = dgettext('plugin_smime', 'Certificate was expired on ') . date('Y-m-d', $validTo) .  '. ' . dgettext('plugin_smime', 'Certificate has not been imported');
+			}
+			// Check if the certificate is validFrom date is not in the future
+			else if($validFrom > time()) {
+				$message = dgettext('plugin_smime', 'Certificate is not yet valid ') . date('Y-m-d', $validFrom) . '. ' . dgettext('plugin_smime', 'Certificate has not been imported');
+			}
+			// We allow users to import private certificate which have no OCSP support
+			else if(!$this->verifyOCSP($certs['cert'], $extracerts) && $this->message['info'] !== SMIME_OCSP_NOSUPPORT) {
+				$message = dgettext('plugin_smime', 'Certificate is revoked');
+			}
+		} else { // Can't parse public certificate pkcs#12 file might be corrupt
+			$message = dgettext('plugin_smime', 'Unable to read public certificate');
+		}
+
+		return [$message, $publickey, $publickeyData];
 	}
 
 	/**
