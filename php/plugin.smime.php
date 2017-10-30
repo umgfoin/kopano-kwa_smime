@@ -515,11 +515,10 @@ class Pluginsmime extends Plugin {
 		$extracerts = isset($certs['extracerts']) ? $certs['extracerts']: [];
 		$publickeyData = openssl_x509_parse($publickey);
 
-		if($publickeyData) {
+		if ($publickeyData) {
 			$certEmailAddress = getCertEmail($publickeyData);
 			$validFrom = $publickeyData['validFrom_time_t'];
 			$validTo = $publickeyData['validTo_time_t'];
-			$emailAddress = $GLOBALS['mapisession']->getSMTPAddress();
 
 			// Check priv key for signing capabilities
 			if(!openssl_x509_checkpurpose($privatekey, X509_PURPOSE_SMIME_SIGN)) {
@@ -538,7 +537,7 @@ class Pluginsmime extends Plugin {
 				$message = dgettext('plugin_smime', 'Certificate is not yet valid ') . date('Y-m-d', $validFrom) . '. ' . dgettext('plugin_smime', 'Certificate has not been imported');
 			}
 			// We allow users to import private certificate which have no OCSP support
-			else if(!$this->verifyOCSP($certs['cert'], $extracerts) && $this->message['info'] !== SMIME_OCSP_NOSUPPORT) {
+			else if(!$this->verifyOCSP($certs['cert'], $extracerts)) {
 				$message = dgettext('plugin_smime', 'Certificate is revoked');
 			}
 		} else { // Can't parse public certificate pkcs#12 file might be corrupt
