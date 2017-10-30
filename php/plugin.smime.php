@@ -250,10 +250,10 @@ class Pluginsmime extends Plugin {
 				$caCerts = $this->extractCAs($tmpfname);
 				// If validTo and validFrom are more in the future, emailAddress matches and OCSP check is valid, import newer certificate
 				if($parsedImportCert['validTo'] > $parsedUserCert['validTo'] && $parsedImportCert['validFrom'] > $parsedUserCert['validFrom']
-					&& getCertEmail($parsedImportCert) === getCertEmail($parsedUserCert) && $this->verifyOCSP($importCert, $caCerts)) {
+					&& getCertEmail($parsedImportCert) === getCertEmail($parsedUserCert) && $this->verifyOCSP($importCert, $caCerts, $this->message)) {
 					$importMessageCert = true;
 				} else {
-					$this->verifyOCSP($userCert, $caCerts);
+					$this->verifyOCSP($userCert, $caCerts, $this->message);
 				}
 			}
 		} else {
@@ -267,7 +267,7 @@ class Pluginsmime extends Plugin {
 				$parsedImportCert = openssl_x509_parse($userCert);
 
 				$caCerts = $this->extractCAs($tmpfname);
-				if(is_array($parsedImportCert) && $this->verifyOCSP($userCert, $caCerts)) {
+				if(is_array($parsedImportCert) && $this->verifyOCSP($userCert, $caCerts, $this->message)) {
 					$importMessageCert = true;
 				}
 				// We don't have a certificate from the MAPI UserStore or LDAP, so we will set $userCert to $importCert
@@ -537,7 +537,7 @@ class Pluginsmime extends Plugin {
 				$message = dgettext('plugin_smime', 'Certificate is not yet valid ') . date('Y-m-d', $validFrom) . '. ' . dgettext('plugin_smime', 'Certificate has not been imported');
 			}
 			// We allow users to import private certificate which have no OCSP support
-			else if(!$this->verifyOCSP($certs['cert'], $extracerts)) {
+			else if(!$this->verifyOCSP($certs['cert'], $extracerts, $this->message)) {
 				$message = dgettext('plugin_smime', 'Certificate is revoked');
 			}
 		} else { // Can't parse public certificate pkcs#12 file might be corrupt
@@ -892,10 +892,10 @@ class Pluginsmime extends Plugin {
 	 * @param {Array} $extracerts an array of intermediate certificates
 	 * @return {Boolean} true is OCSP verification has succeeded or when there is no OCSP support, false if it hasn't
 	 */
-	function verifyOCSP($certificate, $extracerts = []) {
+	function verifyOCSP($certificate, $extracerts = [], &$message) {
 		if (!PLUGIN_SMIME_ENABLE_OCSP) {
-			$this->message['success'] = SMIME_STATUS_SUCCESS;
-			$this->message['info'] = SMIME_OCSP_DISABLED;
+			$message['success'] = SMIME_STATUS_SUCCESS;
+			$message['info'] = SMIME_OCSP_DISABLED;
 			return true;
 		}
 
@@ -927,16 +927,16 @@ class Pluginsmime extends Plugin {
 			}
 		} catch (OCSPException $e) {
 			if ($e->getCode() === OCSP_CERT_STATUS && $e->getCertStatus() == OCSP_CERT_STATUS_REVOKED) {
-				$this->message['info'] = SMIME_REVOKED;
-				$this->message['success'] = SMIME_STATUS_PARTIAL;
+				$message['info'] = SMIME_REVOKED;
+				$message['success'] = SMIME_STATUS_PARTIAL;
 				return false;
 			}
 			error_log(sprintf("[SMIME] OCSP verification warning: '%s'", $e->getMessage()));
 		}
 
 		// Certificate does not support OCSP
-		$this->message['info'] = SMIME_SUCCESS;
-		$this->message['success'] = SMIME_STATUS_SUCCESS;
+		$message['info'] = SMIME_SUCCESS;
+		$message['success'] = SMIME_STATUS_SUCCESS;
 
 		return true;
 	}
