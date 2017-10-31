@@ -116,21 +116,7 @@ function der2pem($certificate) {
 }
 
 /**
- * Converts X509 PEM format string to DER format
- *
- * @param {string} X509 Certificate in PEM format
- * @return {string} X509 Certificate in DER format
- */
-function pem2der($pem_data)
-{
-	$begin = "CERTIFICATE-----";
-	$end   = "-----END";
-	$pem_data = substr($pem_data, strpos($pem_data, $begin)+strlen($begin));    
-	$pem_data = substr($pem_data, 0, strpos($pem_data, $end));
-	return base64_decode($pem_data);
-}
-
-/* Function which does an OCSP/CRL check on the certificate to find out if it has been
+ * Function which does an OCSP/CRL check on the certificate to find out if it has been
  * revoked.
  *
  * For an OCSP request we need the following items:
