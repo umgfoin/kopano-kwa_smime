@@ -29,6 +29,7 @@ Zarafa.plugins.smime.dialogs.ChangePassphrasePanel = Ext.extend(Ext.Panel, {
 				hideLabel: true,
 				xtype : 'textfield',
 				inputType: 'password',
+				anchor: '100%',
 				ref : 'old_passphrase',
 				listeners : {
 					'change': this.resetVerification,
@@ -50,6 +51,7 @@ Zarafa.plugins.smime.dialogs.ChangePassphrasePanel = Ext.extend(Ext.Panel, {
 				hideLabel: true,
 				xtype : 'textfield',
 				inputType: 'password',
+				anchor: '100%',
 				listeners : {
 					'change': this.resetVerification,
 					scope: this
@@ -63,6 +65,7 @@ Zarafa.plugins.smime.dialogs.ChangePassphrasePanel = Ext.extend(Ext.Panel, {
 				hideLabel: true,
 				xtype : 'textfield',
 				inputType: 'password',
+				anchor: '100%',
 				listeners : {
 					'change': this.resetVerification,
 					scope: this
