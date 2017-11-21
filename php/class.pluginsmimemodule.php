@@ -138,9 +138,15 @@ class PluginSmimeModule extends Module
 		$result = readPrivateCert($this->store, $data['passphrase']);
 
 		if(!empty($result)) {
-			session_start(); // FIXME: Somehow needed, otherwise the $_SESSION['smime'] isn't saved
-			// FIXME: encrypt the passphrase in a secure way
-			$_SESSION['smime'] = $data['passphrase'];
+			$encryptionStore = EncryptionStore::getInstance();
+			// TODO: remove when we no longer support WebApp 3.4.0
+			if (encryptionStoreExpirationSupport()) {
+				$encryptionStore->add('smime', $data['passphrase'], time() + (5 * 60));
+			} else {
+				withPHPSession(function() use ($encryptionStore, $data) {
+					$encryptionStore->add('smime', $data['passphrase']);
+				});
+			}
 			$result = true;
 		} else {
 			$result = false;

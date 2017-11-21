@@ -130,4 +130,29 @@ function pem2der($pem_data)
 	return base64_decode($pem_data);
 }
 
+/**
+ * Detect if the encryptionstore has a third parameter which sets the expiration.
+ * Remove when WebApp 3.4.0 is removed.
+ * @return {boolean} true is expiration is supported
+ */
+function encryptionStoreExpirationSupport() {
+	$refClass = new ReflectionClass('EncryptionStore');
+	return count($refClass->getMethod('add')->getParameters()) === 3;
+}
+
+/**
+ * Open PHP session if it not open closed. Returns if the session was opened.
+ */
+function withPHPSession($func, $sessionOpened = false) {
+	if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+		$sessionOpened = true;
+	}
+
+	$func();
+
+	if ($sessionOpened) {
+		session_write_close();
+	}
+}
 ?>
