@@ -300,7 +300,7 @@ class Pluginsmime extends Plugin {
 
 	/**
 	 * Function which decrypts an encrypted message.
-	 * The key should be unlocked and stored in the $_SESSION['smime'] for a successfull decrypt
+	 * The key should be unlocked and stored in the EncryptionStore for a successfull decrypt
 	 * If the key isn't in the session, we give the user a message to unlock his certificate.
 	 *
 	 * @param {mixed} $data array of data from hook
@@ -311,8 +311,10 @@ class Pluginsmime extends Plugin {
 		$this->message['info'] = SMIME_DECRYPT_FAILURE;
 
 		$this->message['type'] = 'encrypted';
-		if(isset($_SESSION['smime']) && !empty($_SESSION['smime'])) {
-			$certs = readPrivateCert($this->getStore(), $_SESSION['smime']);
+		$encryptionStore = EncryptionStore::getInstance();
+		$pass = $encryptionStore->get('smime');
+		if(isset($pass) && !empty($pass)) {
+			$certs = readPrivateCert($this->getStore(), $pass);
 
 			// create random file for saving the encrypted and body message
 			$tmpFile = tempnam(sys_get_temp_dir(), true);
@@ -367,7 +369,11 @@ class Pluginsmime extends Plugin {
 		} else {
 			$this->message['info'] = SMIME_UNLOCK_CERT;
 		}
-		unset($_SESSION['smime']);
+
+		// When using WebApp 3.4.0, there is no expiration, so clear the password
+		if (!encryptionStoreExpirationSupport()) {
+			withPHPSession(function() use ($encryptionStore) { $encryptionStore->add('smime', ''); });
+		}
 	}
 
 	/**
@@ -546,8 +552,9 @@ class Pluginsmime extends Plugin {
 		if(isset($messageClass) && (stripos($messageClass, 'IPM.Note.SMIME') !== false)) {
 			// FIXME: for now return when we are going to sign but we don't have the passphrase set
 			// This should never happen sign
+			$encryptionStore = \EncryptionStore::getInstance();
 			if(($messageClass === 'IPM.Note.SMIME.SignedEncrypt' || $messageClass === 'IPM.Note.SMIME.MultipartSigned') &&
-				!isset($_SESSION['smime'])) {
+				!$encryptionStore->get('smime')) {
 				return;
 			}
 			// NOTE: setting message class to IPM.Note, so that mapi_inetmapi_imtoinet converts the message to plain email
@@ -650,7 +657,8 @@ class Pluginsmime extends Plugin {
 		mapi_setprops($signedAttach, $smimeProps);
 
 		// Obtain private certificate
-		$certs = readPrivateCert($this->getStore(), $_SESSION['smime']);
+		$encryptionStore = EncryptionStore::getInstance();
+		$certs = readPrivateCert($this->getStore(), $encryptionStore->get('smime'));
 
 		// Retrieve intermediate CA's for verification, if avaliable
 		if (isset($certs['extracerts'])) {
