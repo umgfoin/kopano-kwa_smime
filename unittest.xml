@@ -5,6 +5,7 @@
   </testsuite>
   <logging>
     <log type="junit" target="smime-phptests.xml" logIncompleteSkipped="false"/>
+    <log type="coverage-html" target="htmlcov" lowUpperBound="35" highLowerBound="70"/>
   </logging>
   <filter>
 	  <whitelist>

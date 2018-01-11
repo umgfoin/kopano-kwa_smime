@@ -48,7 +48,12 @@ class UploadCertificateTest extends SMIMETest
 	 */
 	private function generatePKCS12Faketime($days)
 	{
-		return base64_decode(shell_exec("LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1 FAKETIME=$days php ./test/create_pkcs12.php"));
+		$libfaketime = '/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1';
+		if (!file_exists($libfaketime)) {
+			// Arch libfaketime location
+			$libfaketime = '/usr/lib/faketime/libfaketime.so.1';
+		}
+		return base64_decode(shell_exec("LD_PRELOAD='$libfaketime' FAKETIME=$days php ./test/create_pkcs12.php"));
 	}
 
 	/**
@@ -107,7 +112,7 @@ class UploadCertificateTest extends SMIMETest
 	 */
 	public function testCertificateNotValid()
 	{
-		$pkcs12 = $this->generatePKCS12Faketime('+2000d');
+		$pkcs12 = $this->generatePKCS12Faketime('+500d');
 		list($message, $cert, $data) = validateUploadedPKCS($pkcs12, self::PASSPHRASE, self::EMAIL_ADDRESS);
 		$validFrom = date('Y-m-d', $data['validFrom_time_t']);
 
