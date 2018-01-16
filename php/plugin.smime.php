@@ -250,10 +250,10 @@ class Pluginsmime extends Plugin {
 				$caCerts = $this->extractCAs($tmpfname);
 				// If validTo and validFrom are more in the future, emailAddress matches and OCSP check is valid, import newer certificate
 				if($parsedImportCert['validTo'] > $parsedUserCert['validTo'] && $parsedImportCert['validFrom'] > $parsedUserCert['validFrom']
-					&& getCertEmail($parsedImportCert) === getCertEmail($parsedUserCert) && $this->verifyOCSP($importCert, $caCerts)) {
+					&& getCertEmail($parsedImportCert) === getCertEmail($parsedUserCert) && verifyOCSP($importCert, $caCerts, $this->message)) {
 					$importMessageCert = true;
 				} else {
-					$this->verifyOCSP($userCert, $caCerts);
+					verifyOCSP($userCert, $caCerts, $this->message);
 				}
 			}
 		} else {
@@ -267,7 +267,7 @@ class Pluginsmime extends Plugin {
 				$parsedImportCert = openssl_x509_parse($userCert);
 
 				$caCerts = $this->extractCAs($tmpfname);
-				if(is_array($parsedImportCert) && $this->verifyOCSP($userCert, $caCerts)) {
+				if(is_array($parsedImportCert) && verifyOCSP($userCert, $caCerts, $this->message)) {
 					$importMessageCert = true;
 				}
 				// We don't have a certificate from the MAPI UserStore or LDAP, so we will set $userCert to $importCert
@@ -441,52 +441,15 @@ class Pluginsmime extends Plugin {
 			$message = '';
 
 			$certificate = file_get_contents($tmpname);
-			if(openssl_pkcs12_read($certificate, $certs, $passphrase)) {
-				$privatekey = $certs['pkey'];
-				$publickey = $certs['cert'];
-				$extracerts = isset($certs['extracerts']) ? $certs['extracerts']: [];
-
-				$publickeyData = openssl_x509_parse($publickey);
-
-				if($publickeyData) {
-					$certEmailAddress = getCertEmail($publickeyData);
-					$validFrom = $publickeyData['validFrom_time_t'];
-					$validTo = $publickeyData['validTo_time_t'];
-					$emailAddress = $GLOBALS['mapisession']->getSMTPAddress();
-
-					// Check priv key for signing capabilities
-					if(!openssl_x509_checkpurpose($privatekey, X509_PURPOSE_SMIME_SIGN)) {
-						$message = dgettext('plugin_smime', 'Private key can\'t be used to sign email');
-					}
-					// Check if the certificate owner matches the WebApp users email address
-					else if (strcasecmp($certEmailAddress, $emailAddress) !== 0) {
-						$message = dgettext('plugin_smime', 'Certificate email address doesn\'t match WebApp account ') . $certEmailAddress;
-					}
-					// Check if certificate is not expired, still import the certificate since a user wants to decrypt his old email
-					else if($validTo < time()) {
-						$message = dgettext('plugin_smime', 'Certificate was expired on ') . date('Y-m-d', $validTo) .  '. ' . dgettext('plugin_smime', 'Certificate has not been imported');
-					}
-					// Check if the certificate is validFrom date is not in the future
-					else if($validFrom > time()) {
-						$message = dgettext('plugin_smime', 'Certificate is not yet valid ') . date('Y-m-d', $validFrom) . '. ' . dgettext('plugin_smime', 'Certificate has not been imported');
-					}
-					// We allow users to import private certificate which have no OCSP support
-					else if(!$this->verifyOCSP($certs['cert'], $extracerts) && $this->message['info'] !== SMIME_OCSP_NOSUPPORT) {
-						$message = dgettext('plugin_smime', 'Certificate is revoked');
-					}
-				} else { // Can't parse public certificate pkcs#12 file might be corrupt
-					$message = dgettext('plugin_smime', 'Unable to read public certificate');
-				}
-			} else { // Not able to decrypt email
-				$message = dgettext('plugin_smime', 'Unable to decrypt certificate');
-			}
+			$emailAddress = $GLOBALS['mapisession']->getSMTPAddress();
+			list($message, $publickey, $publickeyData) = validateUploadedPKCS($certificate, $passphrase, $emailAddress);
 
 			// All checks completed succesfull
 			// Store private cert in users associated store (check for duplicates)
 			if(empty($message)) {
 				$certMessage = getMAPICert($this->getStore());
 				// TODO: update to serialNumber check
-				if($certMessage && $certMessage[PR_MESSAGE_DELIVERY_TIME] == $validTo) {
+				if($certMessage && $certMessage[PR_MESSAGE_DELIVERY_TIME] == $publickeyData['validTo_time_t']) {
 					$message = dgettext('plugin_smime', 'Certificate is already stored on the server');
 				} else {
 					$saveCert = true;
@@ -859,72 +822,6 @@ class Pluginsmime extends Plugin {
 			$openssl_error_code = $openssl_error_list[1];
 		}
 		return $openssl_error_code;
-	}
-
-	/**
-	 * Function which does an OCSP/CRL check on the certificate to find out if it has been
-	 * revoked.
-	 *
-	 * For an OCSP request we need the following items:
-	 * - Client certificate which we need to verify
-	 * - Issuer certificate (Authority Information Access: Ca Issuers) openssl x509 -in certificate.crt -text
-	 * - OCSP URL (Authority Information Access: OCSP Url)
-	 *
-	 * The issuer certificate is fetched once and stored in /var/lib/kopano-webapp/tmp/smime
-	 * We create the directory if it does not exists, check if the certificate is already stored. If it is already
-	 * stored we, use stat() to determine if it is not very old (> 1 Month) and otherwise fetch the certificate and store it.
-	 *
-	 * @param {String} $certificate
-	 * @param {Array} $extracerts an array of intermediate certificates
-	 * @return {Boolean} true is OCSP verification has succeeded or when there is no OCSP support, false if it hasn't
-	 */
-	function verifyOCSP($certificate, $extracerts = []) {
-		if (!PLUGIN_SMIME_ENABLE_OCSP) {
-			$this->message['success'] = SMIME_STATUS_SUCCESS;
-			$this->message['info'] = SMIME_OCSP_DISABLED;
-			return true;
-		}
-
-		$pubcert = new Certificate($certificate);
-
-		/*
-		 * Walk over the provided extra intermediate certificates and setup the issuer
-		 * chain.
-		 */
-		$parent = $pubcert;
-		while($cert = array_shift($extracerts)) {
-			$cert = new Certificate($cert);
-
-			if ($cert->getName() === $pubcert->getName()) {
-				continue;
-			}
-
-			if ($cert->getName() === $parent->getIssuerName()) {
-				$parent->setIssuer($cert);
-				$parent = $cert;
-			}
-		}
-
-		try {
-			$pubcert->verify();
-			$issuer = $pubcert->issuer();
-			if ($issuer->issuer()) {
-				$issuer->verify();
-			}
-		} catch (OCSPException $e) {
-			if ($e->getCode() === OCSP_CERT_STATUS && $e->getCertStatus() == OCSP_CERT_STATUS_REVOKED) {
-				$this->message['info'] = SMIME_REVOKED;
-				$this->message['success'] = SMIME_STATUS_PARTIAL;
-				return false;
-			}
-			error_log(sprintf("[SMIME] OCSP verification warning: '%s'", $e->getMessage()));
-		}
-
-		// Certificate does not support OCSP
-		$this->message['info'] = SMIME_SUCCESS;
-		$this->message['success'] = SMIME_STATUS_SUCCESS;
-
-		return true;
 	}
 
 	/**

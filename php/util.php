@@ -116,18 +116,120 @@ function der2pem($certificate) {
 }
 
 /**
- * Converts X509 PEM format string to DER format
+ * Function which does an OCSP/CRL check on the certificate to find out if it has been
+ * revoked.
  *
- * @param {string} X509 Certificate in PEM format
- * @return {string} X509 Certificate in DER format
+ * For an OCSP request we need the following items:
+ * - Client certificate which we need to verify
+ * - Issuer certificate (Authority Information Access: Ca Issuers) openssl x509 -in certificate.crt -text
+ * - OCSP URL (Authority Information Access: OCSP Url)
+ *
+ * The issuer certificate is fetched once and stored in /var/lib/kopano-webapp/tmp/smime
+ * We create the directory if it does not exists, check if the certificate is already stored. If it is already
+ * stored we, use stat() to determine if it is not very old (> 1 Month) and otherwise fetch the certificate and store it.
+ *
+ * @param {String} $certificate
+ * @param {Array} $extracerts an array of intermediate certificates
+ * @return {Boolean} true is OCSP verification has succeeded or when there is no OCSP support, false if it hasn't
  */
-function pem2der($pem_data)
+function verifyOCSP($certificate, $extracerts = [], &$message) {
+	if (!PLUGIN_SMIME_ENABLE_OCSP) {
+		$message['success'] = SMIME_STATUS_SUCCESS;
+		$message['info'] = SMIME_OCSP_DISABLED;
+		return true;
+	}
+
+	$pubcert = new Certificate($certificate);
+
+	/*
+	 * Walk over the provided extra intermediate certificates and setup the issuer
+	 * chain.
+	 */
+	$parent = $pubcert;
+	while($cert = array_shift($extracerts)) {
+		$cert = new Certificate($cert);
+
+		if ($cert->getName() === $pubcert->getName()) {
+			continue;
+		}
+
+		if ($cert->getName() === $parent->getIssuerName()) {
+			$parent->setIssuer($cert);
+			$parent = $cert;
+		}
+	}
+
+	try {
+		$pubcert->verify();
+		$issuer = $pubcert->issuer();
+		if ($issuer->issuer()) {
+			$issuer->verify();
+		}
+	} catch (OCSPException $e) {
+		if ($e->getCode() === OCSP_CERT_STATUS && $e->getCertStatus() == OCSP_CERT_STATUS_REVOKED) {
+			$message['info'] = SMIME_REVOKED;
+			$message['success'] = SMIME_STATUS_PARTIAL;
+			return false;
+		}
+		error_log(sprintf("[SMIME] OCSP verification warning: '%s'", $e->getMessage()));
+	}
+
+	// Certificate does not support OCSP
+	$message['info'] = SMIME_SUCCESS;
+	$message['success'] = SMIME_STATUS_SUCCESS;
+
+	return true;
+}
+
+/* Validate the certificate of a user, set an error message.
+ *
+ * @param string $certificate the pkcs#12 cert
+ * @param string $passphrase the pkcs#12 passphrase
+ * @param string $emailAddres the users email address (must match certificate email)
+ */
+function validateUploadedPKCS($certificate, $passphrase, $emailAddress)
 {
-	$begin = "CERTIFICATE-----";
-	$end   = "-----END";
-	$pem_data = substr($pem_data, strpos($pem_data, $begin)+strlen($begin));    
-	$pem_data = substr($pem_data, 0, strpos($pem_data, $end));
-	return base64_decode($pem_data);
+	if (!openssl_pkcs12_read($certificate, $certs, $passphrase)) {
+		return [dgettext('plugin_smime', 'Unable to decrypt certificate'), '', ''];
+	}
+
+	$message = '';
+	$data = [];
+	$privatekey = $certs['pkey'];
+	$publickey = $certs['cert'];
+	$extracerts = isset($certs['extracerts']) ? $certs['extracerts']: [];
+	$publickeyData = openssl_x509_parse($publickey);
+
+	if ($publickeyData) {
+		$certEmailAddress = getCertEmail($publickeyData);
+		$validFrom = $publickeyData['validFrom_time_t'];
+		$validTo = $publickeyData['validTo_time_t'];
+
+		// Check priv key for signing capabilities
+		if(!openssl_x509_checkpurpose($privatekey, X509_PURPOSE_SMIME_SIGN)) {
+			$message = dgettext('plugin_smime', 'Private key can\'t be used to sign email');
+		}
+		// Check if the certificate owner matches the WebApp users email address
+		else if (strcasecmp($certEmailAddress, $emailAddress) !== 0) {
+			$message = dgettext('plugin_smime', 'Certificate email address doesn\'t match WebApp account ') . $certEmailAddress;
+		}
+		// Check if certificate is not expired, still import the certificate since a user wants to decrypt his old email
+		else if($validTo < time()) {
+			$message = dgettext('plugin_smime', 'Certificate was expired on ') . date('Y-m-d', $validTo) .  '. ' . dgettext('plugin_smime', 'Certificate has not been imported');
+		}
+		// Check if the certificate is validFrom date is not in the future
+		else if($validFrom > time()) {
+			$message = dgettext('plugin_smime', 'Certificate is not yet valid ') . date('Y-m-d', $validFrom) . '. ' . dgettext('plugin_smime', 'Certificate has not been imported');
+		}
+		// We allow users to import private certificate which have no OCSP support
+		else if(!verifyOCSP($certs['cert'], $extracerts, $data)) {
+			$message = dgettext('plugin_smime', 'Certificate is revoked');
+		}
+	} else { // Can't parse public certificate pkcs#12 file might be corrupt
+		$message = dgettext('plugin_smime', 'Unable to read public certificate');
+	}
+
+	return [$message, $publickey, $publickeyData];
 }
 
 /**
@@ -155,4 +257,5 @@ function withPHPSession($func, $sessionOpened = false) {
 		session_write_close();
 	}
 }
+
 ?>

@@ -3,7 +3,9 @@
 require_once('php/class.certificate.php');
 require_once('php/util.php');
 
-define('OPENSSL_CONF_PATH', '/etc/ssl/openssl.cnf');
+if (!defined('OPENSSL_CONF_PATH')) {
+	define('OPENSSL_CONF_PATH', '/etc/ssl/openssl.cnf');
+}
 
 class CertificateTest extends \PHPUnit_Framework_TestCase
 {
