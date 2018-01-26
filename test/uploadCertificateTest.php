@@ -1,4 +1,6 @@
 <?php
+require_once('test/smimeTest.php');
+
 // Disable OCSP for tests
 define('PLUGIN_SMIME_ENABLE_OCSP', false);
 define('SMIME_STATUS_SUCCESS', 1);
@@ -6,11 +8,7 @@ define('SMIME_OCSP_DISABLED', 1);
 
 require_once('php/util.php');
 
-if (!defined('OPENSSL_CONF_PATH')) {
-	define('OPENSSL_CONF_PATH', '/etc/ssl/openssl.cnf');
-}
-
-class UploadCertificateTest extends \PHPUnit_Framework_TestCase
+class UploadCertificateTest extends SMIMETest
 {
 	const DAY_EPOCH = 86400;
 	const PASSPHRASE = 'test';

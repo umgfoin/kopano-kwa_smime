@@ -2,15 +2,16 @@
   <testsuite name="SMIME">
     <directory>test/</directory>
     <file>*.php</file>
-    <exclude>
-    </exclude>
   </testsuite>
   <logging>
     <log type="junit" target="smime-phptests.xml" logIncompleteSkipped="false"/>
   </logging>
   <filter>
+	  <whitelist>
+		  <directory suffix=".php">php</directory>
+	  </whitelist>
 	  <blacklist>
-		  <directory>php/lib</directory>
+		  <directory suffix=".php">php/lib</directory>
 	  </blacklist>
   </filter>
 </testsuites>
