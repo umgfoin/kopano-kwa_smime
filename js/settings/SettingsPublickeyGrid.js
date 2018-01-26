@@ -63,21 +63,21 @@ Zarafa.plugins.smime.settings.PublickeyGrid = Ext.extend(Ext.grid.GridPanel, {
 		return [{
 			dataIndex : 'email',
 			header : _('Email', 'plugin_smime'),
-		    	sortable: true,
+			sortable: true,
 			renderer : Ext.util.Format.htmlEncode
 		},{
 			dataIndex : 'validfrom',
-		    	sortable: true,
+			sortable: true,
 			header : _('Valid from', 'plugin_smime'),
 			renderer : Ext.util.Format.htmlEncode
 		},{
 			dataIndex : 'validto',
-		    	sortable: true,
+			sortable: true,
 			header : _('Expires', 'plugin_smime'),
 			renderer : Ext.util.Format.htmlEncode
 		},{
 			dataIndex : 'type',
-		    	sortable: true,
+			sortable: true,
 			header : _('Type', 'plugin_smime'),
 			renderer : Ext.util.Format.htmlEncode
 		}];

@@ -40,7 +40,7 @@ Ext.apply(Ext.EventManager, function(){
 		},
 
 		// exposed only to allow manual firing
-		fireIframeResize : function(win){
+		fireIframeResize : function(){
 			if(resizeEvent){
 				resizeTask.delay(100);
 			}

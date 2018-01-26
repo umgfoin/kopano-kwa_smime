@@ -244,16 +244,15 @@ Zarafa.plugins.smime.dialogs.PassphraseWindow = Ext.extend(Ext.Panel, {
 	/**
 	 * Function which calls a request to PHP which verifies if the supplied passphrase is correct.
 	 * Calls onPassphraseCallback if there is a succesCallback.
-	 * @param {Ext.button} button submit button of the form
 	 */
-	checkPassphrase : function(button) {
+	checkPassphrase : function() {
 		var user = container.getUser();
 		container.getRequest().singleRequest(
 			'pluginsmimemodule',
 			'passphrase',
 			{
-			  'user' : user.getSMTPAddress(),
-			  'passphrase' : this.passphrase.getValue()
+				'user' : user.getSMTPAddress(),
+				'passphrase' : this.passphrase.getValue()
 			},
 			new Zarafa.plugins.smime.data.SmimeResponseHandler({
 				successCallback : this.onPassphraseCallback.createDelegate(this)

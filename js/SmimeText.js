@@ -15,7 +15,7 @@ Zarafa.plugins.smime.SmimeText = function() {
 		 * @return {String} popup text
 		 */
 		createMessage : function(text) {
-			 return _('WebApp can verify digital signatures of emails. A successful verification reassures you that the message has not been tampered with and validates the identity of the sender.', 'plugin_smime') +
+			return _('WebApp can verify digital signatures of emails. A successful verification reassures you that the message has not been tampered with and validates the identity of the sender.', 'plugin_smime') +
 				"<br><br>" + _('You are seeing this message because the verification of the digital signature', 'plugin_smime') + "<b>" + _(' has failed', 'plugin_smime') + "</b>" + _(' for this message.', 'plugin_smime') + "<br>" +
 				"<br><b>" + _('What caused this issue?', 'plugin_smime') + "</b><br><br>" +
 				text +
@@ -37,15 +37,15 @@ Zarafa.plugins.smime.SmimeText = function() {
 				// Verified succesfully
 				case 0:
 					return _('WebApp can verify digital signatures of emails. A successful verification reassures you ', 'plugin_smime') +
-					  _('that the message has not been tampered with and validates the identity of the sender.', 'plugin_smime') + "<br><br>" +
-					  _('The verification of the digital signature was successful for this email message.', 'plugin_smime');
+						_('that the message has not been tampered with and validates the identity of the sender.', 'plugin_smime') + "<br><br>" +
+						_('The verification of the digital signature was successful for this email message.', 'plugin_smime');
 				// Could not verify, missing public certificate
 				case 1:
 					return Zarafa.plugins.smime.SmimeText.createMessage(_('WebApp could not find a public certificate for the recipient.', 'plugin_smime'));
-			 	// Signature verified, but certificate expired
+				// Signature verified, but certificate expired
 				case 2:
 					return Zarafa.plugins.smime.SmimeText.createMessage(_('The identity of the sender and authenticity of the message content have been verified, but the certificate used to sign the message expired on [d-m-Y].', 'plugin_smime'));
-			 	// Signature could not be verified
+				// Signature could not be verified
 				case 3:
 					return Zarafa.plugins.smime.SmimeText.createMessage(_('The digital signature could not be verified for unknown reasons.', 'plugin_smime'));
 				// Signature has been revoked

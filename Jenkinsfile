@@ -17,5 +17,18 @@ pipeline {
 					}
 			}
 		}
+		stage('ESLint') {
+			agent {
+				docker {
+					image 'node:9'
+					args '-u 0'
+				}
+			}
+			steps {
+				sh 'npm install -g eslint'
+				sh 'eslint -f junit -o eslint.xml js || true'
+				junit 'eslint.xml'
+			}
+		}
 	}
 }

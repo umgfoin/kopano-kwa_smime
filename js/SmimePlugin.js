@@ -155,7 +155,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	 * When an encrypted message is opened, we will send a request to unlock the certificate.
 	 * When an signed email is openend, we will show a popup with extra information about the signed message
 	 */
-	onSmimeButton: function(button, config)
+	onSmimeButton: function(button)
 	{
 		var smimeInfo = button.record.get('smime');
 		if(button.record.isOpened() && smimeInfo) {
@@ -167,7 +167,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 							'pluginsmimemodule',
 							'certificate',
 							{
-							  'user' : user.getSMTPAddress()
+								'user' : user.getSMTPAddress()
 							},
 							new Zarafa.plugins.smime.data.SmimeResponseHandler({
 								successCallback : this.onCertificateCallback.createDelegate(button.record)
@@ -191,9 +191,8 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	 * If the message is signed we display information depending on the state of the verification.
 	 *
 	 * @param {Zarafa.core.data.IPMRecord} record record which is displayed
-	 * @param {Boolean} contentReset force the component to perform a full update of the data.
 	 */
-	onSmimeInfo : function(record, resetContent)
+	onSmimeInfo : function(record)
 	{
 		// Set button.record for use in onSmimeButton
 		this.record = record;
@@ -265,9 +264,10 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 		var recipientStore = record.getRecipientStore();
 		recipientStore.each(function(recip) {
 			recipients.push(
-				{ email: recip.get('smtp_address'),
-				  internal: recip.get('address_type') === "ZARAFA",
-				  username: recip.get('email_address')
+				{
+					email: recip.get('smtp_address'),
+					internal: recip.get('address_type') === "ZARAFA",
+					username: recip.get('email_address')
 				}
 			);
 		}, this);
@@ -282,9 +282,8 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	 * we set a special message_class on it to sign+encrypt
 	 *
 	 * @param {Ext.button} button
-	 * @param {Object} config
 	 */
-	onEncryptButton : function(button, config)
+	onEncryptButton : function(button)
 	{
 		var dialog = this.getRespectiveDialog(button);
 		var record = dialog.record;
@@ -334,11 +333,9 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	 * If we have signing already set and click it again, we unset it.
 	 * If we already set have encryption set, we set a special message_class for both sign+ecnrypt.
 	 *
-	 *
 	 * @param {Ext.button} button
-	 * @param {Object} config
 	 */
-	onSignButton : function(button, config)
+	onSignButton : function(button)
 	{
 		var dialog = this.getRespectiveDialog(button);
 		var record = dialog.record;
@@ -350,7 +347,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 					'pluginsmimemodule',
 					'certificate',
 					{
-					  'user' : user.getSMTPAddress()
+						'user' : user.getSMTPAddress()
 					},
 					new Zarafa.plugins.smime.data.SmimeResponseHandler({
 						successCallback : plugin.onCertificateCallback.createDelegate(button)
@@ -391,7 +388,7 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 		// TODO: improve functionality with less callbacks
 		var btn = this;
 		if(response.status) {
-		    	Zarafa.core.data.UIFactory.openLayerComponent(Zarafa.core.data.SharedComponentType['plugin.smime.dialog.passphrasewindow'], btn, {manager: Ext.WindowMgr});
+			Zarafa.core.data.UIFactory.openLayerComponent(Zarafa.core.data.SharedComponentType['plugin.smime.dialog.passphrasewindow'], btn, {manager: Ext.WindowMgr});
 		} else {
 			container.getNotifier().notify('info.saved', _('S/MIME Message', 'plugin_smime'), response.message);
 		}
@@ -402,10 +399,9 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	 * and the given record.
 	 * This will bid on calendar.dialogs.importevents
 	 * @param {Zarafa.core.data.SharedComponentType} type Type of component a context can bid for.
-	 * @param {Zarafa.mail.dialogs.MailCreateContentPanel} owner Optionally passed panel
 	 * @return {Number} The bid for the shared component
 	 */
-	bidSharedComponent : function(type, record) {
+	bidSharedComponent : function(type) {
 		var bid = -1;
 
 		switch(type) {
@@ -423,10 +419,9 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 	 * Will return the reference to the shared component.
 	 * Based on the type of component requested a component is returned.
 	 * @param {Zarafa.core.data.SharedComponentType} type Type of component a context can bid for.
-	 * @param {Zarafa.mail.dialogs.MailCreateContentPanel} owner Optionally passed panel
 	 * @return {Ext.Component} Component
 	 */
-	getSharedComponent : function(type, record) {
+	getSharedComponent : function(type) {
 		var component;
 
 		switch(type) {
@@ -443,12 +438,8 @@ Zarafa.plugins.smime.SmimePlugin = Ext.extend(Zarafa.core.Plugin, {
 
 	/**
 	 * Shows the message class icon of signed or encrypted email in the defaultcolumn
-	 *
-	 * @param {string} insertionPoint name of insertion point
-	 * @param {Zarafa.core.data.IPMRecord} record The record of a row
-	 *
 	 */
-	showDefaultColumn : function(insertionPoint, record)
+	showDefaultColumn : function()
 	{
 		return  {
 			header : '<p class="icon_smime_settings">&nbsp;<span class="title">' + '&nbsp' + _('S/MIME Message', 'plugin_smime') + '</span></p>',

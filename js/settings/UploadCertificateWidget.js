@@ -161,10 +161,8 @@ Zarafa.plugins.smime.settings.UploadCertificateWidget = Ext.extend(Zarafa.settin
 	 * Called by the {@link Zarafa.settings.ui.SettingsCategory Category} when
 	 * it has been called with {@link zarafa.settings.ui.SettingsCategory#update}.
 	 * This is being used to reset the textfield and button.
-	 *
-	 * @param {Zarafa.settings.SettingsModel} settingsModel The settings to load
 	 */
-	update : function(settingsModel)
+	update : function()
 	{
 		this.passphrase.reset();
 		this.certificate.setText(this.certificate.defaultValue);
