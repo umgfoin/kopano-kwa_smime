@@ -53,6 +53,11 @@ class PluginSmimeModule extends Module
 							break;
 						case 'changepassphrase':
 							$data = $this->changePassphrase($actionData);
+							if ($data === CHANGE_PASSPHRASE_SUCCESS) {
+								// Reset cached passphrase.
+								$encryptionStore = EncryptionStore::getInstance();
+								withPHPSession(function() use ($encryptionStore) { $encryptionStore->add('smime', ''); });
+							}
 							$response = array(
 								'type' => 3,
 								'code' => $data
