@@ -89,6 +89,13 @@ class CertificateTest extends SMIMETest
 		$this->assertNotEmpty($this->cert->fingerprint('md5'));
 	}
 
+	public function testGetName()
+	{
+		$name = $this->cert->getName();
+		$this->assertContains($this->emailAddress, $name);
+		$this->assertContains($this->countryName, $name);
+		$this->assertContains($this->stateOrProvinceName, $name);
+	}
 }
 
 ?>
