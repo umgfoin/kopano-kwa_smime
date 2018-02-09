@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-11 15:22+0000\n"
-"PO-Revision-Date: 2016-10-11 15:25+0000\n"
+"PO-Revision-Date: 2018-02-09 20:03+0000\n"
 "Last-Translator: Klaus <klaus@linuxavdelingen.no>\n"
 "Language-Team: Norwegian Bokmål "
 "<http://translate.kopano.io/projects/kopano/smime/nb_NO/>\n"
@@ -49,7 +49,7 @@ msgstr ""
 
 #: js/dialogs/ChangePassphraseWindow.js:70
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #: js/dialogs/ChangePassphraseWindow.js:102
 msgid "New passphrase and confirmation passphrase do not match"
@@ -171,7 +171,7 @@ msgstr ""
 
 #: js/settings/UploadCertificateWidget.js:69
 msgid "Upload"
-msgstr ""
+msgstr "Laste opp"
 
 #: js/settings/UploadCertificateWidget.js:102
 msgid "Passphrase is empty"
