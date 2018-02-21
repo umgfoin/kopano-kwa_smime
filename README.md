@@ -11,11 +11,15 @@
 
 Run the basic unit tests. (requires libfaketime)
 
-	phpunit -c unittest.xml
+	make test
 
-Coverage.
+Coverage is located in htmlcov
 
-	phpunit -c unittest.xml --coverage-html /tmp/report
+## Linting
+
+S/MIME uses eslint, simply run the following command for linting.
+
+	make lint
 
 ## S/MIME Certificate Storage
 
