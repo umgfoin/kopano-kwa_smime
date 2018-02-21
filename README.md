@@ -40,3 +40,9 @@ PR_INTERNET_MESSAGE_ID     | The MD5 certificate finger print
 
 In the attchment of this message the pkcs12 is stored (based64) encoded for a WebApp.Security.Private message,
    if it is a WebApp.Security.Public message the attachment contains a base64 encoded PEM file.
+
+## Tools
+
+The tools directory contains a tool to remove, list or import certificate in a user's store. For example:
+
+	./tools/kopano-smime -u user1 --import test.12 --passphrase test

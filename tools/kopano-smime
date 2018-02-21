@@ -1,0 +1,125 @@
+#!/usr/bin/python
+'''
+Import certificate utility, for example:
+
+    ./tools/kopano-smime --import test.p12 -u user1 --passphrase test
+'''
+
+import base64
+import sys
+
+from datetime import datetime
+
+from OpenSSL import crypto
+
+import kopano
+from MAPI.Tags import (PR_SENDER_EMAIL_ADDRESS, PR_CLIENT_SUBMIT_TIME, PR_BODY,
+                       PR_INTERNET_MESSAGE_ID, PR_MESSAGE_DELIVERY_TIME, PR_SENDER_NAME,
+                       PR_SENDER_EMAIL_ADDRESS, PR_SUBJECT_PREFIX, PR_RECEIVED_BY_NAME)
+
+
+def opt_args():
+    parser = kopano.parser('su')
+
+    parser.add_option('--list', dest='list', action='store_true', help='List public/private certificates')
+    parser.add_option('--import', dest='pkcs12', metavar="FILE", help='Import PKCS#12 certificate')
+    parser.add_option('--passphrase', dest='passphrase', metavar="FILE", help='PKCS#12 passphrase')
+    parser.add_option('--remove', dest='remove', action='store_true', help='Remove all certificates')
+
+    return parser.parse_args()
+
+
+def list_certificates(user):
+    print('S/MIME Certificates of {}\n'.format(user.fullname))
+    temp = [['User', 'Type', 'Valid', 'Issuer']]
+    for item in user.store.root.associated.items():
+        if item.message_class not in ['WebApp.Security.Private', 'WebApp.Security.Public']:
+            continue
+        cert_type = item.message_class.split('.')[-1]
+        valid_from = item.prop(PR_CLIENT_SUBMIT_TIME).value.strftime('%Y-%m-%d')
+        valid_to = item.received.strftime('%Y-%m-%d')
+        subject = item.prop(PR_SENDER_EMAIL_ADDRESS).value.decode('utf-8').replace('\n', ',').rstrip(',')
+        temp.append([item.subject, cert_type, valid_from + ' - ' + valid_to, subject])
+
+    result = []
+    colsizes = [max(len(d[i]) for d in temp) for i in range(len(temp[0]))]
+    for d in temp:
+        line = []
+        for size, c in zip(colsizes, d):
+            line.append(c.ljust(size))
+        result.append('  '.join(line))
+    print('\n'.join(result))
+
+def create_cert_msg(user, pkcs12, public=True, data=None):
+    cert = pkcs12.get_certificate()
+    email = cert.get_subject().emailAddress
+    if public:
+        item = user.store.root.associated.create_item(message_class='WebApp.Security.Public', subject=email)
+        item.create_prop(PR_BODY, base64.b64encode(crypto.dump_certificate(crypto.FILETYPE_PEM, cert)))
+    else:
+        item = user.store.root.associated.create_item(message_class='WebApp.Security.Private', subject=email)
+        item.create_prop(PR_BODY, base64.b64encode(data))
+
+    valid_to = datetime.strptime(cert.get_notAfter().decode('ascii'), '%Y%m%d%H%M%SZ')
+    valid_from = datetime.strptime(cert.get_notBefore().decode('ascii'), '%Y%m%d%H%M%SZ')
+    serial = str(cert.get_serial_number()).encode('utf-8')
+    issued_to = b' '.join(comp[0] + b'=' + comp[1] for comp in cert.get_subject().get_components() if comp[0] != b'emailAddress')
+    issued_by = b' '.join(comp[0] + b'=' + comp[1] for comp in cert.get_issuer().get_components())
+
+    item.create_prop(PR_MESSAGE_DELIVERY_TIME, valid_to)
+    item.create_prop(PR_CLIENT_SUBMIT_TIME, valid_from)
+    item.create_prop(PR_SENDER_NAME, serial)
+    item.create_prop(PR_SENDER_EMAIL_ADDRESS, issued_to)
+    item.create_prop(PR_SUBJECT_PREFIX, issued_by)
+    item.create_prop(PR_RECEIVED_BY_NAME, cert.digest('sha1'))
+    item.create_prop(PR_INTERNET_MESSAGE_ID, cert.digest('md5'))
+
+
+def import_certificate(user, pkcs12_file, passphrase):
+    try:
+        pkcs12 = crypto.load_pkcs12(open(pkcs12_file, 'rb').read(), passphrase)
+    except crypto.Error:
+        sys.exit('Invalid passphrase or pkcs12')
+
+    cert = pkcs12.get_certificate()
+    email = cert.get_subject().emailAddress
+    if email != user.email:
+        sys.exit('Certificate email address does not match user email address')
+
+    create_cert_msg(user, pkcs12, public=True)
+    create_cert_msg(user, pkcs12, public=False, data=open(pkcs12_file, 'rb').read())
+
+
+def remove_certificates(user):
+    folder = user.store.root.associated
+    for item in folder.items():
+        if item.message_class not in ['WebApp.Security.Private', 'WebApp.Security.Public']:
+            continue
+        folder.delete(item)
+
+
+def main():
+    options, _ = opt_args()
+
+    if not options.users:
+        sys.exit('Usage: %s -u username' % sys.argv[0])
+
+    try:
+        server = kopano.Server(options=options, auth_user='SYSTEM', auth_pass='')
+    except kopano.errors.LogonError:
+        sys.exit('Unable to logon, this script requires root priviliges')
+
+    user = server.user(options.users[0])
+    if not user:
+        sys.exit("User '%s' not found" % options.users[0])
+
+    if options.list:
+        list_certificates(user)
+    elif options.pkcs12 and options.passphrase:
+        import_certificate(user, options.pkcs12, options.passphrase)
+    elif options.remove:
+        remove_certificates(user)
+
+
+if __name__ == "__main__":
+    main()
