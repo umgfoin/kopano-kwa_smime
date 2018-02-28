@@ -13,7 +13,9 @@ Run the basic unit tests. (requires libfaketime)
 
 	make test
 
-Coverage is located in htmlcov
+Coverage is located in htmlcov or can be viewed using
+
+	make open-coverage
 
 ## Linting
 
