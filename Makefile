@@ -19,9 +19,9 @@ all: build
 build: deploy
 
 deploy: $(PHPFILES) $(JSFILES) $(RESOURCES) $(POFILES)
+	$(ANT) deploy -Dplugin=smime -Dtarget-folder=$(DEPLOY)
 	# Ant doesn't update the deploy modification time
 	touch $@
-	$(ANT) deploy -Dplugin=smime -Dtarget-folder=$(DEPLOY)
 
 # Test
 
