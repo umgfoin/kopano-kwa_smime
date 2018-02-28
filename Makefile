@@ -29,6 +29,10 @@ deploy: $(PHPFILES) $(JSFILES) $(RESOURCES) $(POFILES)
 test:
 	$(PHPUNIT) -c unittest.xml
 
+.PHONY: open-coverage
+open-coverage: test
+	${BROWSER} htmlcov/index.html
+
 .PHONY: lint
 lint: vendor
 	eslint js
