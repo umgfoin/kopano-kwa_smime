@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-12 15:57+0100\n"
-"PO-Revision-Date: 2017-11-03 10:57+0000\n"
+"PO-Revision-Date: 2018-05-08 14:13+0000\n"
 "Last-Translator: Bob <b.huisman@kopano.com>\n"
 "Language-Team: Dutch <http://translate.kopano.io/projects/kopano/smime/nl/>\n"
 "Language: nl_NL\n"
@@ -30,7 +30,7 @@ msgstr "Oude wachtwoordzin"
 
 #: js/dialogs/ChangePassphrasePanel.js:45
 msgid "Wrong passphrase. Please try again"
-msgstr ""
+msgstr "Foutieve wachtwoordzin. Probeer nogmaals"
 
 #: js/dialogs/ChangePassphrasePanel.js:49
 msgid "New passphrase"
@@ -42,7 +42,7 @@ msgstr "Nieuwe wachtwoordzin bevestigen"
 
 #: js/dialogs/ChangePassphrasePanel.js:80
 msgid "The passphrases don't match. Please try again"
-msgstr ""
+msgstr "De wachtwoordzinnen komen niet overeen. Probeer het nogmaals"
 
 #: js/dialogs/ChangePassphrasePanel.js:136 js/dialogs/PassphraseWindow.js:300
 #: js/settings/UploadCertificateWidget.js:150
@@ -52,9 +52,8 @@ msgid "S/MIME Message"
 msgstr "S/MIME Bericht"
 
 #: js/dialogs/ChangePassphrasePanel.js:136
-#, fuzzy
 msgid "Passphrase changed succesfully"
-msgstr "Bericht succesvol ontsleuteld"
+msgstr "Wachtwoordzin succesvol gewijzigd"
 
 #: js/dialogs/PassphraseContentPanel.js:23
 msgid "S/MIME Passphrase"
@@ -71,11 +70,11 @@ msgstr "Wachtwoordzin certificaat"
 
 #: js/dialogs/PassphraseWindow.js:300
 msgid "The passphrase you typed is incorrect. Please try again."
-msgstr ""
+msgstr "De ingevoerde wachtwoordzin is onjuist. Probeer nogmaals."
 
 #: js/settings/SettingsPublickeyGrid.js:30
 msgid "No certificates imported, please upload your private certificate"
-msgstr ""
+msgstr "Geen certificaten geïmporteerd, upload uw privécertificaat"
 
 #: js/settings/SettingsPublickeyGrid.js:65
 msgid "Email"
@@ -189,11 +188,12 @@ msgstr "Upload"
 
 #: js/settings/UploadCertificateWidget.js:104
 msgid "You must fill in the certificate passphrase to upload your certificate."
-msgstr ""
+msgstr "De wachtwoordzin moet worden ingevoerd om uw certificaat te uploaden."
 
 #: js/settings/UploadCertificateWidget.js:111
 msgid "You must first select a valid private certificate in PKCS#12 format."
 msgstr ""
+"Er moet een geldige privésleutel in PKCS#12 formaat worden geselecteerd."
 
 #: js/SmimePlugin.js:79
 msgid "Sign"
@@ -400,9 +400,8 @@ msgid "Message decryption failed"
 msgstr "Bericht ontsleutelen mislukt"
 
 #: js/SmimeText.js:97
-#, fuzzy
 msgid "Please <b>click here</b> to unlock your certificate"
-msgstr "Open het certificaat"
+msgstr "Klik <b>hier</b> om uw certificaat te ontsleutelen"
 
 #: js/SmimeText.js:99 js/SmimeText.js:103
 msgid "Cannot determine revocation status of certificate"
@@ -413,9 +412,8 @@ msgid "Signature verified (OCSP disabled)"
 msgstr "Handtekening gevalideerd (OCSP uitgeschakeld)"
 
 #: js/SmimeText.js:105
-#, fuzzy
 msgid "Unable to decrypt this message. Certificate does not match"
-msgstr "Kan certificaat niet ontsleutelen"
+msgstr "Kan het bericht niet ontsleutelen. Certificaat komt niet overeen"
 
 #: php/class.pluginsmimemodule.php:106
 msgid "No certificate avaliable"
@@ -446,6 +444,9 @@ msgid ""
 "Your public certificate is not installed. Without this certificate, you will "
 "not be able to read encrypted messages you have sent to others."
 msgstr ""
+"Uw publieke sleutel is niet geinstalleerd. Zonder dit certificaat, kunnen "
+"versleutelde berichten die zijn verzonden niet worden gelezen in uw "
+"verzonden items."
 
 #: php/plugin.smime.php:453
 msgid "Certificate is already stored on the server"
