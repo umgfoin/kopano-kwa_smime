@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-12 15:57+0100\n"
+"POT-Creation-Date: 2018-05-11 16:07+0200\n"
 "PO-Revision-Date: 2016-09-28 01:04+0000\n"
 "Last-Translator: Nobuyoshi <nobuyoshi.kumada@actplex.com>\n"
 "Language-Team: Japanese <http://translate.kopano.io/projects/kopano/smime/ja/"
@@ -404,22 +404,22 @@ msgstr "署名が確認されました (OCSP 無効)"
 msgid "Unable to decrypt this message. Certificate does not match"
 msgstr "証明書を復号することができませんでした"
 
-#: php/class.pluginsmimemodule.php:106
+#: php/class.pluginsmimemodule.php:111
 msgid "No certificate avaliable"
 msgstr "証明書が存在しません"
 
-#: php/class.pluginsmimemodule.php:112
+#: php/class.pluginsmimemodule.php:117
 msgid "Private certificate is not valid yet, unable to sign email"
 msgstr ""
 "プライベート証明書がまだ有効ではありません、電子メールへ署名することができま"
 "せん"
 
-#: php/class.pluginsmimemodule.php:114
+#: php/class.pluginsmimemodule.php:119
 msgid "Private certificate has been expired, unable to sign email"
 msgstr ""
 "個人証明書が有効期限切れしています、電子メールへ署名することができません"
 
-#: php/class.pluginsmimemodule.php:116
+#: php/class.pluginsmimemodule.php:121
 msgid "Private certificate does not match email address"
 msgstr "電子メールのアドレスと個人証明書が一致していません"
 

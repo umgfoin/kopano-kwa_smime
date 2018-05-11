@@ -1,101 +1,104 @@
-#: js/data/ChangePassphraseWindow.js:23 js/dialogs/ChangePassphraseWindow.js:23
-msgid "S/MIME Change passphrase"
+#: js/dialogs/ChangePassphraseContentPanel.js:20
+#: js/dialogs/ChangePassphraseContentPanel.js:29
+#: js/settings/SettingsSmimeWidget.js:40
+msgid "Change passphrase"
 msgstr ""
 
-#: js/data/ChangePassphraseWindow.js:29 js/dialogs/PassphraseWindow.js:37
+#: js/dialogs/ChangePassphraseContentPanel.js:33
+#: js/dialogs/PassphraseWindow.js:38
+msgid "Cancel"
+msgstr ""
+
+#: js/dialogs/ChangePassphrasePanel.js:27
+msgid "Old passphrase"
+msgstr ""
+
+#: js/dialogs/ChangePassphrasePanel.js:45
+msgid "Wrong passphrase. Please try again"
+msgstr ""
+
+#: js/dialogs/ChangePassphrasePanel.js:49
+msgid "New passphrase"
+msgstr ""
+
+#: js/dialogs/ChangePassphrasePanel.js:63
+msgid "Confirm new passphrase"
+msgstr ""
+
+#: js/dialogs/ChangePassphrasePanel.js:80
+msgid "The passphrases don't match. Please try again"
+msgstr ""
+
+#: js/dialogs/ChangePassphrasePanel.js:136 js/dialogs/PassphraseWindow.js:300
+#: js/settings/UploadCertificateWidget.js:150
+#: js/settings/UploadCertificateWidget.js:155 js/SmimePlugin.js:393
+#: js/SmimePlugin.js:445 js/SmimePlugin.js:460
+msgid "S/MIME Message"
+msgstr ""
+
+#: js/dialogs/ChangePassphrasePanel.js:136
+msgid "Passphrase changed succesfully"
+msgstr ""
+
+#: js/dialogs/PassphraseContentPanel.js:23
+msgid "S/MIME Passphrase"
+msgstr ""
+
+#: js/dialogs/PassphraseWindow.js:33
+msgid "Submit"
+msgstr ""
+
+#: js/dialogs/PassphraseWindow.js:177
 #: js/settings/UploadCertificateWidget.js:63
 msgid "Certificate passphrase"
 msgstr ""
 
-#: js/data/ChangePassphraseWindow.js:35 js/dialogs/PassphraseWindow.js:47
-msgid "Submit"
+#: js/dialogs/PassphraseWindow.js:300
+msgid "The passphrase you typed is incorrect. Please try again."
 msgstr ""
 
-#: js/dialogs/ChangePassphraseWindow.js:28
-msgid "Old passphrase"
+#: js/settings/SettingsPublickeyGrid.js:30
+msgid "No certificates imported, please upload your private certificate"
 msgstr ""
 
-#: js/dialogs/ChangePassphraseWindow.js:39
-msgid "New passphrase"
-msgstr ""
-
-#: js/dialogs/ChangePassphraseWindow.js:50
-msgid "Confirm new passphrase"
-msgstr ""
-
-#: js/dialogs/ChangePassphraseWindow.js:66
-msgid "Change passphrase"
-msgstr ""
-
-#: js/dialogs/ChangePassphraseWindow.js:70
-msgid "Cancel"
-msgstr ""
-
-#: js/dialogs/ChangePassphraseWindow.js:102
-msgid "New passphrase and confirmation passphrase do not match"
-msgstr ""
-
-#: js/dialogs/PassphraseWindow.js:31
-msgid "S/MIME Passphrase"
-msgstr ""
-
-#: js/dialogs/PassphraseWindow.js:113
-#: js/settings/UploadCertificateWidget.js:140
-#: js/settings/UploadCertificateWidget.js:145 js/SmimePlugin.js:338
-#: js/SmimePlugin.js:404
-msgid "S/MIME Message"
-msgstr ""
-
-#: js/dialogs/PassphraseWindow.js:113
-msgid "Password incorrect"
-msgstr ""
-
-#: js/settings/SettingsPublickeyGrid.js:29
-msgid "No certificates exists"
-msgstr ""
-
-#: js/settings/SettingsPublickeyGrid.js:64
+#: js/settings/SettingsPublickeyGrid.js:65
 msgid "Email"
 msgstr ""
 
-#: js/settings/SettingsPublickeyGrid.js:70
+#: js/settings/SettingsPublickeyGrid.js:71
 msgid "Valid from"
 msgstr ""
 
-#: js/settings/SettingsPublickeyGrid.js:75
+#: js/settings/SettingsPublickeyGrid.js:76
 msgid "Expires"
 msgstr ""
 
-#: js/settings/SettingsPublickeyGrid.js:80
+#: js/settings/SettingsPublickeyGrid.js:81
 msgid "Type"
 msgstr ""
 
-#: js/settings/SettingsPublickeyGrid.js:106
+#: js/settings/SettingsPublickeyGrid.js:107
 msgid "Loading certificates"
 msgstr ""
 
-#: js/settings/SettingsPublickeyGrid.js:131
-#: js/settings/UploadCertificateWidget.js:102
-#: js/settings/UploadCertificateWidget.js:104
-msgid "Alert"
+#: js/settings/SettingsPublickeyGrid.js:133
+#: js/settings/SettingsPublickeyGrid.js:141
+#: js/settings/UploadCertificateWidget.js:103
+#: js/settings/UploadCertificateWidget.js:110 js/SmimePlugin.js:520
+msgid "S/MIME Plugin"
 msgstr ""
 
-#: js/settings/SettingsPublickeyGrid.js:131
+#: js/settings/SettingsPublickeyGrid.js:134
 msgid "Please select a certificate."
 msgstr ""
 
-#: js/settings/SettingsPublickeyGrid.js:135
-#: js/settings/SettingsSmimeCategory.js:29
-msgid "S/MIME"
-msgstr ""
-
-#: js/settings/SettingsPublickeyGrid.js:136
+#: js/settings/SettingsPublickeyGrid.js:142
 msgid ""
 "Do you really want to remove your private certificate? If you remove your "
 "certificate you will not be able to sign or decrypt S/MIME emails."
 msgstr ""
 
-#: js/settings/SettingsPublickeyGrid.js:192
+#: js/settings/SettingsPublickeyGrid.js:198
 msgid "Certificate details"
 msgstr ""
 
@@ -109,11 +112,11 @@ msgstr ""
 msgid "Filter on Email"
 msgstr ""
 
-#: js/settings/SettingsPublickeyPanel.js:103
+#: js/settings/SettingsPublickeyPanel.js:104
 msgid "Remove"
 msgstr ""
 
-#: js/settings/SettingsPublickeyPanel.js:113
+#: js/settings/SettingsPublickeyPanel.js:115
 msgid "Details"
 msgstr ""
 
@@ -121,15 +124,19 @@ msgstr ""
 msgid "Public & Private certificates"
 msgstr ""
 
-#: js/settings/SettingsSmimeWidget.js:28
-msgid "Personal certificate"
+#: js/settings/SettingsSmimeCategory.js:29
+msgid "S/MIME"
 msgstr ""
 
-#: js/settings/SettingsSmimeWidget.js:35
+#: js/settings/SettingsSmimeWidget.js:20
 msgid "You don't have a valid certificate corresponding to your account"
 msgstr ""
 
-#: js/settings/SettingsSmimeWidget.js:68
+#: js/settings/SettingsSmimeWidget.js:35
+msgid "Personal certificate"
+msgstr ""
+
+#: js/settings/SettingsSmimeWidget.js:79
 msgid "You have a valid certificate corresponding to your account"
 msgstr ""
 
@@ -157,52 +164,44 @@ msgstr ""
 msgid "Upload"
 msgstr ""
 
-#: js/settings/UploadCertificateWidget.js:102
-msgid "Passphrase is empty"
-msgstr ""
-
 #: js/settings/UploadCertificateWidget.js:104
-msgid "No certificate selected"
+msgid "You must fill in the certificate passphrase to upload your certificate."
 msgstr ""
 
-#: js/SmimePlugin.js:78
+#: js/settings/UploadCertificateWidget.js:111
+msgid "You must first select a valid private certificate in PKCS#12 format."
+msgstr ""
+
+#: js/SmimePlugin.js:79
 msgid "Sign"
 msgstr ""
 
-#: js/SmimePlugin.js:80
+#: js/SmimePlugin.js:81
 msgid "Sign message"
 msgstr ""
 
-#: js/SmimePlugin.js:81
+#: js/SmimePlugin.js:82
 msgid ""
 "Ensure the authenticity of the message by adding a digital signature to this "
 "message. Any changes to the message will invalidate the signature."
 msgstr ""
 
-#: js/SmimePlugin.js:99
+#: js/SmimePlugin.js:105
 msgid "Encrypt"
 msgstr ""
 
-#: js/SmimePlugin.js:101
+#: js/SmimePlugin.js:107
 msgid "Encrypt message"
 msgstr ""
 
-#: js/SmimePlugin.js:102
+#: js/SmimePlugin.js:108
 msgid ""
 "Ensure the privacy of the message by encrypting its contents. Only the "
 "recipient of the message will be able to open it."
 msgstr ""
 
-#: js/SmimePlugin.js:139
+#: js/SmimePlugin.js:181
 msgid "What's going on with my email?"
-msgstr ""
-
-#: js/SmimePlugin.js:390
-msgid "SMIME Message"
-msgstr ""
-
-#: js/SmimePlugin.js:439
-msgid "S/MIME Plugin"
 msgstr ""
 
 #: js/SmimeText.js:18
@@ -340,7 +339,7 @@ msgid "Message decryption failed"
 msgstr ""
 
 #: js/SmimeText.js:97
-msgid "Please unlock your certificate"
+msgid "Please <b>click here</b> to unlock your certificate"
 msgstr ""
 
 #: js/SmimeText.js:99 js/SmimeText.js:103
@@ -351,70 +350,80 @@ msgstr ""
 msgid "Signature verified (OCSP disabled)"
 msgstr ""
 
-#: php/class.pluginsmimemodule.php:93
+#: js/SmimeText.js:105
+msgid "Unable to decrypt this message. Certificate does not match"
+msgstr ""
+
+#: php/class.pluginsmimemodule.php:111
 msgid "No certificate avaliable"
 msgstr ""
 
-#: php/class.pluginsmimemodule.php:99
+#: php/class.pluginsmimemodule.php:117
 msgid "Private certificate is not valid yet, unable to sign email"
 msgstr ""
 
-#: php/class.pluginsmimemodule.php:101
+#: php/class.pluginsmimemodule.php:119
 msgid "Private certificate has been expired, unable to sign email"
 msgstr ""
 
-#: php/class.pluginsmimemodule.php:103
+#: php/class.pluginsmimemodule.php:121
 msgid "Private certificate does not match email address"
 msgstr ""
 
-#: php/plugin.smime.php:124
+#: php/plugin.smime.php:177
 msgid "Missing public certificates for the following recipients: "
 msgstr ""
 
-#: php/plugin.smime.php:124
+#: php/plugin.smime.php:177
 msgid ". Please contact your system administrator for details"
 msgstr ""
 
-#: php/plugin.smime.php:381
-msgid "Private key can't be used to sign email"
+#: php/plugin.smime.php:179
+msgid ""
+"Your public certificate is not installed. Without this certificate, you will "
+"not be able to read encrypted messages you have sent to others."
 msgstr ""
 
-#: php/plugin.smime.php:385
-msgid "Certificate email address doesn't match WebApp account "
-msgstr ""
-
-#: php/plugin.smime.php:389
-msgid "Certificate was expired on "
-msgstr ""
-
-#: php/plugin.smime.php:389 php/plugin.smime.php:393
-msgid "Certificate has not been imported"
-msgstr ""
-
-#: php/plugin.smime.php:393
-msgid "Certificate is not yet valid "
-msgstr ""
-
-#: php/plugin.smime.php:397
-msgid "Certificate is revoked"
-msgstr ""
-
-#: php/plugin.smime.php:400
-msgid "Unable to read public certificate"
-msgstr ""
-
-#: php/plugin.smime.php:403
-msgid "Unable to decrypt certificate"
-msgstr ""
-
-#: php/plugin.smime.php:412
+#: php/plugin.smime.php:453
 msgid "Certificate is already stored on the server"
 msgstr ""
 
-#: php/plugin.smime.php:426
+#: php/plugin.smime.php:467
 msgid "New certificate uploaded"
 msgstr ""
 
-#: php/plugin.smime.php:428
+#: php/plugin.smime.php:469
 msgid "Certificate uploaded"
+msgstr ""
+
+#: php/util.php:193
+msgid "Unable to decrypt certificate"
+msgstr ""
+
+#: php/util.php:210
+msgid "Private key can't be used to sign email"
+msgstr ""
+
+#: php/util.php:214
+msgid "Certificate email address doesn't match WebApp account "
+msgstr ""
+
+#: php/util.php:218
+msgid "Certificate was expired on "
+msgstr ""
+
+#: php/util.php:218 php/util.php:222
+msgid "Certificate has not been imported"
+msgstr ""
+
+#: php/util.php:222
+msgid "Certificate is not yet valid "
+msgstr ""
+
+#: php/util.php:226
+msgid "Certificate is revoked"
+msgstr ""
+
+#: php/util.php:229
+msgid "Unable to read public certificate"
 msgstr ""

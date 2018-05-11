@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-12 15:57+0100\n"
+"POT-Creation-Date: 2018-05-11 16:07+0200\n"
 "PO-Revision-Date: 2016-10-14 07:36+0000\n"
 "Last-Translator: Björn <b.neumann@kopano.com>\n"
 "Language-Team: Spanish <http://translate.kopano.io/projects/kopano/smime/"
@@ -370,19 +370,19 @@ msgstr ""
 msgid "Unable to decrypt this message. Certificate does not match"
 msgstr ""
 
-#: php/class.pluginsmimemodule.php:106
+#: php/class.pluginsmimemodule.php:111
 msgid "No certificate avaliable"
 msgstr ""
 
-#: php/class.pluginsmimemodule.php:112
+#: php/class.pluginsmimemodule.php:117
 msgid "Private certificate is not valid yet, unable to sign email"
 msgstr ""
 
-#: php/class.pluginsmimemodule.php:114
+#: php/class.pluginsmimemodule.php:119
 msgid "Private certificate has been expired, unable to sign email"
 msgstr ""
 
-#: php/class.pluginsmimemodule.php:116
+#: php/class.pluginsmimemodule.php:121
 msgid "Private certificate does not match email address"
 msgstr ""
 

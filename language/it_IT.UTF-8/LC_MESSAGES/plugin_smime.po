@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-12 15:57+0100\n"
+"POT-Creation-Date: 2018-05-11 16:07+0200\n"
 "PO-Revision-Date: 2017-03-02 09:43+0000\n"
 "Last-Translator: Marco <MARCO@COSTANTINO.CO.UK>\n"
 "Language-Team: Italian <http://translate.kopano.io/projects/kopano/smime/it/"
@@ -419,20 +419,20 @@ msgstr "Firma verificata (OCSP disabilitato)"
 msgid "Unable to decrypt this message. Certificate does not match"
 msgstr "Impossibile decriptare il certificato"
 
-#: php/class.pluginsmimemodule.php:106
+#: php/class.pluginsmimemodule.php:111
 msgid "No certificate avaliable"
 msgstr "Nessun certificato disponibile"
 
-#: php/class.pluginsmimemodule.php:112
+#: php/class.pluginsmimemodule.php:117
 msgid "Private certificate is not valid yet, unable to sign email"
 msgstr ""
 "Il certificato privato non e` ancora valido, impossibile firmare l'email"
 
-#: php/class.pluginsmimemodule.php:114
+#: php/class.pluginsmimemodule.php:119
 msgid "Private certificate has been expired, unable to sign email"
 msgstr "Il certificato privato e` scaduto, impossibile firmare l'email"
 
-#: php/class.pluginsmimemodule.php:116
+#: php/class.pluginsmimemodule.php:121
 msgid "Private certificate does not match email address"
 msgstr "Il certificato privato non corrisponde all'indirizzo di email"
 

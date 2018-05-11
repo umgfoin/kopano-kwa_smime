@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-12 15:57+0100\n"
+"POT-Creation-Date: 2018-05-11 16:07+0200\n"
 "PO-Revision-Date: 2018-03-18 22:08+0000\n"
 "Last-Translator: Zoltan Kiss <zoltan.kiss@serverside.hu>\n"
-"Language-Team: Hungarian "
-"<http://translate.kopano.io/projects/kopano/smime/hu/>\n"
+"Language-Team: Hungarian <http://translate.kopano.io/projects/kopano/smime/"
+"hu/>\n"
 "Language: hu_HU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -386,20 +386,20 @@ msgstr ""
 msgid "Unable to decrypt this message. Certificate does not match"
 msgstr ""
 
-#: php/class.pluginsmimemodule.php:106
+#: php/class.pluginsmimemodule.php:111
 msgid "No certificate avaliable"
 msgstr "Nem áll rendelkezésre tanúsítvány"
 
-#: php/class.pluginsmimemodule.php:112
+#: php/class.pluginsmimemodule.php:117
 msgid "Private certificate is not valid yet, unable to sign email"
 msgstr ""
 "Személyes tanúsítvány még nem érvényes, nem lehetséges a levél aláírása"
 
-#: php/class.pluginsmimemodule.php:114
+#: php/class.pluginsmimemodule.php:119
 msgid "Private certificate has been expired, unable to sign email"
 msgstr "A személyes tanúsítvány lejárt, nem lehetséges a levél aláírása"
 
-#: php/class.pluginsmimemodule.php:116
+#: php/class.pluginsmimemodule.php:121
 msgid "Private certificate does not match email address"
 msgstr "A személyes tanúsítvány nem egyezik meg az email címmel"
 
