@@ -22,6 +22,7 @@ msgstr "Alterar frase-chave"
 
 #: js/dialogs/ChangePassphraseContentPanel.js:33
 #: js/dialogs/PassphraseWindow.js:38
+#, fuzzy
 msgid "Cancel"
 msgstr "Cancelar"
 
