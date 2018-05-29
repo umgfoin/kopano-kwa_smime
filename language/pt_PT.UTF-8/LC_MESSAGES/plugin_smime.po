@@ -79,7 +79,7 @@ msgstr "Nenhum certificado importado. Por favor envie o seu certificado privado"
 
 #: js/settings/SettingsPublickeyGrid.js:65
 msgid "Email"
-msgstr "Endereço"
+msgstr "E-mail"
 
 #: js/settings/SettingsPublickeyGrid.js:71
 msgid "Valid from"
