@@ -94,7 +94,7 @@ Zarafa.plugins.smime.SmimeText = function() {
 				case 7: 
 					return _('Message decryption failed', 'plugin_smime');
 				case 8: 
-					return _('Please <b>click here</b> to unlock your certificate', 'plugin_smime');
+					return _('Please', 'plugin_smime') + '<b> ' + _('click here', 'plugin_smime') + ' </b> ' + _('to unlock your certificate', 'plugin_smime');
 				case 9: 
 					return _('Cannot determine revocation status of certificate', 'plugin_smime');
 				case 10:
