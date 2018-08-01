@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-14 19:54+0200\n"
+"POT-Creation-Date: 2018-08-01 08:09+0200\n"
 "PO-Revision-Date: 2018-07-02 13:46+0000\n"
 "Last-Translator: Nuno Jerónimo <nuno.jeronimo@valsousa.pt>\n"
-"Language-Team: Portuguese (Portugal) "
-"<http://translate.kopano.io/projects/kopano/smime/pt_PT/>\n"
+"Language-Team: Portuguese (Portugal) <http://translate.kopano.io/projects/"
+"kopano/smime/pt_PT/>\n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -397,8 +397,17 @@ msgid "Message decryption failed"
 msgstr "Desencriptação da mensagem falhou"
 
 #: js/SmimeText.js:97
-msgid "Please <b>click here</b> to unlock your certificate"
-msgstr "Por favor <b>carregue aqui</b> para desbloquear o certificado"
+msgid "Please"
+msgstr ""
+
+#: js/SmimeText.js:97
+msgid "click here"
+msgstr ""
+
+#: js/SmimeText.js:97
+#, fuzzy
+msgid "to unlock your certificate"
+msgstr "Enviar o seu certificado"
 
 #: js/SmimeText.js:99 js/SmimeText.js:103
 msgid "Cannot determine revocation status of certificate"

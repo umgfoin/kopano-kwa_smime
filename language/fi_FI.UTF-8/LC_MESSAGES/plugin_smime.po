@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-14 19:54+0200\n"
+"POT-Creation-Date: 2018-08-01 08:09+0200\n"
 "PO-Revision-Date: 2016-10-14 07:29+0000\n"
 "Last-Translator: Björn <b.neumann@kopano.com>\n"
 "Language-Team: Finnish <http://translate.kopano.io/projects/kopano/smime/fi/"
@@ -355,7 +355,15 @@ msgid "Message decryption failed"
 msgstr ""
 
 #: js/SmimeText.js:97
-msgid "Please <b>click here</b> to unlock your certificate"
+msgid "Please"
+msgstr ""
+
+#: js/SmimeText.js:97
+msgid "click here"
+msgstr ""
+
+#: js/SmimeText.js:97
+msgid "to unlock your certificate"
 msgstr ""
 
 #: js/SmimeText.js:99 js/SmimeText.js:103

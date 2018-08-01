@@ -339,7 +339,15 @@ msgid "Message decryption failed"
 msgstr ""
 
 #: js/SmimeText.js:97
-msgid "Please <b>click here</b> to unlock your certificate"
+msgid "Please"
+msgstr ""
+
+#: js/SmimeText.js:97
+msgid "click here"
+msgstr ""
+
+#: js/SmimeText.js:97
+msgid "to unlock your certificate"
 msgstr ""
 
 #: js/SmimeText.js:99 js/SmimeText.js:103

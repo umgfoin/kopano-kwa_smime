@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-14 19:54+0200\n"
+"POT-Creation-Date: 2018-08-01 08:09+0200\n"
 "PO-Revision-Date: 2016-09-28 01:04+0000\n"
 "Last-Translator: Nobuyoshi <nobuyoshi.kumada@actplex.com>\n"
 "Language-Team: Japanese <http://translate.kopano.io/projects/kopano/smime/ja/"
@@ -387,9 +387,17 @@ msgid "Message decryption failed"
 msgstr "メッセージの復号化に失敗しました"
 
 #: js/SmimeText.js:97
+msgid "Please"
+msgstr ""
+
+#: js/SmimeText.js:97
+msgid "click here"
+msgstr ""
+
+#: js/SmimeText.js:97
 #, fuzzy
-msgid "Please <b>click here</b> to unlock your certificate"
-msgstr "証明書をアンロックしてください"
+msgid "to unlock your certificate"
+msgstr "証明書をアップロード"
 
 #: js/SmimeText.js:99 js/SmimeText.js:103
 msgid "Cannot determine revocation status of certificate"
