@@ -849,6 +849,9 @@ class Pluginsmime extends Plugin {
 		// FIXME: Without the error_log, kopano_pkcs7_verify does not work (wtf).
 		error_log($p7b);
 		kopano_pkcs7_read($p7b, $cas);
+		unlink($certfile);
+		unlink($outfile);
+		unlink($p7bfile);
 		return $cas;
 	}
 
