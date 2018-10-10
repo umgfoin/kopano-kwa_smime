@@ -48,8 +48,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: js/dialogs/PassphraseWindow.js:177
-#: js/settings/UploadCertificateWidget.js:63
+#: js/dialogs/PassphraseWindow.js:177 js/settings/UploadCertificateWidget.js:63
 msgid "Certificate passphrase"
 msgstr ""
 
