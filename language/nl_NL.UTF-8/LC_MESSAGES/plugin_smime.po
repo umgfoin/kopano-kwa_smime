@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-10 19:14+0200\n"
-"PO-Revision-Date: 2018-05-08 14:17+0000\n"
+"PO-Revision-Date: 2018-10-23 14:12+0000\n"
 "Last-Translator: Bob <b.huisman@kopano.com>\n"
 "Language-Team: Dutch <http://translate.kopano.io/projects/kopano/smime/nl/>\n"
 "Language: nl_NL\n"
@@ -400,16 +400,15 @@ msgstr "Bericht ontsleutelen mislukt"
 
 #: js/SmimeText.js:97
 msgid "Please"
-msgstr ""
+msgstr "Alstublieft"
 
 #: js/SmimeText.js:97
 msgid "click here"
-msgstr ""
+msgstr "klik hier"
 
 #: js/SmimeText.js:97
-#, fuzzy
 msgid "to unlock your certificate"
-msgstr "Upload uw certificaat"
+msgstr "om uw certificaat te ontsleutelen"
 
 #: js/SmimeText.js:99 js/SmimeText.js:103
 msgid "Cannot determine revocation status of certificate"
