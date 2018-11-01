@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-10 19:14+0200\n"
-"PO-Revision-Date: 2018-10-24 14:51+0000\n"
+"PO-Revision-Date: 2018-11-01 15:49+0000\n"
 "Last-Translator: Sotneo <kerovsot@gmail.com>\n"
 "Language-Team: Russian <http://translate.kopano.io/projects/kopano/smime/ru/>"
 "\n"
@@ -19,7 +19,7 @@ msgstr ""
 #: js/dialogs/ChangePassphraseContentPanel.js:29
 #: js/settings/SettingsSmimeWidget.js:40
 msgid "Change passphrase"
-msgstr ""
+msgstr "Изменить парольную фразу"
 
 #: js/dialogs/ChangePassphraseContentPanel.js:33
 #: js/dialogs/PassphraseWindow.js:38
@@ -28,54 +28,56 @@ msgstr "Отмена"
 
 #: js/dialogs/ChangePassphrasePanel.js:27
 msgid "Old passphrase"
-msgstr ""
+msgstr "Старая парольная фраза"
 
 #: js/dialogs/ChangePassphrasePanel.js:45
 msgid "Wrong passphrase. Please try again"
-msgstr ""
+msgstr "Неверная парольная фраза. Попробуйте ещё"
 
 #: js/dialogs/ChangePassphrasePanel.js:49
 msgid "New passphrase"
-msgstr ""
+msgstr "Новая парольная фраза"
 
 #: js/dialogs/ChangePassphrasePanel.js:63
 msgid "Confirm new passphrase"
-msgstr ""
+msgstr "Подтвердите новую парольную фразу"
 
 #: js/dialogs/ChangePassphrasePanel.js:80
 msgid "The passphrases don't match. Please try again"
-msgstr ""
+msgstr "Парольные фразы не совпадают. Попробуйте ещё"
 
 #: js/dialogs/ChangePassphrasePanel.js:136 js/dialogs/PassphraseWindow.js:300
 #: js/settings/UploadCertificateWidget.js:150
 #: js/settings/UploadCertificateWidget.js:155 js/SmimePlugin.js:393
 #: js/SmimePlugin.js:445 js/SmimePlugin.js:460
 msgid "S/MIME Message"
-msgstr ""
+msgstr "Сообщение S/MIME"
 
 #: js/dialogs/ChangePassphrasePanel.js:136
 msgid "Passphrase changed succesfully"
-msgstr ""
+msgstr "Парольная фраза успешно изменена"
 
 #: js/dialogs/PassphraseContentPanel.js:23
 msgid "S/MIME Passphrase"
-msgstr ""
+msgstr "Парольная фраза S/MIME"
 
 #: js/dialogs/PassphraseWindow.js:33
 msgid "Submit"
-msgstr ""
+msgstr "Подтвердить"
 
 #: js/dialogs/PassphraseWindow.js:177 js/settings/UploadCertificateWidget.js:63
 msgid "Certificate passphrase"
-msgstr ""
+msgstr "Парольная фраза сертификата"
 
 #: js/dialogs/PassphraseWindow.js:300
 msgid "The passphrase you typed is incorrect. Please try again."
-msgstr ""
+msgstr "Парольная фраза, которую вы ввели некорректна. Попробуйте ещё."
 
 #: js/settings/SettingsPublickeyGrid.js:30
 msgid "No certificates imported, please upload your private certificate"
 msgstr ""
+"Нет импортированных сертификатов, пожалуйста, загрузить ваш приватный "
+"сертификат"
 
 #: js/settings/SettingsPublickeyGrid.js:65
 msgid "Email"
@@ -83,11 +85,11 @@ msgstr "Эл. почта"
 
 #: js/settings/SettingsPublickeyGrid.js:71
 msgid "Valid from"
-msgstr ""
+msgstr "Действителен с"
 
 #: js/settings/SettingsPublickeyGrid.js:76
 msgid "Expires"
-msgstr ""
+msgstr "Истекает"
 
 #: js/settings/SettingsPublickeyGrid.js:81
 msgid "Type"
@@ -95,18 +97,18 @@ msgstr "Тип"
 
 #: js/settings/SettingsPublickeyGrid.js:107
 msgid "Loading certificates"
-msgstr ""
+msgstr "Загрузка сертификатов"
 
 #: js/settings/SettingsPublickeyGrid.js:133
 #: js/settings/SettingsPublickeyGrid.js:141
 #: js/settings/UploadCertificateWidget.js:103
 #: js/settings/UploadCertificateWidget.js:110 js/SmimePlugin.js:520
 msgid "S/MIME Plugin"
-msgstr ""
+msgstr "Расширение S/MIME"
 
 #: js/settings/SettingsPublickeyGrid.js:134
 msgid "Please select a certificate."
-msgstr ""
+msgstr "Пожалуйста выберите сертификат."
 
 #: js/settings/SettingsPublickeyGrid.js:142
 msgid ""
