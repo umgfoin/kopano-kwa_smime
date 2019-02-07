@@ -3,10 +3,10 @@ msgstr ""
 "Project-Id-Version: KC-8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-10 19:14+0200\n"
-"PO-Revision-Date: 2018-01-26 15:49+0100\n"
-"Last-Translator: Jan Engelhardt <jengelh@inai.de>\n"
-"Language-Team: German <http://translate.kopano.io/projects/kopano/kopano-"
-"core/de/>\n"
+"PO-Revision-Date: 2019-02-07 08:10+0000\n"
+"Last-Translator: Felix <f.bartels@kopano.com>\n"
+"Language-Team: German <http://translate.kopano.io/projects/kopano/smime/de/>"
+"\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +31,7 @@ msgstr "Bisheriges Passwort"
 
 #: js/dialogs/ChangePassphrasePanel.js:45
 msgid "Wrong passphrase. Please try again"
-msgstr ""
+msgstr "Falsches Passwort. Bitte probieren Sie erneut"
 
 #: js/dialogs/ChangePassphrasePanel.js:49
 msgid "New passphrase"
