@@ -144,6 +144,10 @@ class Pluginsmime extends Plugin {
 			return;
 		}
 
+		if (!isset($data['action']['props']['smime']) || empty($data['action']['props']['smime'])) {
+			return;
+		}
+
 		$message = mapi_msgstore_openentry($data['store'], $entryid);
 		$module = $data['moduleObject'];
 		$data['success'] = true;
