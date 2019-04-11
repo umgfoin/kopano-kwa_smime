@@ -1,49 +1,32 @@
+.smime-info-good,
+.smime-info-fatal,
+.smime-info-partial,
+.smime-info-info {
+	color: #222;
+        width: 100%;
+        height: 24px;
+        padding: 0 0 0 8px;
+        margin-top: 6px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        box-sizing: border-box;
+        font-size: 13px;
+}
+
 .smime-info-good {
 	background-color: #d1fbd5;
-	color: #222;
-	width: 100%;
-	height: 24px;
-	padding: 0 0 0 8px;
-	margin-top: 6px;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	box-sizing: border-box;
 }
 
 .smime-info-fatal {
 	background-color: #f9cbca;
-	color: #222;
-	width: 100%;
-	height: 24px;
-	padding: 0 0 0 8px;
-	margin-top: 6px;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	box-sizing: border-box;
 }
 
 .smime-info-partial {
 	background-color: #fae0c1;
-	color: #222;
-	width: 100%;
-	height: 24px;
-	padding: 0 0 0 8px;
-	margin-top: 6px;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	box-sizing: border-box;
 }
 
 .smime-info-info {
 	background-color: #d7e8f8;
-	color: #222;
-	width: 100%;
-	height: 24px;
-	padding: 0 0 0 8px;
-	margin-top: 6px;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	box-sizing: border-box;
 }
 
 .icon_smime_encrypt {
