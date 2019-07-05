@@ -1,0 +1,329 @@
+msgid "Change passphrase"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Old passphrase"
+msgstr ""
+
+msgid "Wrong passphrase. Please try again"
+msgstr ""
+
+msgid "New passphrase"
+msgstr ""
+
+msgid "Confirm new passphrase"
+msgstr ""
+
+msgid "The passphrases don't match. Please try again"
+msgstr ""
+
+msgid "S/MIME Message"
+msgstr ""
+
+msgid "Passphrase changed succesfully"
+msgstr ""
+
+msgid "S/MIME Passphrase"
+msgstr ""
+
+msgid "Submit"
+msgstr ""
+
+msgid "Certificate passphrase"
+msgstr ""
+
+msgid "The passphrase you typed is incorrect. Please try again."
+msgstr ""
+
+msgid "No certificates imported, please upload your private certificate"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "Valid from"
+msgstr ""
+
+msgid "Expires"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Loading certificates"
+msgstr ""
+
+msgid "S/MIME Plugin"
+msgstr ""
+
+msgid "Please select a certificate."
+msgstr ""
+
+msgid ""
+"Do you really want to remove your private certificate? If you remove your "
+"certificate you will not be able to sign or decrypt S/MIME emails."
+msgstr ""
+
+msgid "Certificate details"
+msgstr ""
+
+msgid ""
+"Below you can view and delete public & private certificate(s) stored on the "
+"server."
+msgstr ""
+
+msgid "Filter on Email"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "Details"
+msgstr ""
+
+msgid "Public & Private certificates"
+msgstr ""
+
+msgid "S/MIME"
+msgstr ""
+
+msgid "You don't have a valid certificate corresponding to your account"
+msgstr ""
+
+msgid "Personal certificate"
+msgstr ""
+
+msgid "You have a valid certificate corresponding to your account"
+msgstr ""
+
+msgid "Upload your certificate"
+msgstr ""
+
+msgid ""
+"Below you can upload your private certificate in PKCS#12 format. The WebApp "
+"only accepts certificates which are valid and only stores one private "
+"certificate on the server."
+msgstr ""
+
+msgid "Select"
+msgstr ""
+
+msgid "Private certificate"
+msgstr ""
+
+msgid "Upload"
+msgstr ""
+
+msgid "You must fill in the certificate passphrase to upload your certificate."
+msgstr ""
+
+msgid "You must first select a valid private certificate in PKCS#12 format."
+msgstr ""
+
+msgid "Sign"
+msgstr ""
+
+msgid "Sign message"
+msgstr ""
+
+msgid ""
+"Ensure the authenticity of the message by adding a digital signature to this "
+"message. Any changes to the message will invalidate the signature."
+msgstr ""
+
+msgid "Encrypt"
+msgstr ""
+
+msgid "Encrypt message"
+msgstr ""
+
+msgid ""
+"Ensure the privacy of the message by encrypting its contents. Only the "
+"recipient of the message will be able to open it."
+msgstr ""
+
+msgid "What's going on with my email?"
+msgstr ""
+
+msgid ""
+"WebApp can verify digital signatures of emails. A successful verification "
+"reassures you that the message has not been tampered with and validates the "
+"identity of the sender."
+msgstr ""
+
+msgid ""
+"You are seeing this message because the verification of the digital signature"
+msgstr ""
+
+msgid " has failed"
+msgstr ""
+
+msgid " for this message."
+msgstr ""
+
+msgid "What caused this issue?"
+msgstr ""
+
+msgid "What should I do?"
+msgstr ""
+
+msgid ""
+"You can continue to work. However, you should keep in mind that the identity "
+"and the authenticity of the message content could not be verified."
+msgstr ""
+
+msgid ""
+"You can contact your helpdesk or system administrator if you are not sure "
+"what to do next."
+msgstr ""
+
+msgid ""
+"WebApp can verify digital signatures of emails. A successful verification "
+"reassures you "
+msgstr ""
+
+msgid ""
+"that the message has not been tampered with and validates the identity of "
+"the sender."
+msgstr ""
+
+msgid ""
+"The verification of the digital signature was successful for this email "
+"message."
+msgstr ""
+
+msgid "WebApp could not find a public certificate for the recipient."
+msgstr ""
+
+msgid ""
+"The identity of the sender and authenticity of the message content have been "
+"verified, but the certificate used to sign the message expired on [d-m-Y]."
+msgstr ""
+
+msgid "The digital signature could not be verified for unknown reasons."
+msgstr ""
+
+msgid ""
+"The digital certificate used to sign this message has been revoked (i.e. the "
+"sender has marked it as compromised)"
+msgstr ""
+
+msgid ""
+"The verification service of the certificate authority that signed the "
+"sender's certificate is not available. The validity of the certificate could "
+"not be verified."
+msgstr ""
+
+msgid ""
+"The revocation status of the digital certificate used to sign this email is "
+"unknown (Server is unavaliable or certificate does not support OCSP). The "
+"validity of the certificate could not be verified."
+msgstr ""
+
+msgid ""
+"The revocation status of the digital certificate used to sign this email is "
+"disabled (OCSP). The validity of the certificate could not be verified."
+msgstr ""
+
+msgid "The certificate verification server (OCSP) is temporarly offline."
+msgstr ""
+
+msgid "Signature verified succesfully"
+msgstr ""
+
+msgid "Could not verify signature, missing public certificate"
+msgstr ""
+
+msgid "Signature verification succesfull, but certificate is expired"
+msgstr ""
+
+msgid "Signature could not be verified"
+msgstr ""
+
+msgid "Certificate has been revoked"
+msgstr ""
+
+msgid "Verification with Certificate Authority failed"
+msgstr ""
+
+msgid "Message decrypted succesfully"
+msgstr ""
+
+msgid "Message decryption failed"
+msgstr ""
+
+msgid "Please"
+msgstr ""
+
+msgid "click here"
+msgstr ""
+
+msgid "to unlock your certificate"
+msgstr ""
+
+msgid "Cannot determine revocation status of certificate"
+msgstr ""
+
+msgid "Signature verified (OCSP disabled)"
+msgstr ""
+
+msgid "Unable to decrypt this message. Certificate does not match"
+msgstr ""
+
+msgid "No certificate avaliable"
+msgstr ""
+
+msgid "Private certificate is not valid yet, unable to sign email"
+msgstr ""
+
+msgid "Private certificate has been expired, unable to sign email"
+msgstr ""
+
+msgid "Private certificate does not match email address"
+msgstr ""
+
+msgid "Missing public certificates for the following recipients: "
+msgstr ""
+
+msgid ". Please contact your system administrator for details"
+msgstr ""
+
+msgid ""
+"Your public certificate is not installed. Without this certificate, you will "
+"not be able to read encrypted messages you have sent to others."
+msgstr ""
+
+msgid "Certificate is already stored on the server"
+msgstr ""
+
+msgid "New certificate uploaded"
+msgstr ""
+
+msgid "Certificate uploaded"
+msgstr ""
+
+msgid "Unable to decrypt certificate"
+msgstr ""
+
+msgid "Private key can't be used to sign email"
+msgstr ""
+
+msgid "Certificate email address doesn't match WebApp account "
+msgstr ""
+
+msgid "Certificate was expired on "
+msgstr ""
+
+msgid "Certificate has not been imported"
+msgstr ""
+
+msgid "Certificate is not yet valid "
+msgstr ""
+
+msgid "Certificate is revoked"
+msgstr ""
+
+msgid "Unable to read public certificate"
+msgstr ""
