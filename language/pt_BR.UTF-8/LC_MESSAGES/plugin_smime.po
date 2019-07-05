@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-10 19:14+0200\n"
+"POT-Creation-Date: 2019-07-05 14:37+0200\n"
 "PO-Revision-Date: 2016-07-21 17:35+0000\n"
 "Last-Translator: Craig <informatica-anapolis@mntb.org>\n"
 "Language-Team: Portuguese (Brazil) <http://translate.kopano.io/projects/"
@@ -392,29 +392,29 @@ msgstr ""
 msgid "Private certificate does not match email address"
 msgstr ""
 
-#: php/plugin.smime.php:177
+#: php/plugin.smime.php:181
 msgid "Missing public certificates for the following recipients: "
 msgstr ""
 
-#: php/plugin.smime.php:177
+#: php/plugin.smime.php:181
 msgid ". Please contact your system administrator for details"
 msgstr ""
 
-#: php/plugin.smime.php:179
+#: php/plugin.smime.php:183
 msgid ""
 "Your public certificate is not installed. Without this certificate, you will "
 "not be able to read encrypted messages you have sent to others."
 msgstr ""
 
-#: php/plugin.smime.php:453
+#: php/plugin.smime.php:457
 msgid "Certificate is already stored on the server"
 msgstr ""
 
-#: php/plugin.smime.php:467
+#: php/plugin.smime.php:471
 msgid "New certificate uploaded"
 msgstr ""
 
-#: php/plugin.smime.php:469
+#: php/plugin.smime.php:473
 msgid "Certificate uploaded"
 msgstr ""
 

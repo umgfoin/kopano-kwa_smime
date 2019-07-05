@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KC-8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-10 19:14+0200\n"
+"POT-Creation-Date: 2019-07-05 14:37+0200\n"
 "PO-Revision-Date: 2019-02-07 08:10+0000\n"
 "Last-Translator: Felix <f.bartels@kopano.com>\n"
-"Language-Team: German <http://translate.kopano.io/projects/kopano/smime/de/>"
-"\n"
+"Language-Team: German <http://translate.kopano.io/projects/kopano/smime/de/"
+">\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -425,35 +425,35 @@ msgstr ""
 msgid "Private certificate does not match email address"
 msgstr ""
 
-#: php/plugin.smime.php:177
+#: php/plugin.smime.php:181
 #, fuzzy
 msgid "Missing public certificates for the following recipients: "
 msgstr ""
 "Die WebApp kann kein öffentliches Zertifikat für diesen Empfänger finden."
 
-#: php/plugin.smime.php:177
+#: php/plugin.smime.php:181
 #, fuzzy
 msgid ". Please contact your system administrator for details"
 msgstr ""
 "Bitte kontaktieren Sie Ihre Supporthotline oder den Systemadministrator, "
 "wenn Sie sich unsicher sind."
 
-#: php/plugin.smime.php:179
+#: php/plugin.smime.php:183
 msgid ""
 "Your public certificate is not installed. Without this certificate, you will "
 "not be able to read encrypted messages you have sent to others."
 msgstr ""
 
-#: php/plugin.smime.php:453
+#: php/plugin.smime.php:457
 msgid "Certificate is already stored on the server"
 msgstr ""
 
-#: php/plugin.smime.php:467
+#: php/plugin.smime.php:471
 #, fuzzy
 msgid "New certificate uploaded"
 msgstr "Kein Zertifikat ausgewählt"
 
-#: php/plugin.smime.php:469
+#: php/plugin.smime.php:473
 #, fuzzy
 msgid "Certificate uploaded"
 msgstr "Details zum Zertifikat"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-10 19:14+0200\n"
+"POT-Creation-Date: 2019-07-05 14:37+0200\n"
 "PO-Revision-Date: 2018-08-20 16:02+0000\n"
 "Last-Translator: Nuno Jerónimo <nuno.jeronimo@valsousa.pt>\n"
 "Language-Team: Portuguese (Portugal) <http://translate.kopano.io/projects/"
@@ -437,16 +437,16 @@ msgstr "O certificado privado expirou. Não é possível assinar a mensagem"
 msgid "Private certificate does not match email address"
 msgstr "O certificado privado não corresponde ao endereço de Email"
 
-#: php/plugin.smime.php:177
+#: php/plugin.smime.php:181
 msgid "Missing public certificates for the following recipients: "
 msgstr "Faltam os certificados públicos dos seguintes destinatários: "
 
-#: php/plugin.smime.php:177
+#: php/plugin.smime.php:181
 msgid ". Please contact your system administrator for details"
 msgstr ""
 ". Por favor contacte o seu administrador de sistema para mais informações"
 
-#: php/plugin.smime.php:179
+#: php/plugin.smime.php:183
 msgid ""
 "Your public certificate is not installed. Without this certificate, you will "
 "not be able to read encrypted messages you have sent to others."
@@ -454,15 +454,15 @@ msgstr ""
 "O seu certificado privado não está instalado. Sem este certificado não será "
 "possível ler as mensagens encriptadas que enviou."
 
-#: php/plugin.smime.php:453
+#: php/plugin.smime.php:457
 msgid "Certificate is already stored on the server"
 msgstr "O certificado já existe no servidor"
 
-#: php/plugin.smime.php:467
+#: php/plugin.smime.php:471
 msgid "New certificate uploaded"
 msgstr "Novo certificado enviado"
 
-#: php/plugin.smime.php:469
+#: php/plugin.smime.php:473
 msgid "Certificate uploaded"
 msgstr "Certificado enviado"
 

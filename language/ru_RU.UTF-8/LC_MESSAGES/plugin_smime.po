@@ -2,17 +2,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-10 19:14+0200\n"
+"POT-Creation-Date: 2019-07-05 14:37+0200\n"
 "PO-Revision-Date: 2018-11-01 15:49+0000\n"
 "Last-Translator: Sotneo <kerovsot@gmail.com>\n"
-"Language-Team: Russian <http://translate.kopano.io/projects/kopano/smime/ru/>"
-"\n"
+"Language-Team: Russian <http://translate.kopano.io/projects/kopano/smime/ru/"
+">\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
-"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.4\n"
 
 #: js/dialogs/ChangePassphraseContentPanel.js:20
@@ -396,29 +396,29 @@ msgstr ""
 msgid "Private certificate does not match email address"
 msgstr ""
 
-#: php/plugin.smime.php:177
+#: php/plugin.smime.php:181
 msgid "Missing public certificates for the following recipients: "
 msgstr ""
 
-#: php/plugin.smime.php:177
+#: php/plugin.smime.php:181
 msgid ". Please contact your system administrator for details"
 msgstr ""
 
-#: php/plugin.smime.php:179
+#: php/plugin.smime.php:183
 msgid ""
 "Your public certificate is not installed. Without this certificate, you will "
 "not be able to read encrypted messages you have sent to others."
 msgstr ""
 
-#: php/plugin.smime.php:453
+#: php/plugin.smime.php:457
 msgid "Certificate is already stored on the server"
 msgstr ""
 
-#: php/plugin.smime.php:467
+#: php/plugin.smime.php:471
 msgid "New certificate uploaded"
 msgstr ""
 
-#: php/plugin.smime.php:469
+#: php/plugin.smime.php:473
 msgid "Certificate uploaded"
 msgstr ""
 
