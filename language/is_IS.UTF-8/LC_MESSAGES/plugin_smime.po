@@ -1,3 +1,19 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-14 20:54+0000\n"
+"PO-Revision-Date: 2019-07-14 21:15+0000\n"
+"Last-Translator: Tryggvi Björgvinsson <ME@TRICKVI.IS>\n"
+"Language-Team: Icelandic "
+"<http://translate.kopano.io/projects/kopano/smime/is/>\n"
+"Language: is_IS\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.4\n"
+
 #: js/dialogs/ChangePassphraseContentPanel.js:20
 #: js/dialogs/ChangePassphraseContentPanel.js:29
 #: js/settings/SettingsSmimeWidget.js:40
@@ -7,7 +23,7 @@ msgstr ""
 #: js/dialogs/ChangePassphraseContentPanel.js:33
 #: js/dialogs/PassphraseWindow.js:38
 msgid "Cancel"
-msgstr ""
+msgstr "Hætta við"
 
 #: js/dialogs/ChangePassphrasePanel.js:27
 msgid "Old passphrase"
@@ -153,7 +169,7 @@ msgstr ""
 #: js/settings/UploadCertificateWidget.js:52
 #: js/settings/UploadCertificateWidget.js:53
 msgid "Select"
-msgstr ""
+msgstr "Velja"
 
 #: js/settings/UploadCertificateWidget.js:55
 msgid "Private certificate"
