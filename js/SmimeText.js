@@ -6,7 +6,7 @@ Ext.namespace('Zarafa.plugins.smime');
  * One helper function to create a message.
  * @singleton
  */
-Zarafa.plugins.smime.SmimeText = function() {
+Zarafa.plugins.smime.SmimeText = function () {
 	return {
 		/*
 		 * Helper function to create the popup body message
@@ -14,7 +14,7 @@ Zarafa.plugins.smime.SmimeText = function() {
 		 * @param {String} text
 		 * @return {String} popup text
 		 */
-		createMessage : function(text) {
+		createMessage: function (text) {
 			return _('WebApp can verify digital signatures of emails. A successful verification reassures you that the message has not been tampered with and validates the identity of the sender.', 'plugin_smime') +
 				"<br><br>" + _('You are seeing this message because the verification of the digital signature', 'plugin_smime') + "<b>" + _(' has failed', 'plugin_smime') + "</b>" + _(' for this message.', 'plugin_smime') + "<br>" +
 				"<br><b>" + _('What caused this issue?', 'plugin_smime') + "</b><br><br>" +
@@ -31,9 +31,8 @@ Zarafa.plugins.smime.SmimeText = function() {
 		 * @param {Number} index status code from PHP
 		 * @return {String} popup text
 		 */
-		getPopupText : function(index) 
-		{
-			switch(index) {
+		getPopupText: function (index) {
+			switch (index) {
 				// Verified succesfully
 				case 0:
 					return _('WebApp can verify digital signatures of emails. A successful verification reassures you ', 'plugin_smime') +
@@ -55,7 +54,7 @@ Zarafa.plugins.smime.SmimeText = function() {
 				case 5:
 					return Zarafa.plugins.smime.SmimeText.createMessage(_('The verification service of the certificate authority that signed the sender\'s certificate is not available. The validity of the certificate could not be verified.', 'plugin_smime'));
 				// Certificate does not support OCSP
-				case 9: 
+				case 9:
 					return Zarafa.plugins.smime.SmimeText.createMessage(_('The revocation status of the digital certificate used to sign this email is unknown (Server is unavaliable or certificate does not support OCSP). The validity of the certificate could not be verified.', 'plugin_smime'));
 				// OCSP check disabled
 				case 10:
@@ -63,6 +62,9 @@ Zarafa.plugins.smime.SmimeText = function() {
 				// OCSP server offline
 				case 11:
 					return Zarafa.plugins.smime.SmimeText.createMessage(_('The certificate verification server (OCSP) is temporarly offline.', 'plugin_smime'));
+				// User
+				case 13:
+					return Zarafa.plugins.smime.SmimeText.createMessage(_('Sender is removed from the server.', 'plugin_smime'));
 
 			}
 		},
@@ -74,9 +76,8 @@ Zarafa.plugins.smime.SmimeText = function() {
 		 * @param {Number} index
 		 * @return {String} text 
 		 */
-		getMessageInfo : function(index)
-		{
-			switch(index) {
+		getMessageInfo: function (index) {
+			switch (index) {
 				case 0:
 					return _('Signature verified succesfully', 'plugin_smime');
 				case 1:
@@ -91,11 +92,11 @@ Zarafa.plugins.smime.SmimeText = function() {
 					return _('Verification with Certificate Authority failed', 'plugin_smime');
 				case 6:
 					return _('Message decrypted succesfully', 'plugin_smime');
-				case 7: 
+				case 7:
 					return _('Message decryption failed', 'plugin_smime');
-				case 8: 
+				case 8:
 					return _('Please', 'plugin_smime') + '<b> ' + _('click here', 'plugin_smime') + ' </b> ' + _('to unlock your certificate', 'plugin_smime');
-				case 9: 
+				case 9:
 					return _('Cannot determine revocation status of certificate', 'plugin_smime');
 				case 10:
 					return _('Signature verified (OCSP disabled)', 'plugin_smime');
@@ -103,18 +104,19 @@ Zarafa.plugins.smime.SmimeText = function() {
 					return _('Cannot determine revocation status of certificate', 'plugin_smime');
 				case 12:
 					return _('Unable to decrypt this message. Certificate does not match');
+				case 13:
+					return _('Verification failed. User is removed from the server.', 'plugin_smime');
 			}
 		},
-		
+
 		/**
 		 * Function which returns the css class for the corresponding error code
 		 *
 		 * @param {Number} index
 		 * @return {String} text 
 		 */
-		getStatusMessageClass : function(index)
-		{
-			switch(index) {
+		getStatusMessageClass: function (index) {
+			switch (index) {
 				case 0:
 					return 'smime-info-good';
 				case 1:
@@ -132,9 +134,8 @@ Zarafa.plugins.smime.SmimeText = function() {
 		 * @param {Number} index
 		 * @return {String} text 
 		 */
-		getPopupStatus : function(index)
-		{
-			switch(index) {
+		getPopupStatus: function (index) {
+			switch (index) {
 				case 0:
 					return '';
 				case 1:

@@ -24,8 +24,9 @@ define('SMIME_OCSP_NOSUPPORT', 9);
 define('SMIME_OCSP_DISABLED', 10);
 define('SMIME_OCSP_FAILED', 11);
 define('SMIME_DECRYPT_CERT_MISMATCH', 12);
+define('SMIME_USER_DETECT_FAILURE', 13);
 
-// OpenSSL Error Constants
+// OpenSSL Error Constants 
 // openssl_error_string() returns error codes when an operation fails, since we return custom error strings
 // in our plugin we keep a list of openssl error codes in these defines
 define('OPENSSL_CA_VERIFY_FAIL', '21075075');
@@ -201,10 +202,18 @@ class Pluginsmime extends Plugin {
 
 		// If user entry exists in GAB, try to retrieve public cert
 		// Public certificate from GAB in combination with LDAP saved in PR_EMS_AB_TAGGED_X509_CERT
-		$userEntryID = mapi_getprops($message, array(PR_SENT_REPRESENTING_ENTRYID));
+		$userProps = mapi_getprops($message, array(PR_SENT_REPRESENTING_ENTRYID, PR_SENT_REPRESENTING_NAME));
 
-		if (isset($userEntryID[PR_SENT_REPRESENTING_ENTRYID])) {
-			$user = mapi_ab_openentry($GLOBALS['mapisession']->getAddressbook(), $userEntryID[PR_SENT_REPRESENTING_ENTRYID]);
+		if (isset($userProps[PR_SENT_REPRESENTING_ENTRYID])) {
+			try{
+				$user = mapi_ab_openentry($GLOBALS['mapisession']->getAddressbook(), $userProps[PR_SENT_REPRESENTING_ENTRYID]);
+			} catch (MAPIException $e) {
+				$msg = "Unable to open PR_SENT_REPRESENTING_ENTRYID. Maybe %s was does not exists or deleted from server.";
+				error_log(sprintf($msg, $userProps[PR_SENT_REPRESENTING_NAME]));
+				$this->message['success'] = SMIME_NOPUB;
+				$this->message['info'] = SMIME_USER_DETECT_FAILURE;
+				return;
+			}
 
 			$gabCert = $this->getGABCert($user);
 			if (!empty($gabCert)) {
