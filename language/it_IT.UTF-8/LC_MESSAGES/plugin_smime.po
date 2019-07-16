@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-05 14:37+0200\n"
+"POT-Creation-Date: 2019-07-16 10:32+0200\n"
 "PO-Revision-Date: 2018-05-08 15:24+0000\n"
 "Last-Translator: Marco <MARCO@COSTANTINO.CO.UK>\n"
 "Language-Team: Italian <http://translate.kopano.io/projects/kopano/smime/it/"
@@ -281,7 +281,7 @@ msgstr ""
 "Puoi contattare l'helpdesk o l'amministratore del sistema se non sei sicuro "
 "di cosa fare."
 
-#: js/SmimeText.js:39
+#: js/SmimeText.js:38
 msgid ""
 "WebApp can verify digital signatures of emails. A successful verification "
 "reassures you "
@@ -289,27 +289,27 @@ msgstr ""
 "WebApp e` in grado di verificare le firme digitali di emails. Una verifica "
 "di successo ti riassicura "
 
-#: js/SmimeText.js:40
+#: js/SmimeText.js:39
 msgid ""
 "that the message has not been tampered with and validates the identity of "
 "the sender."
 msgstr ""
 "che il messaggio non e` stato cambiato e conferma l'identita` del mittente."
 
-#: js/SmimeText.js:41
+#: js/SmimeText.js:40
 msgid ""
 "The verification of the digital signature was successful for this email "
 "message."
 msgstr ""
 "La verifica della firma digitale ha avuto successo per questo messaggio."
 
-#: js/SmimeText.js:44
+#: js/SmimeText.js:43
 msgid "WebApp could not find a public certificate for the recipient."
 msgstr ""
 "WebApp non e` stato in grado di trovare un certificato pubblico per il "
 "destinatario."
 
-#: js/SmimeText.js:47
+#: js/SmimeText.js:46
 msgid ""
 "The identity of the sender and authenticity of the message content have been "
 "verified, but the certificate used to sign the message expired on [d-m-Y]."
@@ -318,12 +318,12 @@ msgstr ""
 "con successo, ma il certificato usato per generare la firma digitale e` "
 "scaduto il [d-m-Y]."
 
-#: js/SmimeText.js:50
+#: js/SmimeText.js:49
 msgid "The digital signature could not be verified for unknown reasons."
 msgstr ""
 "Non e` stato possibile verificare la firma digitale per ragioni sconosciute."
 
-#: js/SmimeText.js:53
+#: js/SmimeText.js:52
 msgid ""
 "The digital certificate used to sign this message has been revoked (i.e. the "
 "sender has marked it as compromised)"
@@ -331,7 +331,7 @@ msgstr ""
 "Il certificato usato per firmare questo messaggio e` stato revocato (il "
 "mittente lo ha marcato come compromesso)"
 
-#: js/SmimeText.js:56
+#: js/SmimeText.js:55
 msgid ""
 "The verification service of the certificate authority that signed the "
 "sender's certificate is not available. The validity of the certificate could "
@@ -341,7 +341,7 @@ msgstr ""
 "del mittente non e` disponibile. Non e` stato possibile verificare la "
 "validita` del certificato."
 
-#: js/SmimeText.js:59
+#: js/SmimeText.js:58
 msgid ""
 "The revocation status of the digital certificate used to sign this email is "
 "unknown (Server is unavaliable or certificate does not support OCSP). The "
@@ -351,7 +351,7 @@ msgstr ""
 "sconosciuta (il servizio non e` disponibile o il certificato non supporta "
 "OCSP). Non e` stato possibile verificare la validita` del certificato."
 
-#: js/SmimeText.js:62
+#: js/SmimeText.js:61
 msgid ""
 "The revocation status of the digital certificate used to sign this email is "
 "disabled (OCSP). The validity of the certificate could not be verified."
@@ -360,71 +360,81 @@ msgstr ""
 "email e` disabilitato (OCSP). Non e` stato possibile verificare la validita` "
 "del certificato."
 
-#: js/SmimeText.js:65
+#: js/SmimeText.js:64
 msgid "The certificate verification server (OCSP) is temporarly offline."
 msgstr ""
 "Il server per la verifica del certificato (OCSP) e` temporaneamente non "
 "disponibile."
 
-#: js/SmimeText.js:81
+#: js/SmimeText.js:67
+#, fuzzy
+msgid "Sender is removed from the server."
+msgstr "Il certificato e` gia` salvato nel sistema"
+
+#: js/SmimeText.js:82
 msgid "Signature verified succesfully"
 msgstr "La firma e` stata verificata con successo"
 
-#: js/SmimeText.js:83
+#: js/SmimeText.js:84
 msgid "Could not verify signature, missing public certificate"
 msgstr ""
 "Non e` stato possibile verificare la firma, certificato pubblico mancante"
 
-#: js/SmimeText.js:85
+#: js/SmimeText.js:86
 msgid "Signature verification succesfull, but certificate is expired"
 msgstr "Firma verificato con successo, ma il certificato e` scaduto"
 
-#: js/SmimeText.js:87
+#: js/SmimeText.js:88
 msgid "Signature could not be verified"
 msgstr "Non e` stato possibile verificare la firma"
 
-#: js/SmimeText.js:89
+#: js/SmimeText.js:90
 msgid "Certificate has been revoked"
 msgstr "Il certificato e` stato revocato"
 
-#: js/SmimeText.js:91
+#: js/SmimeText.js:92
 msgid "Verification with Certificate Authority failed"
 msgstr ""
 "La verifica della Certificate Authority (Autorita` Certificativa) e` fallita"
 
-#: js/SmimeText.js:93
+#: js/SmimeText.js:94
 msgid "Message decrypted succesfully"
 msgstr "Il messaggio e` stato decriptato con successo"
 
-#: js/SmimeText.js:95
+#: js/SmimeText.js:96
 msgid "Message decryption failed"
 msgstr "Non e` stato possibile decriptare il messaggio"
 
-#: js/SmimeText.js:97
+#: js/SmimeText.js:98
 msgid "Please"
 msgstr ""
 
-#: js/SmimeText.js:97
+#: js/SmimeText.js:98
 msgid "click here"
 msgstr ""
 
-#: js/SmimeText.js:97
+#: js/SmimeText.js:98
 #, fuzzy
 msgid "to unlock your certificate"
 msgstr "Carica il tuo certificato"
 
-#: js/SmimeText.js:99 js/SmimeText.js:103
+#: js/SmimeText.js:100 js/SmimeText.js:104
 msgid "Cannot determine revocation status of certificate"
 msgstr "Non e` possibile determinare lo status della revoca del certificato"
 
-#: js/SmimeText.js:101
+#: js/SmimeText.js:102
 msgid "Signature verified (OCSP disabled)"
 msgstr "Firma verificata (OCSP disabilitato)"
 
-#: js/SmimeText.js:105
+#: js/SmimeText.js:106
 #, fuzzy
 msgid "Unable to decrypt this message. Certificate does not match"
 msgstr "Impossibile decriptare il certificato"
+
+#: js/SmimeText.js:108
+#, fuzzy
+msgid "Verification failed. User is removed from the server."
+msgstr "Il certificato e` gia` salvato nel sistema"
 
 #: php/class.pluginsmimemodule.php:111
 msgid "No certificate avaliable"
@@ -443,31 +453,31 @@ msgstr "Il certificato privato e` scaduto, impossibile firmare l'email"
 msgid "Private certificate does not match email address"
 msgstr "Il certificato privato non corrisponde all'indirizzo di email"
 
-#: php/plugin.smime.php:181
+#: php/plugin.smime.php:182
 msgid "Missing public certificates for the following recipients: "
 msgstr "Certificato pubblico mancante per i seguenti destinatari: "
 
-#: php/plugin.smime.php:181
+#: php/plugin.smime.php:182
 msgid ". Please contact your system administrator for details"
 msgstr ""
 "Prego contattare il vostro amministratore del sistema per maggiori "
 "informazioni"
 
-#: php/plugin.smime.php:183
+#: php/plugin.smime.php:184
 msgid ""
 "Your public certificate is not installed. Without this certificate, you will "
 "not be able to read encrypted messages you have sent to others."
 msgstr ""
 
-#: php/plugin.smime.php:457
+#: php/plugin.smime.php:466
 msgid "Certificate is already stored on the server"
 msgstr "Il certificato e` gia` salvato nel sistema"
 
-#: php/plugin.smime.php:471
+#: php/plugin.smime.php:480
 msgid "New certificate uploaded"
 msgstr "Nuovo certificato caricato"
 
-#: php/plugin.smime.php:473
+#: php/plugin.smime.php:482
 msgid "Certificate uploaded"
 msgstr "Certificato caricato"
 
