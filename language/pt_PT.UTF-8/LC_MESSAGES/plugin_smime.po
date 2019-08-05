@@ -3,10 +3,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-16 10:32+0200\n"
-"PO-Revision-Date: 2018-08-20 16:02+0000\n"
+"PO-Revision-Date: 2019-08-05 12:02+0000\n"
 "Last-Translator: Nuno Jerónimo <nuno.jeronimo@valsousa.pt>\n"
-"Language-Team: Portuguese (Portugal) <http://translate.kopano.io/projects/"
-"kopano/smime/pt_PT/>\n"
+"Language-Team: Portuguese (Portugal) "
+"<http://translate.kopano.io/projects/kopano/smime/pt_PT/>\n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -363,9 +363,8 @@ msgstr ""
 "indisponível."
 
 #: js/SmimeText.js:67
-#, fuzzy
 msgid "Sender is removed from the server."
-msgstr "O certificado já existe no servidor"
+msgstr "Remetente foi removido do servidor."
 
 #: js/SmimeText.js:82
 msgid "Signature verified succesfully"
@@ -426,9 +425,8 @@ msgstr ""
 "Não é possível desencriptar esta mensagem. O certificado não corresponde"
 
 #: js/SmimeText.js:108
-#, fuzzy
 msgid "Verification failed. User is removed from the server."
-msgstr "O certificado já existe no servidor"
+msgstr "Verificação falhou. O utilizador foi removido do servidor."
 
 #: php/class.pluginsmimemodule.php:111
 msgid "No certificate avaliable"
