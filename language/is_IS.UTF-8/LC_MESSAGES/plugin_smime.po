@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-14 20:54+0000\n"
-"PO-Revision-Date: 2019-07-29 23:49+0000\n"
+"PO-Revision-Date: 2019-08-06 15:53+0000\n"
 "Last-Translator: Tryggvi Björgvinsson <ME@TRICKVI.IS>\n"
 "Language-Team: Icelandic "
 "<http://translate.kopano.io/projects/kopano/smime/is/>\n"
@@ -90,7 +90,7 @@ msgstr ""
 
 #: js/settings/SettingsPublickeyGrid.js:81
 msgid "Type"
-msgstr ""
+msgstr "Gerð"
 
 #: js/settings/SettingsPublickeyGrid.js:107
 msgid "Loading certificates"
@@ -133,7 +133,7 @@ msgstr "Fjarlægja"
 
 #: js/settings/SettingsPublickeyPanel.js:115
 msgid "Details"
-msgstr ""
+msgstr "Nánari upplýsingar"
 
 #: js/settings/SettingsPublickeyWidget.js:19
 msgid "Public & Private certificates"
