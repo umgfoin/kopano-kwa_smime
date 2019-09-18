@@ -20,7 +20,7 @@ pipeline {
 		stage('ESLint') {
 			agent {
 				docker {
-					image 'node:9'
+					image 'node:11-slim'
 					args '-u 0'
 				}
 			}
