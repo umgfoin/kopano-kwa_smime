@@ -1,5 +1,5 @@
 <?php
-DEFINE('PLUGIN_SMIME_USER_DEFAULT_ENABLE_SMIME', false);
+
 // CA Certificates used to verify client certificates, for custom CA's copy your CA to /etc/ssl/certs/ and call update-ca-certificates.
 // Multiple CA locations can be defined by separating them with a semicolon
 // 
