@@ -331,6 +331,41 @@ class Pluginsmime extends Plugin {
 		$this->message['success'] = SMIME_STATUS_INFO;
 		$this->message['info'] = SMIME_DECRYPT_FAILURE;
 
+		$props = mapi_getprops($data['message'], array(PR_TRANSPORT_MESSAGE_HEADERS));
+		$headers = $props[PR_TRANSPORT_MESSAGE_HEADERS];
+
+		// Workaround for messages which appear to be encrypted but are actually signed
+		if (strpos($headers, 'smime-type=enveloped-data')) {
+			// TODO: call verifyMessage and handle verification in a uniform matter
+			$tmpFile = tempnam(sys_get_temp_dir(), true);
+
+			$fp = fopen($tmpFile, 'w');
+			fwrite($fp, "Content-Type: application/pkcs7-mime; name=\"smime.p7m\"; smime-type=enveloped-data\n\n");
+			fwrite($fp, "Content-Transfer-Encoding: base64\nContent-Disposition: attachment; filename=\"smime.p7m\"\n");
+			fwrite($fp,chunk_split(base64_encode($data['data']), 72) . "\n");
+			fclose($fp);
+
+			$cert = tempnam(sys_get_temp_dir(), true);
+			$tmpcontent = tempnam(sys_get_temp_dir(), true);
+			$signed_ok = openssl_pkcs7_verify($tmpFile, PKCS7_NOVERIFY, $cert);
+			$signed_ok = openssl_pkcs7_verify($tmpFile, PKCS7_NOVERIFY, $cert, array(), $cert, $tmpcontent);
+			$openssl_error_code = $this->extract_openssl_error();
+			$this->validateSignedMessage($signed_ok, $openssl_error_code);
+
+			unlink($tmpFile);
+
+			$receivedTime = mapi_getprops($data['message'], Array(PR_MESSAGE_DELIVERY_TIME));
+			mapi_inetmapi_imtomapi($GLOBALS['mapisession']->getSession(), $data['store'], $GLOBALS['mapisession']->getAddressbook(), $data['message'], file_get_contents($tmpcontent), array());
+			// Manually set time back to the received time, since mapi_inetmapi_imtomapi overwrites this
+			mapi_setprops($data['message'], $receivedTime);
+
+			unlink($tmpcontent);
+			unlink($cert);
+
+			$this->message['type'] = 'signed';
+			return;
+		}
+
 		$this->message['type'] = 'encrypted';
 		$encryptionStore = EncryptionStore::getInstance();
 		$pass = $encryptionStore->get('smime');
