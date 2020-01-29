@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE plugin SYSTEM "manifest.dtd">
-<plugin version="2.1">
+<plugin version="2">
 	<info>
 		<version>1.0</version>
+		<name>S/MIME Plugin</name>
 		<title>S/MIME Plugin</title>
 		<author>Kopano</author>
 		<authorURL>http://www.kopano.com</authorURL>
 		<description>Enables S/MIME Integration in the WebApp</description>
-		<allowuserdisable>true</allowuserdisable>
-		<allowuservisible>true</allowuservisible>
 	</info>
 	<config>
 		<configfile>config.php</configfile>

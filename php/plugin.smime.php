@@ -997,6 +997,7 @@ class Pluginsmime extends Plugin {
 				'v1' => Array(
 					'plugins' => Array(
 						'smime' => Array(
+							'enable' => PLUGIN_SMIME_USER_DEFAULT_ENABLE_SMIME,
 							'passphrase_cache' => PLUGIN_SMIME_PASSPHRASE_REMEMBER_BROWSER,
 						)
 					)
