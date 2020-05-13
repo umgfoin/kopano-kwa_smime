@@ -256,8 +256,11 @@ class Certificate
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			$output = curl_exec($ch);
 			$http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-			if (!curl_error($ch) && $http_status === 200) {
+			$curl_error = curl_error($ch);
+			if (!$curl_error && $http_status === 200) {
 				$cert = $this->der2pem($output);
+			} else {
+				Log::Write(LOGLEVEL_ERROR, sprintf("[smime] Error when downloading internmediate certificate '%s', http status: '%s'", $curl_error, $http_status));
 			}
 			curl_close($ch);
 
