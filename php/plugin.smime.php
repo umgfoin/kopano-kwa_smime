@@ -45,6 +45,11 @@ class Pluginsmime extends Plugin {
 	private $store;
 
 	/**
+	 * Last openssl error string
+	 */
+	private $openssl_error = "";
+
+	/**
 	 * Called to initialize the plugin and register for hooks.
 	 */
 	function init(){
@@ -208,8 +213,8 @@ class Pluginsmime extends Plugin {
 			try{
 				$user = mapi_ab_openentry($GLOBALS['mapisession']->getAddressbook(), $userProps[PR_SENT_REPRESENTING_ENTRYID]);
 			} catch (MAPIException $e) {
-				$msg = "Unable to open PR_SENT_REPRESENTING_ENTRYID. Maybe %s was does not exists or deleted from server.";
-				error_log(sprintf($msg, $userProps[PR_SENT_REPRESENTING_NAME]));
+				$msg = "[smime] Unable to open PR_SENT_REPRESENTING_ENTRYID. Maybe %s was does not exists or deleted from server.";
+				Log::write(LOGLEVEL_ERROR, sprintf($msg, $userProps[PR_SENT_REPRESENTING_NAME]));
 				$this->message['success'] = SMIME_NOPUB;
 				$this->message['info'] = SMIME_USER_DETECT_FAILURE;
 				return;
@@ -268,6 +273,8 @@ class Pluginsmime extends Plugin {
 				} else {
 					verifyOCSP($userCert, $caCerts, $this->message);
 				}
+			} else {
+				Log::write(LOGLEVEL_INFO, sprintf("[smime] Unable to verify message with public key, openssl error: '%s'", $this->openssl_error)); 
 			}
 		} else {
 			$signed_ok = openssl_pkcs7_verify($tmpfname, PKCS7_NOSIGS, $outcert, explode(';', PLUGIN_SMIME_CACERTS));
@@ -286,6 +293,7 @@ class Pluginsmime extends Plugin {
 				// We don't have a certificate from the MAPI UserStore or LDAP, so we will set $userCert to $importCert
 				// so that we can verify the message according to the be imported certificate.
 			} else { // No pubkey
+				Log::write(LOGLEVEL_INFO, sprintf("[smime] Unable to verify message without public key, openssl error: '%s'", $this->openssl_error)); 
 				$this->message['success'] = SMIME_STATUS_FAIL;
 				$this->message['info'] = SMIME_CA;
 			}
@@ -375,6 +383,7 @@ class Pluginsmime extends Plugin {
 				$this->message['info'] = SMIME_DECRYPT_SUCCESS;
 				$this->message['success'] = SMIME_STATUS_SUCCESS;
 			} else if ($this->extract_openssl_error() === OPENSSL_RECIPIENT_CERTIFICATE_MISMATCH) {
+				Log::Write(LOGLEVEL_ERROR, sprintf("[smime] Error when decrypting email, openssl error: '%s'", $this->openssl_error));
 				$this->message['info'] = SMIME_DECRYPT_CERT_MISMATCH;
 				$this->message['success'] = SMIME_STATUS_FAIL;
 			}
@@ -641,9 +650,15 @@ class Pluginsmime extends Plugin {
 			$tmpFile = tempnam(sys_get_temp_dir(), true);
 			file_put_contents($tmpFile, implode('', $certs['extracerts']));
 			$ok = openssl_pkcs7_sign($infile, $outfile, $certs['cert'], array($certs['pkey'], ''), array(), PKCS7_DETACHED, $tmpFile);
+			if (!$ok) {
+				Log::Write(LOGLEVEL_ERROR, sprintf("[smime] Unable to sign message with intermediate certificates, openssl error: '%s'", @openssl_error_string()));
+			}
 			unlink($tmpFile);
 		} else {
 			$ok = openssl_pkcs7_sign($infile, $outfile, $certs['cert'], array($certs['pkey'], ''), array(), PKCS7_DETACHED);
+			if (!$ok) {
+				Log::Write(LOGLEVEL_ERROR, sprintf("[smime] Unable to sign message, openssl error: '%s'", @openssl_error_string()));
+			}
 		}
 	}
 
@@ -676,7 +691,10 @@ class Pluginsmime extends Plugin {
 			array_push($publicCerts, $cert);
 		}
 
-		openssl_pkcs7_encrypt($infile, $outfile, $publicCerts, array(), 0, $this->cipher);
+		$ok = openssl_pkcs7_encrypt($infile, $outfile, $publicCerts, array(), 0, $this->cipher);
+		if (!$ok) {
+			Log::Write(LOGLEVEL_ERROR, sprintf("[smime] unable to encrypt message, openssl error: '%s'", @openssl_error_string()));
+		}
 		$tmpEml = file_get_contents($outfile);
 
 		// Grab the base64 data, since MAPI requires it saved as decoded base64 string.
@@ -828,10 +846,10 @@ class Pluginsmime extends Plugin {
 	 */
 	function extract_openssl_error() {
 		// TODO: should catch more erros by using while($error = @openssl_error_string())
-		$openssl_error = @openssl_error_string();
+		$this->openssl_error = @openssl_error_string();
 		$openssl_error_code = 0;
-		if($openssl_error) {
-			$openssl_error_list = explode(":", $openssl_error);
+		if($this->openssl_error) {
+			$openssl_error_list = explode(":", $this->openssl_error);
 			$openssl_error_code = $openssl_error_list[1];
 		}
 		return $openssl_error_code;
