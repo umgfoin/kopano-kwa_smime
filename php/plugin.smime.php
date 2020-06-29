@@ -900,21 +900,33 @@ class Pluginsmime extends Plugin {
 	 */
 	function extractCAs($emlfile)
 	{
-		if (!function_exists('kopano_pkcs7_verify') || !function_exists('kopano_pkcs7_read')) {
+		$php72 = version_compare(phpversion(), "7.2.0") >= 0;
+		$phpcompat = function_exists('kopano_pkcs7_verify') && function_exists('kopano_pkcs7_read');
+		if (!$phpcompat && !$php72) {
 			return [];
 		}
 
 		$certfile = tempnam(sys_get_temp_dir(), true);
 		$outfile = tempnam(sys_get_temp_dir(), true);
 		$p7bfile = tempnam(sys_get_temp_dir(), true);
-		kopano_pkcs7_verify($emlfile, PKCS7_NOVERIFY, $certfile);
-		kopano_pkcs7_verify($emlfile, PKCS7_NOVERIFY, $certfile, [], $certfile, $outfile, $p7bfile);
+
+		if ($php72) {
+			openssl_pkcs7_verify($emlfile, PKCS7_NOVERIFY, $certfile);
+			openssl_pkcs7_verify($emlfile, PKCS7_NOVERIFY, $certfile, [], $certfile, $outfile, $p7bfile);
+		} else {
+			kopano_pkcs7_verify($emlfile, PKCS7_NOVERIFY, $certfile);
+			kopano_pkcs7_verify($emlfile, PKCS7_NOVERIFY, $certfile, [], $certfile, $outfile, $p7bfile);
+		}
 
 		$cas = [];
 		$p7b = file_get_contents($p7bfile);
-		// FIXME: Without the error_log, kopano_pkcs7_verify does not work (wtf).
-		error_log($p7b);
-		kopano_pkcs7_read($p7b, $cas);
+		if ($php72) {
+			openssl_pkcs7_read($p7b, $cas);
+		} else {
+			// FIXME: Without the error_log, kopano_pkcs7_verify does not work (wtf).
+			error_log($p7b);
+			kopano_pkcs7_read($p7b, $cas);
+		}
 		unlink($certfile);
 		unlink($outfile);
 		unlink($p7bfile);
