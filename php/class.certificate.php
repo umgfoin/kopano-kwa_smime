@@ -254,6 +254,18 @@ class Certificate
 			curl_setopt($ch, CURLOPT_URL, $this->caURL());
 			curl_setopt($ch, CURLOPT_FAILONERROR, true);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+			// HTTP Proxy settings
+			if (defined('PLUGIN_SMIME_PROXY') && !empty(PLUGIN_SMIME_PROXY)) {
+				curl_setopt($ch, CURLOPT_PROXY, PLUGIN_SMIME_PROXY);
+			}
+			if (defined('PLUGIN_SMIME_PROXY_PORT') && !empty(PLUGIN_SMIME_PROXY_PORT)) {
+				curl_setopt($ch, CURLOPT_PROXYPORT, PLUGIN_SMIME_PROXY_PORT);
+			}
+			if (defined('PLUGIN_SMIME_PROXY_USERPWD') && !empty(PLUGIN_SMIME_PROXY_USERPWD)) {
+				curl_setopt($ch, CURLOPT_PROXYUSERPWD, PLUGIN_SMIME_PROXY_USERPWD);
+			}
+
 			$output = curl_exec($ch);
 			$http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			$curl_error = curl_error($ch);
