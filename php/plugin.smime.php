@@ -335,6 +335,7 @@ class Pluginsmime extends Plugin {
 		$headers = $props[PR_TRANSPORT_MESSAGE_HEADERS];
 
 		// Workaround for messages which appear to be encrypted but are actually signed
+		// This is an undocumented KC issue.
 		if (strpos($headers, 'smime-type=enveloped-data')) {
 			// TODO: call verifyMessage and handle verification in a uniform matter
 			$tmpFile = tempnam(sys_get_temp_dir(), true);
