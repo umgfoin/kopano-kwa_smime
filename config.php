@@ -12,7 +12,7 @@ DEFINE('PLUGIN_SMIME_CIPHER', OPENSSL_CIPHER_3DES);
 // Allow the browser to remember the passphrase
 DEFINE('PLUGIN_SMIME_PASSPHRASE_REMEMBER_BROWSER', false);
 
-// disable OCSP verification
+// Enable OCSP verification
 DEFINE('PLUGIN_SMIME_ENABLE_OCSP', true);
 
 // OCSP HTTP Proxy settings
