@@ -43,6 +43,36 @@ PR_INTERNET_MESSAGE_ID     | The MD5 certificate finger print
 In the attchment of this message the pkcs12 is stored (based64) encoded for a WebApp.Security.Private message,
    if it is a WebApp.Security.Public message the attachment contains a base64 encoded PEM file.
 
+## Testing
+
+To test the S/MIME plugin, a valid certificate is required and can be generated using [step-cli](https://github.com/smallstep/cli) and openssl.
+
+#### 1. Create a Root CA
+
+```
+step certificate create root-ca root-ca.crt root-ca.key --profile root-ca
+```
+
+#### 2. Install Root CA
+
+```
+step certificate install root-ca.crt
+```
+
+#### 3. Create s/mime certificate
+
+Create a certificate for `user1@kopano.demo` which is valid for 1 day.
+
+```
+step certificate create user1 user1.crt user1.key --ca root-ca.crt --ca-key root-ca.key --san user1@kopano.demo --not-after 24h --template tools/smime.tpl
+```
+
+#### 4. Create PKCS#12 file
+
+```
+openssl pkcs12 -export -in user1.crt -inkey user1.key -out user1.p12
+```
+
 ## Tools
 
 The tools directory contains a tool to remove, list or import certificate in a user's store. For example:
