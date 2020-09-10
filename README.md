@@ -5,7 +5,7 @@
 * php-bcmath
 * php-openssl
 * php-curl
-* php-kopano-smime 
+* php-kopano-smime (for PHP < 7.2)
 
 ## Tests
 
