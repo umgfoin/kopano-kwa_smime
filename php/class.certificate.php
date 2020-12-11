@@ -256,13 +256,13 @@ class Certificate
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
 			// HTTP Proxy settings
-			if (defined('PLUGIN_SMIME_PROXY') && !empty(PLUGIN_SMIME_PROXY)) {
+			if (defined('PLUGIN_SMIME_PROXY') && PLUGIN_SMIME_PROXY != '') {
 				curl_setopt($ch, CURLOPT_PROXY, PLUGIN_SMIME_PROXY);
 			}
-			if (defined('PLUGIN_SMIME_PROXY_PORT') && !empty(PLUGIN_SMIME_PROXY_PORT)) {
+			if (defined('PLUGIN_SMIME_PROXY_PORT') && PLUGIN_SMIME_PROXY_PORT != '') {
 				curl_setopt($ch, CURLOPT_PROXYPORT, PLUGIN_SMIME_PROXY_PORT);
 			}
-			if (defined('PLUGIN_SMIME_PROXY_USERPWD') && !empty(PLUGIN_SMIME_PROXY_USERPWD)) {
+			if (defined('PLUGIN_SMIME_PROXY_USERPWD') && PLUGIN_SMIME_PROXY_USERPWD != '') {
 				curl_setopt($ch, CURLOPT_PROXYUSERPWD, PLUGIN_SMIME_PROXY_USERPWD);
 			}
 
