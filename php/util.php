@@ -38,7 +38,7 @@ function getCertEmail($certificate)
  */
 function getMAPICert($store, $type = 'WebApp.Security.Private', $emailAddress = '')
 {
-	$root = mapi_msgstore_openentry($store, null);
+	$root = mapi_msgstore_openentry($store, "");
 	$table = mapi_folder_getcontentstable($root, MAPI_ASSOCIATED);
 
 	$restrict = array(RES_PROPERTY,
@@ -132,7 +132,7 @@ function der2pem($certificate) {
  * @param {Array} $extracerts an array of intermediate certificates
  * @return {Boolean} true is OCSP verification has succeeded or when there is no OCSP support, false if it hasn't
  */
-function verifyOCSP($certificate, $extracerts = [], &$message) {
+function verifyOCSP(&$message, $certificate, $extracerts = []) {
 	if (!PLUGIN_SMIME_ENABLE_OCSP) {
 		$message['success'] = SMIME_STATUS_SUCCESS;
 		$message['info'] = SMIME_OCSP_DISABLED;
@@ -222,7 +222,7 @@ function validateUploadedPKCS($certificate, $passphrase, $emailAddress)
 			$message = dgettext('plugin_smime', 'Certificate is not yet valid ') . date('Y-m-d', $validFrom) . '. ' . dgettext('plugin_smime', 'Certificate has not been imported');
 		}
 		// We allow users to import private certificate which have no OCSP support
-		else if(!verifyOCSP($certs['cert'], $extracerts, $data)) {
+		else if(!verifyOCSP($data, $certs['cert'], $extracerts)) {
 			$message = dgettext('plugin_smime', 'Certificate is revoked');
 		}
 	} else { // Can't parse public certificate pkcs#12 file might be corrupt

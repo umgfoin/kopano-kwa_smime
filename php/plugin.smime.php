@@ -37,7 +37,7 @@ class Pluginsmime extends Plugin {
 	/**
 	 * decrypted/verified message
 	 */
-	private $messsage = array();
+	private $message = array();
 
 	/**
 	 * Default MAPI Message Store
@@ -267,11 +267,12 @@ class Pluginsmime extends Plugin {
 
 				$caCerts = $this->extractCAs($tmpfname);
 				// If validTo and validFrom are more in the future, emailAddress matches and OCSP check is valid, import newer certificate
-				if($parsedImportCert['validTo'] > $parsedUserCert['validTo'] && $parsedImportCert['validFrom'] > $parsedUserCert['validFrom']
-					&& getCertEmail($parsedImportCert) === getCertEmail($parsedUserCert) && verifyOCSP($importCert, $caCerts, $this->message)) {
+				if($parsedUserCert && $parsedImportCert && 
+				   $parsedImportCert['validTo'] > $parsedUserCert['validTo'] && $parsedImportCert['validFrom'] > $parsedUserCert['validFrom'] &&
+				   getCertEmail($parsedImportCert) === getCertEmail($parsedUserCert) && verifyOCSP($this->message, $importCert, $caCerts)) {
 					$importMessageCert = true;
 				} else {
-					verifyOCSP($userCert, $caCerts, $this->message);
+					verifyOCSP($this->message, $userCert, $caCerts);
 				}
 			} else {
 				Log::write(LOGLEVEL_INFO, sprintf("[smime] Unable to verify message with public key, openssl error: '%s'", $this->openssl_error)); 
@@ -287,7 +288,7 @@ class Pluginsmime extends Plugin {
 				$parsedImportCert = openssl_x509_parse($userCert);
 
 				$caCerts = $this->extractCAs($tmpfname);
-				if(is_array($parsedImportCert) && verifyOCSP($userCert, $caCerts, $this->message)) {
+				if(is_array($parsedImportCert) && verifyOCSP($this->message, $userCert, $caCerts)) {
 					$importMessageCert = true;
 				}
 				// We don't have a certificate from the MAPI UserStore or LDAP, so we will set $userCert to $importCert
@@ -811,7 +812,7 @@ class Pluginsmime extends Plugin {
 			}
 		}
 
-		$root = mapi_msgstore_openentry($this->getStore(), null);
+		$root = mapi_msgstore_openentry($this->getStore(), "");
 		$table = mapi_folder_getcontentstable($root, MAPI_ASSOCIATED);
 
 		// Restriction for public certificates which are from the sender of the email, are active and have the correct message_class

@@ -107,6 +107,7 @@ class PluginSmimeModule extends Module
 		$privateCert = getMAPICert($this->store);
 
 		// No certificates
+		$cert_data = array();
 		if(!$privateCert) {
 			$message = dgettext('plugin_smime', 'No certificate avaliable');
 		} else {
@@ -122,12 +123,13 @@ class PluginSmimeModule extends Module
 			} else {
 				$status = True;
 			}
+			$cert_data = array('validto' => $privateCert[PR_MESSAGE_DELIVERY_TIME] ?? null , 'validFrom' => $privateCert[PR_CLIENT_SUBMIT_TIME], 'subject' => $privateCert[PR_SUBJECT]);
 		}
 
 		return array(
 			'message' => $message,
 			'status' => $status,
-			'data' => array('validto' => $privateCert[PR_MESSAGE_DELIVERY_TIME], 'validFrom' => $privateCert[PR_CLIENT_SUBMIT_TIME], 'subject' => $privateCert[PR_SUBJECT])
+			'data' => $cert_data
 		);
 	}
 
@@ -171,7 +173,7 @@ class PluginSmimeModule extends Module
 		$items = array();
 		$data['page'] = array();
 
-		$root = mapi_msgstore_openentry($this->store, null);
+		$root = mapi_msgstore_openentry($this->store, "");
 		$table = mapi_folder_getcontentstable($root, MAPI_ASSOCIATED);
 
 		// restriction for public/private certificates which are stored in the root associated folder
