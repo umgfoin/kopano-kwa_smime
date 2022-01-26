@@ -171,7 +171,7 @@ class PluginSmimeModule extends Module
 		$items = array();
 		$data['page'] = array();
 
-		$root = mapi_msgstore_openentry($this->store, null);
+		$root = mapi_msgstore_openentry($this->store, "");
 		$table = mapi_folder_getcontentstable($root, MAPI_ASSOCIATED);
 
 		// restriction for public/private certificates which are stored in the root associated folder
