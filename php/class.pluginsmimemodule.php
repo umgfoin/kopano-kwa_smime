@@ -13,6 +13,8 @@ class PluginSmimeModule extends Module
 	 * @param string $folderentryid Entryid of the folder. Data will be selected from this folder.
 	 * @param array $data list of all actions.
 	 */
+	private $store;
+	
 	function __construct($id, $data)
 	{
 		$this->store = $GLOBALS['mapisession']->getDefaultMessageStore();

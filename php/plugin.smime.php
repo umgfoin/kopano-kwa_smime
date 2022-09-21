@@ -48,6 +48,8 @@ class Pluginsmime extends Plugin {
 	 * Last openssl error string
 	 */
 	private $openssl_error = "";
+	
+	private $cipher;
 
 	/**
 	 * Called to initialize the plugin and register for hooks.

@@ -51,6 +51,7 @@ class Certificate
 {
 	private $cert;
 	private $data;
+	private $issuer;
 
 	function __construct($cert, $issuer = '') {
 		// XXX: error handling
