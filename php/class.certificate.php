@@ -346,8 +346,13 @@ class Certificate
 
 		// Do the OCSP request
 		$context = stream_context_create($stream_options);
-		$derresponse = file_get_contents($this->ocspURL(), null, $context);
-		// OCSP service not avaliable, import certificate, but show a warning.
+		$url = $this->ocspURL();
+		if ($url)
+			$derresponse = file_get_contents($url, null, $context);
+		else
+			throw new OCSPException('No issuer', OCSP_NO_ISSUER);
+		
+		// OCSP service not available, import certificate, but show a warning.
 		if ($derresponse === false) {
 			throw new OCSPException('No response', OCSP_NO_RESPONSE);
 		}
